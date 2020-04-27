@@ -1,0 +1,51 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.User;
+import com.example.demo.repo.UserRepo;
+
+@Service
+public class UserService {
+	
+	@Autowired
+	UserRepo repo;
+	
+	
+	public boolean AddUser(String username, String fname, String lname, String address, String cnumber, String usertype,
+			String bday,String password) {
+		
+		try {
+			User user= new User(username, fname, lname, address, cnumber, usertype, bday,password);
+			
+			repo.save(user);
+			
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+		
+	}
+	
+	
+	public boolean Login(String username,String password) {
+		
+		try {
+			User user= repo.findByUsername(username);
+			
+			if(user.getPassword().equals(password)) {
+				
+				return true;
+			}else {
+				return false;
+			}
+		}catch (Exception e) {
+			return false;
+		}
+		
+		
+	}
+	
+
+}
