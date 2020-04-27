@@ -90,6 +90,7 @@ function Login(props){
                 }else {
 
                     props.dispatch('HOME')
+                    props.setuser('SET',uname)
                 }
             })
 

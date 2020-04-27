@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ComplexNavigationNoDrawer() {
+export default function ComplexNavigationNoDrawer(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -116,8 +116,8 @@ export default function ComplexNavigationNoDrawer() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
+            <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
         </Menu>
     );
 
@@ -175,7 +175,7 @@ export default function ComplexNavigationNoDrawer() {
 
 
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.dispatch('HOME')}>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>

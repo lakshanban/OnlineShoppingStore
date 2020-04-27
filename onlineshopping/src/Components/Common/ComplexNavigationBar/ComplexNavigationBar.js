@@ -98,9 +98,10 @@ export default function ComplexNavigationBar(props) {
     };
 
     const handleMenuClose = () => {
+
         setAnchorEl(null);
         handleMobileMenuClose();
-        props.dispatch(loadpage('PROFILE'));
+
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -118,8 +119,8 @@ export default function ComplexNavigationBar(props) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
+            <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
         </Menu>
     );
 
@@ -177,7 +178,7 @@ export default function ComplexNavigationBar(props) {
 
                         <Drawer/>
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.dispatch('HOME')}>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>

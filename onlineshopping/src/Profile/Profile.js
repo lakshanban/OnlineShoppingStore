@@ -15,7 +15,7 @@ class Profile extends Component {
 
      componentDidMount() {
 
-        axios.post('http://localhost:8080/userget',{username:"lakshan.9320"}).then(res=>{
+        axios.post('http://localhost:8080/userget',{username:this.props.user}).then(res=>{
 
 
             this.setState({
@@ -43,7 +43,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <ComplexNavigationNoDrawer/>
+                <ComplexNavigationNoDrawer dispatch={this.props.dispatch}/>
             <Container maxWidth={"md"}>
 
                 <div style={{marginLeft:'40%',marginTop:'20px'}}>
