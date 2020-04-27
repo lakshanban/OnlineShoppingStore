@@ -15,7 +15,6 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from "../Drawer/Drawer";
-import loadpage from "../../../redux/Actions/loadpage";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -81,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ComplexNavigationBar(props) {
+export default function ComplexNavigationNoDrawer() {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -100,7 +99,6 @@ export default function ComplexNavigationBar(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
-        props.dispatch(loadpage('PROFILE'));
     };
 
     const handleMobileMenuOpen = (event) => {
@@ -175,23 +173,16 @@ export default function ComplexNavigationBar(props) {
                         aria-label="open drawer"
                     >
 
-                        <Drawer/>
+
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                          
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
+
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>

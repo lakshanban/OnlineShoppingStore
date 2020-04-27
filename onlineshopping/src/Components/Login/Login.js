@@ -6,10 +6,13 @@ import Background from './background.jpg'
 import {useState} from 'react';
 import {Alert} from "@material-ui/lab";
 import axios from 'axios';
+import loadpage from "../../redux/Actions/loadpage";
+import {useDispatch} from "react-redux";
 
 
 
-function Login(){
+
+function Login(props){
 
          const [uername,setUsername]= useState('');
          const [password,setPassword]= useState('');
@@ -18,6 +21,7 @@ function Login(){
          const [errormessage,setErrormessage]=useState('');
          const [emptyerror,setEmptyerror]=useState(false);
 
+         const dispatch=useDispatch();
 
 
     const onChangeHandler=(e)=>{
@@ -83,6 +87,9 @@ function Login(){
                 if(!res.data){
                     setEmptyerror(true);
                     setErrormessage("Username or password Incorrect")
+                }else {
+
+                    props.dispatch('HOME')
                 }
             })
 

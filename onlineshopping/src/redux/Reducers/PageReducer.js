@@ -8,6 +8,12 @@ const PageReducer=(state='login',action)=>{
         case 'SIGN_UP':
             return 'signup';
 
+        case 'PROFILE':
+            return 'profile';
+
+        case 'HOME':
+            return 'home'
+
         default:
             return state;
 

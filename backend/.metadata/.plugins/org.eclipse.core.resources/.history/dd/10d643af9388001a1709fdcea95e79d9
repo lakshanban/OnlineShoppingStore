@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
 import com.example.demo.requesBodies.AddUserRequest;
-import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.UserLoginRequest;
 import com.example.demo.service.UserService;
 
@@ -42,10 +41,10 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(path = "/userget", method = RequestMethod.POST)
-	public User getUser(@RequestBody GetUser user) {
+	@RequestMapping(path = "/userget", method = RequestMethod.GET)
+	public User getUser() {
 		
-		return service.findUserByUsername(user.username);
+		return service.findUserByUsername(username);
 	}
 	
 	

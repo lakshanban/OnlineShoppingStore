@@ -42,7 +42,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(path = "/userget", method = RequestMethod.POST)
+	@RequestMapping(path = "/userget", method = RequestMethod.GET)
 	public User getUser(@RequestBody GetUser user) {
 		
 		return service.findUserByUsername(user.username);
