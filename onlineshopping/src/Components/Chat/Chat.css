@@ -1,0 +1,38 @@
+
+
+.flex{
+
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+
+.topicWindow{
+
+    width: 30%;
+    height: 300px;
+    border-right: 3px solid grey;
+}
+
+
+.chatWindow{
+
+    width:70%;
+    height: 300px;
+    padding: 20px;
+
+}
+
+
+.chatBox{
+
+    width:85%;
+
+}
+
+.button{
+
+    width: 15%;
+
+}

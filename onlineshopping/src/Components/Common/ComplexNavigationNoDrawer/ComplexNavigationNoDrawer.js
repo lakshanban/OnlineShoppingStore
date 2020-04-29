@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +15,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from "../Drawer/Drawer";
+import {Button} from "@material-ui/core";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -81,6 +83,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ComplexNavigationNoDrawer(props) {
+
+    const [user,setUser]=useState({});
+    useEffect(()=>{
+
+        axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
+
+            setUser(res.data);
+
+
+
+        })
+
+
+    })
+
+
+
+
+
+
+
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -118,8 +141,15 @@ export default function ComplexNavigationNoDrawer(props) {
         >
             <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
             <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
+
+            {
+                props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"}
+                onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
+            }
+
+
         </Menu>
-    );
+            );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -141,7 +171,7 @@ export default function ComplexNavigationNoDrawer(props) {
                 <p>Messages</p>
             </MenuItem>
             <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
+                <IconButton aria-label="show 11 new notifications" color="inherit" onClick={()=>props.dispatch('NOTICE')}>
                     <Badge badgeContent={11} color="secondary">
                         <NotificationsIcon />
                     </Badge>
@@ -163,7 +193,11 @@ export default function ComplexNavigationNoDrawer(props) {
     );
 
     return (
+
+
+
         <div className={classes.grow}>
+
             <AppBar position="static"color={"transparent"}>
                 <Toolbar>
                     <IconButton
@@ -186,12 +220,12 @@ export default function ComplexNavigationNoDrawer(props) {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
+                        <IconButton aria-label="show 4 new mails" color="inherit" onClick={()=>props.dispatch('CHAT')}>
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                        <IconButton aria-label="show 17 new notifications" color="inherit" onClick={()=>{props.dispatch('NOTICE')}}>
                             <Badge badgeContent={17} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
@@ -217,6 +251,7 @@ export default function ComplexNavigationNoDrawer(props) {
                         >
                             <MoreIcon />
                         </IconButton>
+
                     </div>
                 </Toolbar>
             </AppBar>

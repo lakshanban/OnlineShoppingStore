@@ -91,6 +91,13 @@ function Login(props){
 
                     props.dispatch('HOME')
                     props.setuser('SET',uname)
+
+                    axios.post('http://localhost:8080/userget',{
+                        username: uname
+                    }).then(res=>{
+
+                        props.setuserobject('SETOBJECT',res.data)
+                    })
                 }
             })
 

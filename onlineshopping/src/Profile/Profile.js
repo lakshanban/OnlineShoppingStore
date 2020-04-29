@@ -23,7 +23,7 @@ class Profile extends Component {
             })
 
 
-             console.log(res.data)
+
         })
 
      }
@@ -43,7 +43,7 @@ class Profile extends Component {
 
         return (
             <div>
-                <ComplexNavigationNoDrawer dispatch={this.props.dispatch}/>
+                <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
             <Container maxWidth={"md"}>
 
                 <div style={{marginLeft:'40%',marginTop:'20px'}}>

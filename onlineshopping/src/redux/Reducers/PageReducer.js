@@ -12,7 +12,16 @@ const PageReducer=(state='login',action)=>{
             return 'profile';
 
         case 'HOME':
-            return 'home'
+            return 'home';
+
+        case 'NOTICE':
+            return 'notice'
+
+        case 'CHAT':
+            return 'chat'
+
+        case 'ADMIN':
+            return  'admin'
 
         default:
             return state;
