@@ -27,7 +27,8 @@ class Notices extends Component {
                     <Divider style={{marginTop:'20px'}} />
                     <List component="nav" style={this.style} aria-label="mailbox folders">
 
-                        <ListItem button>
+                        <div className={"listIem"}>
+                        <ListItem button >
                             <h5>Test Notification</h5><br/>
                             <div style={{marginLeft:'10px'}}>Sometimes, we want to run some additional code after React has updated the DOM. Network requests,
                                 manual DOM mutations, and logging are common examples of effects that don’t require a cleanup. We say that
@@ -35,6 +36,8 @@ class Notices extends Component {
                                 such side effects</div>
                         </ListItem>
                         <Divider style={{marginBottom:'20px'}}/>
+
+                        </div>
 
                     </List>
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Component} from 'react';
 import Paper from "@material-ui/core/Paper";
 import {makeStyles} from "@material-ui/core/styles";
 import {Typography,List,ListItemText,ListItem,Chip,Button,TextField} from "@material-ui/core";
@@ -8,32 +8,24 @@ import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/Compl
 
 
 
-const useStyles= makeStyles(theme=>{
 
-    root:{
-
-            padding : theme.spacing(3,2)
-    }
-
-
-})
 
 
 const initState={
 
-       topics:[{
-           title:'General',
-           msgs:[
-               {from:'lakshan', msg:'hello machan'},
-               {from:'bandara', msg:'hello brother'},
-               {from:'sandaruawa', msg:'hello fucker'}
-           ]},{
-           title:'topic2',
-           msgs:[
-               {from: 'peter', msg: 'hello machan'},
-               {from: 'pancake', msg: 'hello brother'},
-               {from: 'marusira', msg: 'hello fucker'}
-           ]}]
+    topics:[{
+        title:'General',
+        msgs:[{from:'peter',msg:'hello world'},
+            {from:'john',msg:'hello peter'}
+
+        ]},{
+        title:'Customer Support',
+        msgs:[
+            {from:'peter',msg:'hello world'},
+            {from:'shawn',msg:'hello peter'},
+            {from:'peter',msg:'hello shawn'},
+            {from:'rihana',msg:'bye peter'}
+        ]}]
 
 }
 
@@ -41,97 +33,137 @@ const initState={
 
 
 
-export default function Chat(props){
+
+class Chat extends Component {
 
 
-    const [textValue,changeValue]= useState('');
-    const [allChats,setChats]= useState(initState);
+    constructor(props) {
+        super(props);
 
-    const [activeTopic,setActiveTopic]= useState(initState.topics[0])
-    const [activetopictitle,setActiveTopicTitle] = useState(activeTopic.title)
+        this.state={
+            allchats: initState,
+            activetopic: initState.topics[0],
+            msgtext:''
+        }
 
-    const selectTopic=(topicArray)=>{
 
-        setActiveTopic(topicArray)
+        console.log(this.props.user)
+    }
 
-        setActiveTopicTitle(topicArray.title)
+    selectTopic(topic){
 
-        console.log(activeTopic)
+        this.setState({
+            activetopic:topic
+        })
 
     }
 
-    const classes=useStyles();
+    onSubmitHandle(e){
+
+        e.preventDefault();
+
+       let msgobj={
+           from:this.props.user,
+           msg:e.target.messagetext.value
+       }
+
+        console.log(msgobj)
+
+        this.state.allchats.topics.map(topic=>{
+
+            if(topic.title===this.state.activetopic.title){
+
+                topic.msgs.push(msgobj);
+                this.selectTopic(topic)
+
+            }
+        })
+
+
+    }
 
 
 
-    return (<div>
-
-        <ComplexNavigationNoDrawer dispatch={props.dispatch} userobject={props.userobject}/>
-
-<Paper className={classes.root} style={{margin:'50px'}} >
-
-    <Typography variant={"h5"} component="h3">
-        Chat App
-    </Typography>
-
-    <Typography component="p">
-        {activetopictitle}
-
-    </Typography>
-
-    <div className="flex">
 
 
-        <div className="topicWindow">
-
-            <List>
-                { allChats.topics.map(topic=>{
-
-                    return <ListItem key={topic.title} button>
-                        <ListItem onClick={()=>selectTopic(topic)}>
-                            <ListItemText primary={topic.title}/>
-                        </ListItem>
-
-                    </ListItem>
-
-                })}
-
-            </List>
-
-        </div>
-
-
-        <div className="chatWindow">
-
-            {activeTopic.msgs.map((chat,i)=>{
-
-                return   <div className="flex" key={i}>
-
-                    <Chip label={chat.from} component="a" href="#chip" clickable />
-                    <Typography variant="p">{chat.msg}</Typography>
-                </div>
-
-            })}
-
-        </div>
+    render() {
 
 
 
-    </div>
+        return (
+            <div>
 
-    <div className="flex">
+                <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
 
-        <TextField variant={"filled"} className="chatBox" label="send a Chat" style={{marginLeft:'34%'}}
-        value={textValue}
-        onChange={e=> changeValue(e.target.value)}>
+                <Paper  style={{margin:'50px'}} elevation={3}>
 
-        </TextField>
-        <Button variant={"contained"} color={"primary"} >Send</Button>
+                    <Typography variant={"h5"} component="h3">
+                        Chat App
+                    </Typography>
 
-    </div>
+                    <Typography component={"h6"}>
+                        {this.state.activetopic.title}
 
-</Paper>
+                    </Typography>
+
+                    <div className="flex">
 
 
-    </div>)
+                        <div className="topicWindow">
+
+                            <List>
+                                { this.state.allchats.topics.map(topic=>{
+
+                                    return <ListItem key={topic.title} button style={{border:'1px solid lightgrey'}}>
+                                        <ListItem onClick={()=>this.selectTopic(topic)}>
+                                            <ListItemText primary={topic.title}/>
+                                        </ListItem>
+
+                                    </ListItem>
+
+                                })}
+
+                            </List>
+
+                        </div>
+
+
+                        <div className="chatWindow">
+
+                            {this.state.activetopic.msgs.map((chat,i)=>{
+
+                                return   <div className="flex" key={i}>
+
+                                    <Chip label={chat.from} component="a" href="#chip" clickable style={{marginRight:'3px'}}/>:
+                                    <Typography variant="caption">{chat.msg}</Typography>
+                                </div>
+
+                            })}
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div className="textinput">
+
+                        <form onSubmit={(e)=>{this.onSubmitHandle(e)}}>
+                            <TextField name="messagetext" variant={"filled"} className="chatBox" label="send a Chat" style={{marginLeft:'0%',width:'500px'}}
+                                       >
+
+                            </TextField>
+                            <Button variant={"contained"} color={"primary"} type="submit"  >Send</Button>
+                        </form>
+
+                    </div>
+
+                </Paper>
+
+
+            </div>
+        );
+    }
 }
+
+export default Chat;
