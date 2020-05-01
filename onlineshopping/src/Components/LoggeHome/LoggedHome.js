@@ -6,6 +6,7 @@ import Tshirt from './tshirt.jpg';
 import axios from 'axios'
 import Post from "./Post";
 import './Post.css'
+import ImageShow from "../Product/ImageShow";
 
 
 export default function LoggedHome(props) {
@@ -16,26 +17,34 @@ export default function LoggedHome(props) {
 
     const products=[{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}]
 
-    useEffect(()=>{
+    function update(){
 
         axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
 
             setUser(res.data);
 
+            console.log(res.data)
 
 
         })
 
 
-    })
+    }
 
 
 
     return(
+
+
+
+
         <div>
         <ComplexNavigationBar dispatch={props.dispatch} user={user}/>
 
+
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>
+
+
 
                 <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>
 

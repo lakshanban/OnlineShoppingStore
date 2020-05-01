@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import Tshirt from "../LoggeHome/tshirt.jpg";
 import {Button, Paper} from "@material-ui/core";
+import './Product.css'
+import ImageShow from "./ImageShow";
 
 class Product extends Component {
 
@@ -17,15 +19,10 @@ constructor(props) {
 
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
 
-                <Paper elevation={3} className="Paper">
+                <Paper elevation={3} className="paper">
 
-                    <h6>{this.props.product.name}</h6>
+                    <ImageShow product={this.props.product}/>
 
-                    <img src={Tshirt} className="image"/>
-
-                    <p>{this.props.product.description}</p>
-
-                    <Button variant={"outlined"} color={"secondary"} >Buy Now</Button>
 
                 </Paper>
                 

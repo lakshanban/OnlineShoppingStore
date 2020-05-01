@@ -176,7 +176,7 @@ export default function ComplexNavigationBar(props) {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static"color={"transparent"}>
+            <AppBar position="fixed"color={"transparent"}>
                 <Toolbar>
                     <IconButton
                         edge="start"
