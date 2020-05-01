@@ -23,6 +23,9 @@ const PageReducer=(state='login',action)=>{
         case 'ADMIN':
             return  'admin'
 
+        case 'PRODUCT':
+            return 'product'
+
         default:
             return state;
 

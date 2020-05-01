@@ -16,31 +16,37 @@ class AdminHome extends Component {
     }
 
 
-    // ChangePage=(e)=>{
-    //
-    //     this.setState({
-    //         page:e
-    //     })
-    //
-    // }
-    //
-    //
-    // ReturnPage=()=>{
-    //
-    //     switch (this.state.page) {
-    //
-    //         case 1:
-    //             return <Statistics />
-    //
-    //         case 2:
-    //             return <UserPanels />
-    //
-    //         case 3:
-    //             return  <ProductsPanel />
-    //     }
-    //
-    //
-    // }
+    ChangePage=(e)=>{
+
+        this.setState({
+            page:e
+        })
+
+        this.ReturnPage();
+
+    }
+
+    SubPanel=<Statistics />
+
+    ReturnPage=()=>{
+
+        switch (this.state.page) {
+
+            case 1:
+                this.SubPanel=<Statistics />
+                break;
+
+            case 2:
+                this.SubPanel= <UserPanels />
+                break;
+
+            case 3:
+                this.SubPanel=  <ProductsPanel />
+                break;
+        }
+
+
+    }
 
 
 
@@ -52,11 +58,14 @@ class AdminHome extends Component {
 
             <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
 
+            {this.SubPanel}
 
             <h1>ADMINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN</h1>
-            {/*<Button variant={"contained"} color={"primary"} onClick={this.ChangePage(1)}>Statistics</Button>*/}
-            {/*<Button variant={"contained"} color={"primary"} onClick={this.ChangePage(2)}>userpanel</Button>*/}
-            {/*<Button variant={"contained"} color={"primary"} onClick={this.ChangePage(3)}>productspael</Button>*/}
+            <Button variant={"contained"} color={"primary"} onClick={this.ChangePage(1)}>Statistics</Button>
+            <Button variant={"contained"} color={"primary"} onClick={this.ChangePage(2)}>userpanel</Button>
+            <Button variant={"contained"} color={"primary"} onClick={this.ChangePage(3)}>productspael</Button>
+
+            <h1>FUCKKKKKKKKKKKKKKKKKKKKKKKKKKKK</h1>
         </div>
     }}
 

@@ -13,13 +13,16 @@ import UserObjectReducer from "../../redux/Reducers/UserObjectReducer";
 import Notices from "../Notification/Notices";
 import Chat from "../Chat/Chat";
 import AdminHome from "../Admin Panel/AdminHome";
+import Product from "../Product/Product";
+import setProduct from "../../redux/Actions/setProduct";
 
 class Test extends Component {
 
     constructor(props) {
         super(props);
 
-        console.log(this.props.userobject)
+
+
 
     }
 
@@ -41,18 +44,23 @@ class Test extends Component {
                 return <Profile dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
 
             case 'home':
-                return <LoggedHome dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
+                return <LoggedHome dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
             case 'notice':
                 console.log(this.props.userobject)
                 return  <Notices  dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
 
             case 'chat':
+
                 return <Chat dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
 
             case 'admin':
 
                 return  <AdminHome dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
+
+            case 'product':
+
+                return <Product dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} product={this.props.product} />
 
 
         }
@@ -69,7 +77,8 @@ function mapStateToProps(state) {
 
         page: state.PageReducer,
         user: state.UserReducer,
-        userobject:state.UserObjectReducer
+        userobject:state.UserObjectReducer,
+        product:state.ProductReducer
 
     }
 
@@ -81,7 +90,8 @@ function  mapDispatchToProps(dispatch) {
 
         dispatch: (payload)=> { dispatch(loadpage(payload))},
         setuser: (type,payload)=>{dispatch(setuser(type,payload))},
-        setuserobject:(type,payload)=>{dispatch(setuserobject(type,payload))}
+        setuserobject:(type,payload)=>{dispatch(setuserobject(type,payload))},
+        setproduct:(type,payload)=>{dispatch(setProduct(type,payload))}
     }
 
 }
