@@ -6,11 +6,15 @@ import ComplexNavigationBar from "./Components/Common/ComplexNavigationBar/Compl
 import LoggedHome from "./Components/LoggeHome/LoggedHome";
 import Profile from "./Profile/Profile";
 import Chat from "./Components/Chat/Chat";
+import AdminHome from "./Components/Admin Panel/AdminHome";
+import Product from "./Components/Product/Product";
 
 function App() {
   return (
     <div className="App">
-       <Test />
+       {/*<Test />*/}
+       <Product/>
+       {/*<AdminHome/>*/}
     </div>
   );
 }

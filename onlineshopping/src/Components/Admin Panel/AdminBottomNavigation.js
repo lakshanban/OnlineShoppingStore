@@ -22,30 +22,19 @@ const useStyles = makeStyles({
 function SimpleBottomNavigation(props) {
 
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    //console.log(value);
-
-    if (value == 1){
-        //this.history.pushState({},"","");
-        //window.location.href = "new";
-    }else if (value == 2){
-
-    }else if (value == 3){
-
-    }
+    const [value, setValue] = React.useState(1);
 
     return (
         <BottomNavigation
             value={value}
             onChange={(event, newValue) => {
-
+                setValue(newValue)
                 props.changepage(newValue)
 
             }}
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Admin panel" icon={<SupervisorAccountIcon/>} />
             <BottomNavigationAction label="Products" icon={<ShoppingCartIcon/>} />
             <BottomNavigationAction label="Statistics" icon={<AttachMoneyIcon/>} />
             <BottomNavigationAction label="User panel" icon={<FaceIcon />} />
