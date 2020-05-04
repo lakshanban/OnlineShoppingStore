@@ -6769,6 +6769,7 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-05-04 19:28:52.251
 !MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.JQJoKdwM => OK
+<<<<<<< HEAD
 !SESSION 2020-05-04 21:57:18.033 -----------------------------------------------
 eclipse.buildId=4.5.1.202001211336-RELEASE
 java.version=1.8.0_191
@@ -6864,3 +6865,5 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY org.eclipse.ui 2 2 2020-05-04 21:58:44.703
 !MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+=======
+>>>>>>> 0b3ec9484efc4b3731e8108a55ba8852d8ecadef
