@@ -26,6 +26,12 @@ const PageReducer=(state='login',action)=>{
         case 'PRODUCT':
             return 'product'
 
+        case 'CART':
+            return 'cart'
+
+        case 'LIST':
+            return 'list'
+
         default:
             return state;
 

@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,12 +69,7 @@ public class UserService {
 			if(user==null)
 				return false;
 			
-			if(user.getPassword().equals(password)) {
-				
-				return true;
-			}else {
-				return false;
-			}
+			return new BCrypt().checkpw(password, user.getPassword());
 		}catch (Exception e) {
 			return false;
 		}

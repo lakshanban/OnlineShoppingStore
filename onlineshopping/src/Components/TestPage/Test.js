@@ -15,6 +15,8 @@ import Chat from "../Chat/Chat";
 import AdminHome from "../Admin Panel/AdminHome";
 import Product from "../Product/Product";
 import setProduct from "../../redux/Actions/setProduct";
+import ShoppingCart from "../ShoppingCart/ShoppingCart";
+import WishList from "../WishList/WishList";
 
 class Test extends Component {
 
@@ -62,6 +64,13 @@ class Test extends Component {
 
                 return <Product dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} product={this.props.product} />
 
+            case 'cart':
+
+                return <ShoppingCart dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
+
+            case 'list':
+
+                return <WishList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
 
         }
 

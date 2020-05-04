@@ -1,31 +1,95 @@
 import React, {Component} from 'react';
-import Paper from "@material-ui/core/Paper";
-import {makeStyles} from "@material-ui/core/styles";
-import {Typography,List,ListItemText,ListItem,Chip,Button,TextField} from "@material-ui/core";
-import './Chat.css'
+import {Typography,TextField,Paper,List,ListItem,ListItemText,Button,Chip} from "@material-ui/core";
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
+import './Chat.css'
+import axios from 'axios';
+
+class Chat extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state={
+
+            chats:{
+
+                list:[{
+                    title:'Customer Service',
+                    msgs:[{from:'peter',msg:'hello world'},
+                        {from:'john',msg:'hello peter'}
+
+                    ]}]
+
+            },
+            activetopic:{
+                title:'',
+                msgs:[]
+            }
+
+        }
 
 
 
+    }
 
 
+    componentWillUnmount() {
+
+        this.setState({
+            activetopic: this.state.chats.list[0]
+        })
+    }
+
+    componentDidMount() {
+
+        setInterval(()=>{
+
+            axios.post('http://localhost:8080/allmessages',{}).then(res=>{
+
+                this.setState({
+                    chats:res.data
+                })
+
+                this.selectTopic(res.data.list[0])
+            })
 
 
-const initState={
+        },1000)
 
-    topics:[{
-        title:'General',
-        msgs:[{from:'peter',msg:'hello world'},
-            {from:'john',msg:'hello peter'}
+    }
 
-        ]},{
-        title:'Customer Support',
-        msgs:[
-            {from:'peter',msg:'hello world'},
-            {from:'shawn',msg:'hello peter'},
-            {from:'peter',msg:'hello shawn'},
-            {from:'rihana',msg:'bye peter'}
-        ]}]
+
+    selectTopic=(topic)=>{
+
+        this.setState({
+            activetopic:topic
+        })
+
+}
+
+onSubmitHandle(e){
+
+        e.preventDefault();
+
+        const msgobj={
+            from:this.props.user,
+            msg:e.target.messagetext.value
+        }
+
+        this.state.activetopic.msgs.push(msgobj)
+
+    axios.post('http://localhost:8080/sendmessage',{
+
+        "from":this.props.user,
+        "msg":e.target.messagetext.value
+
+    }).then(res=>{
+
+        console.log(res.data)
+        }
+
+    )
+
 
 }
 
@@ -33,63 +97,7 @@ const initState={
 
 
 
-
-class Chat extends Component {
-
-
-    constructor(props) {
-        super(props);
-
-        this.state={
-            allchats: initState,
-            activetopic: initState.topics[0],
-            msgtext:''
-        }
-
-
-        console.log(this.props.user)
-    }
-
-    selectTopic(topic){
-
-        this.setState({
-            activetopic:topic
-        })
-
-    }
-
-    onSubmitHandle(e){
-
-        e.preventDefault();
-
-       let msgobj={
-           from:this.props.user,
-           msg:e.target.messagetext.value
-       }
-
-        console.log(msgobj)
-
-        this.state.allchats.topics.map(topic=>{
-
-            if(topic.title===this.state.activetopic.title){
-
-                topic.msgs.push(msgobj);
-                this.selectTopic(topic)
-
-            }
-        })
-
-
-    }
-
-
-
-
-
     render() {
-
-
-
         return (
             <div>
 
@@ -112,7 +120,7 @@ class Chat extends Component {
                         <div className="topicWindow">
 
                             <List>
-                                { this.state.allchats.topics.map(topic=>{
+                                { this.state.chats.list.map(topic=>{
 
                                     return <ListItem key={topic.title} button style={{border:'1px solid lightgrey'}}>
                                         <ListItem onClick={()=>this.selectTopic(topic)}>
@@ -128,7 +136,7 @@ class Chat extends Component {
                         </div>
 
 
-                        <div className="chatWindow">
+                        <div className="chatWindow" style={{overflowY:'scroll'}}>
 
                             {this.state.activetopic.msgs.map((chat,i)=>{
 
@@ -150,7 +158,7 @@ class Chat extends Component {
 
                         <form onSubmit={(e)=>{this.onSubmitHandle(e)}}>
                             <TextField name="messagetext" variant={"filled"} className="chatBox" label="send a Chat" style={{marginLeft:'0%',width:'500px'}}
-                                       >
+                            >
 
                             </TextField>
                             <Button variant={"contained"} color={"primary"} type="submit"  >Send</Button>
@@ -159,7 +167,6 @@ class Chat extends Component {
                     </div>
 
                 </Paper>
-
 
             </div>
         );
