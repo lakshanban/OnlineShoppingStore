@@ -17,6 +17,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from "../Drawer/Drawer";
 import loadpage from "../../../redux/Actions/loadpage";
 import {Button} from "@material-ui/core";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -215,6 +217,37 @@ export default function ComplexNavigationBar(props) {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
+
+
+                        {/*shopping cart icon*/}
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('CART')}
+                            color="inherit"
+                        >
+                            <ShoppingCartIcon />
+
+                        </IconButton>
+
+
+
+                        {/*wishlist*/}
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('LIST')}
+                            color="inherit"
+                        >  <FavoriteIcon/>
+
+                        </IconButton>
+
+
+
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
@@ -223,8 +256,11 @@ export default function ComplexNavigationBar(props) {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
+
                             <AccountCircle />
                         </IconButton>
+
+
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton

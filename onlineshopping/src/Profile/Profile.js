@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ComplexNavigationNoDrawer from "../Components/Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import {Container,Avatar,Table,TableBody,TableHead,TableCell,TableRow} from "@material-ui/core";
 import axios from 'axios';
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
 class Profile extends Component {
 
@@ -46,6 +47,7 @@ class Profile extends Component {
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
             <Container maxWidth={"md"}>
 
+                <h3 style={{marginTop:'20px'}}><NotificationsActiveIcon />  Profile</h3>
                 <div style={{marginLeft:'40%',marginTop:'20px'}}>
              <Avatar style={{    color: 'white',
                  backgroundColor: 'orange',width:'150px',height:'150px'}}></Avatar></div>

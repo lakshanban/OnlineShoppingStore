@@ -17,6 +17,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Drawer from "../Drawer/Drawer";
 import {Button} from "@material-ui/core";
 import axios from "axios";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -230,6 +232,35 @@ export default function ComplexNavigationNoDrawer(props) {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
+
+                         {/*shopping cart button */}
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('CART')}
+                            color="inherit"
+                        >
+                            <ShoppingCartIcon />
+
+                        </IconButton>
+
+
+                          {/*wishlist*/}
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('LIST')}
+                            color="inherit"
+                        >  <FavoriteIcon/>
+
+                        </IconButton>
+
+
+
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
