@@ -21,14 +21,14 @@ public class NoticeController {
 	NoticeService service;
 
 	
-	@RequestMapping(path = "noticeadd")
+	@RequestMapping(path = "/noticeadd")
 	public void noticeadd(@RequestBody NoticeReq req) {
 		
 		service.addNotice(req.topic, req.content);
 		
 	}
 	
-	@RequestMapping("noticegetall")
+	@RequestMapping("/noticegetall")
 	public List<Notice> noticegetall(){
 		return service.getallNotices();
 	}

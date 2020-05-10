@@ -2,6 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,14 +28,18 @@ public class UserController {
 	@RequestMapping(path = "/useradd",method = RequestMethod.POST)
 	public boolean AddUser(@RequestBody AddUserRequest request) {
 		
-		return service.AddUser(request.username, request.fname, request.lname, request.address, request.cnumber, request.usertype, request.bday, request.password,request.email);
+		
+		
+		return service.AddUser(request.username, request.fname, request.lname, request.address, request.cnumber, request.usertype, request.bday, hashPassword(request.password),request.email);
 		
 	}
 	
 	@RequestMapping(path = "/userlogin", method = RequestMethod.POST)
 	public boolean Login(@RequestBody UserLoginRequest request) {
 		
-		return service.Login(request.username, request.password);
+		System.out.println(hashPassword(request.password));
+		
+		return service.Login(request.username,request.password);
 	}
 	
 	@RequestMapping(path = "/usergetall", method = RequestMethod.GET)
@@ -49,6 +56,9 @@ public class UserController {
 	}
 	
 	
+	private String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
 	
 
 }
