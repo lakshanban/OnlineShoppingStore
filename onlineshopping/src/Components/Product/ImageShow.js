@@ -7,7 +7,7 @@ export default function ImageShow(props){
 
 
     return (
-        <div >
+        <div style={{width:400}}>
 
         <Carousel>
             <Carousel.Item>
@@ -15,7 +15,7 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="First slide"
-                    height="560"
+                    height="500"
 
                 />
                 <Carousel.Caption>
@@ -28,7 +28,7 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="Third slide"
-                    height="560"
+                    height="500"
                 />
 
                 <Carousel.Caption>
@@ -41,7 +41,7 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="Third slide"
-                    height="560"
+                    height="500"
                 />
 
                 <Carousel.Caption>
@@ -51,5 +51,6 @@ export default function ImageShow(props){
             </Carousel.Item>
         </Carousel>
 
-    </div>)
+    </div>
+    )
 }

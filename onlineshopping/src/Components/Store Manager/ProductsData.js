@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import Grid from "@material-ui/core/Grid";
 import {Button} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -8,12 +10,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Input from "@material-ui/core/Input";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import SearchIcon from '@material-ui/icons/Search';
-import Grid from "@material-ui/core/Grid";
-import ReactVirtualizedTable from "../Tables/ProductsTable";
-import UserTable from "../Tables/UserTable";
+import ProductsTable from "../Admin Panel/Tables/ProductsTable";
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 
-function FormDialog() {
+import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
+
+function AddProductDialog() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -27,79 +31,97 @@ function FormDialog() {
     return (
         <div>
             <Button variant="contained" color="secondary" onClick={handleClickOpen} startIcon={<AddCircleIcon/>}>
-                ADD STORE MANAGER
+                Add new product
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">ADD NEW STORE MANAGER</DialogTitle>
+                <DialogTitle id="form-dialog-title">ADD A NEW PRODUCT</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Please fill all feilds to add a new store manager
+                        Please fill all feilds to add a new product
                     </DialogContentText>
-
+                    <Input
+                        autoFocus
+                        margin="dense"
+                        id="photo"
+                        label="product photo"
+                        type="file"
+                        fullWidth
+                    />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerUsername"
-                        label="Username"
+                        id="productId"
+                        label="Product Id"
                         type="text"
                         fullWidth
                     />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerFirstname"
-                        label="Firstname"
+                        id="productName"
+                        label="Product Name"
                         type="text"
                         fullWidth
                     />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerLastname"
-                        label="Lastname"
+                        id="productType"
+                        label="Product Type"
+                        type="text"
+                        fullWidth
+                    />
+                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                    <Select
+                        autoFocus
+                        margin="dense"
+                        label="Category"
+                        id="demo-simple-select-label"
+                        fullWidth
+                    >
+                        <MenuItem value={10}>Ten</MenuItem>
+                        <MenuItem value={20}>Twenty</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="productDiscription"
+                        label="Product Description"
                         type="text"
                         fullWidth
                     />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerMobile"
-                        label="Mobile"
+                        id="basicPrice"
+                        label="Basic Price"
                         type="number"
                         fullWidth
                     />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerEmail"
-                        label="Email"
+                        id="discountPercentage"
+                        label="Discount Percentage"
                         type="number"
                         fullWidth
                     />
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="managerLoginPassword"
-                        label="Login Password"
-                        type="text"
+                        id="discountPercentage"
+                        label="Marked Price"
+                        type="number"
                         fullWidth
                     />
-                    {/*<TextField*/}
-                    {/*    autoFocus*/}
-                    {/*    margin="dense"*/}
-                    {/*    id="managerType"*/}
-                    {/*    label="Type"*/}
-                    {/*    type="hidden"*/}
-                    {/*    value="manager"*/}
-                    {/*    fullWidth*/}
-                    {/*/>*/}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={handleClose} color="primary">
-                        Send Invitation & ADD
+                        Add Product
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -107,27 +129,31 @@ function FormDialog() {
     );
 }
 
-class UserPanels extends Component {
+class ProductsData extends Component {
+
     render() {
         return (
             <div>
-                <h3>USER PANEL</h3>
-                <div className="container" >
+                {/*<ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>*/}
+                <div style={{marginTop:50}}></div>
+                <h3>PRODUCT DATA</h3>
+                <div className="container">
                     <div  style={{marginBottom: 10}}>
                         <Grid container spacing={3} alignItems="flex-end" className="justify-content-end">
                             <Grid item>
                                 <TextField id="input-with-icon-grid" label="Search..." type="search" />
                             </Grid>
                             <Grid item >
-                                <FormDialog/>
+                                <AddProductDialog/>
                             </Grid>
                         </Grid>
                     </div>
-                    <UserTable/>
+                    <ProductsTable/>
                 </div>
             </div>
         );
     }
 }
 
-export default UserPanels;
+export default ProductsData;
+

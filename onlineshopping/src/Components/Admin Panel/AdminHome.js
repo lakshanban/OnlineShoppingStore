@@ -34,9 +34,9 @@ class AdminHome extends Component {
             case 0:
                 return (
                     <div>
+                        <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
                         <ProductsPanel />
                         <AdminBottomNavigation changepage={this.changepage}/>
-                        {/*<ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>*/}
                     </div>
                     )
 
@@ -44,6 +44,7 @@ class AdminHome extends Component {
             case 1:
                 return (
                     <div>
+                        <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
                         <Statistics/>
                         <AdminBottomNavigation changepage={this.changepage}/>
                     </div>
@@ -53,6 +54,7 @@ class AdminHome extends Component {
             case 2:
                 return(
                     <div>
+                        <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
                         <UserPanels />
                         <AdminBottomNavigation changepage={this.changepage}/>
                     </div>
