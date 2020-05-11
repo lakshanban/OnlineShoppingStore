@@ -16,6 +16,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
+import axios from "axios";
 
 function AddProductDialog() {
     const [open, setOpen] = React.useState(false);
@@ -28,6 +29,33 @@ function AddProductDialog() {
         setOpen(false);
     };
 
+    const productSubmitHanlder=(e)=>{
+        e.preventDefault();
+        let productName = e.target.productName.value;
+        let productDiscription = e.target.productDiscription.value;
+        let productDiscount = e.target.productDiscount.value;
+        let productPrice = e.target.productPrice.value;
+        let productOwner = e.target.productOwner.value;
+        let productCategory = e.target.productCategory.value;
+
+        axios.post('http://localhost:8080/addproduct',{
+            pname: productName,
+            pdescription: productDiscription,
+            pdiscount: productDiscount,
+            pprice: productPrice,
+            powner: productOwner,
+            pcategory: productCategory
+        }).then(res=>{
+            if(res.data){
+                alert('New Product Added')
+            }
+            else {
+                alert('User creation failed internal error')
+            }
+            console.log(res.data)
+        })
+    }
+
     return (
         <div>
             <Button variant="contained" color="secondary" onClick={handleClickOpen} startIcon={<AddCircleIcon/>}>
@@ -39,90 +67,33 @@ function AddProductDialog() {
                     <DialogContentText>
                         Please fill all feilds to add a new product
                     </DialogContentText>
-                    <Input
-                        autoFocus
-                        margin="dense"
-                        id="photo"
-                        label="product photo"
-                        type="file"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="productId"
-                        label="Product Id"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="productName"
-                        label="Product Name"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="productType"
-                        label="Product Type"
-                        type="text"
-                        fullWidth
-                    />
-                    <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                    <Select
-                        autoFocus
-                        margin="dense"
-                        label="Category"
-                        id="demo-simple-select-label"
-                        fullWidth
-                    >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                    {/*<Input*/}
+                    {/*    autoFocus*/}
+                    {/*    margin="dense"*/}
+                    {/*    id="photo"*/}
+                    {/*    label="product photo"*/}
+                    {/*    type="file"*/}
+                    {/*    fullWidth*/}
+                    {/*/>*/}
+                    <form onSubmit={productSubmitHanlder}>
+                    <TextField name={"productName"} autoFocus margin="dense" id="productName" label="Product Name" type="text" fullWidth/>
+                    <TextField name={"productDiscription"} autoFocus margin="dense" id="productDiscription" label="Product Description" type="text" fullWidth/>
+                    <TextField name={"productDiscount"} autoFocus margin="dense" id="discountPercentage" label="Discount Percentage" type="number" fullWidth/>
+                    <TextField name={"productPrice"} autoFocus margin="dense" id="markedPrice" label="Marked Price" type="number" fullWidth/>
+                    <TextField name={"productOwner"} value={"Manager1"} autoFocus margin="dense" id="productOwner" label="Product Owner" type="text" fullWidth/>
+
+                    <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
+                    <Select name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
+                        <MenuItem value={"Men"}>Men</MenuItem>
+                        <MenuItem value={"Women"}>Wemen</MenuItem>
+                        <MenuItem value={"All"}>All</MenuItem>
                     </Select>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="productDiscription"
-                        label="Product Description"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="basicPrice"
-                        label="Basic Price"
-                        type="number"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="discountPercentage"
-                        label="Discount Percentage"
-                        type="number"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="discountPercentage"
-                        label="Marked Price"
-                        type="number"
-                        fullWidth
-                    />
+
+                    <Button type={"submit"} className={"float-right"} style={{marginTop:5}} variant="contained" color="primary">Add Product</Button>
+                    </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Add Product
-                    </Button>
+                    <Button onClick={handleClose} color="primary">Cancel</Button>
                 </DialogActions>
             </Dialog>
         </div>
