@@ -6,7 +6,8 @@ import Tshirt from "../LoggeHome/tshirt.jpg";
 export default function ImageShow(props){
 
 
-    return (<div style={{width:'30%',height:'200px'}}>
+    return (
+        <div style={{width:400}}>
 
         <Carousel>
             <Carousel.Item>
@@ -14,6 +15,8 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="First slide"
+                    height="500"
+
                 />
                 <Carousel.Caption>
                     <h3>First slide label</h3>
@@ -25,6 +28,7 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="Third slide"
+                    height="500"
                 />
 
                 <Carousel.Caption>
@@ -37,6 +41,7 @@ export default function ImageShow(props){
                     className="d-block w-100"
                     src={Tshirt}
                     alt="Third slide"
+                    height="500"
                 />
 
                 <Carousel.Caption>
@@ -46,5 +51,6 @@ export default function ImageShow(props){
             </Carousel.Item>
         </Carousel>
 
-    </div>)
+    </div>
+    )
 }
