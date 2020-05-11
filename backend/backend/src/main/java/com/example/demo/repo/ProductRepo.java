@@ -8,12 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ProductRepo extends MongoRepository<Product, String> {
 
-    List<Product> getAllProducts();
-    Product getProductById(Product productId);
-    Product addProduct(Product product);
-    void updateProduct(Product product);
+
+
+    
+//    Product getProductById(Product productId);
+//    Product addProduct(Product product);
+//    void updateProduct(Product product);
 //    List<Product> getAllProducts();
 //    Product getProductById(@Param("ProductId") Product productId);
 //    Product addProduct(@Param("ProductId") Product product);
