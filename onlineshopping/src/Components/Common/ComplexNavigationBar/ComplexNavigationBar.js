@@ -1,4 +1,5 @@
-import React from 'react';
+import
+    React, {useEffect, useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,6 +20,9 @@ import loadpage from "../../../redux/Actions/loadpage";
 import {Button} from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import axios from 'axios'
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {TextField} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -176,6 +180,31 @@ export default function ComplexNavigationBar(props) {
         </Menu>
     );
 
+    const[searchList,SetSearchList]= useState([])
+
+
+
+
+
+
+
+    const search=(e)=>{
+
+
+console.log("xxxx")
+        axios.post('http://localhost:8080/productsearch',{"query":e.target.value}).then(res=>{
+
+            props.searchproducts(res.data)
+
+
+
+        })
+
+
+    }
+
+
+
     return (
         <div className={classes.grow}>
             <AppBar position="fixed"color={"transparent"}>
@@ -187,24 +216,40 @@ export default function ComplexNavigationBar(props) {
                         aria-label="open drawer"
                     >
 
-                        <Drawer/>
+                        <Drawer filterproducts={props.filterproducts}/>
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.dispatch('HOME')}>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+
                         </div>
-                        <InputBase
-                            placeholder="Search…"
+
+                        <Autocomplete
+                            style={{width:'400px'}}
+                            id="free-solo-demo"
+                            freeSolo
+
+                            options={props.products.map((option) => option.pname)}
+                            renderInput={(params) => (
+                                <TextField {...params} label="Search" margin="normal" variant="outlined" onChange={search}/>
+                            )}
+
+
+                            //////////////////////////////////////////////////////////
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
+
+
                     </div>
+
+
+
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit" >
@@ -243,7 +288,6 @@ export default function ComplexNavigationBar(props) {
                             onClick={()=> props.dispatch('LIST')}
                             color="inherit"
                         >  <FavoriteIcon/>
-
                         </IconButton>
 
 

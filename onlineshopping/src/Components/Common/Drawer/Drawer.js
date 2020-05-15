@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -12,6 +12,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from "@material-ui/icons/Menu";
 import AccessibilityRoundedIcon from '@material-ui/icons/AccessibilityRounded';
+import axios from 'axios'
 
 const useStyles = makeStyles({
     list: {
@@ -22,9 +23,24 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Drawer() {
+export default function Drawer(props) {
+
+    const[categories,setCategories] = useState([]);
 
 
+
+useEffect(()=>{
+
+    axios.get('http://localhost:8080/getallcategories').then(res=>{
+
+
+
+        setCategories(res.data)
+
+
+    })
+
+})
 
 
 
@@ -62,22 +78,18 @@ export default function Drawer() {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                {['Women Clothing', 'Men Clothing', 'Shoes', 'Jewellery'].map((text, index) => (
-                    <ListItem button key={text}>
+                {categories.map((text, index) => (
+                    <div>
+                    <ListItem button key={text} onClick={()=>props.filterproducts(text)}>
                         <ListItemIcon></ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
+                    <Divider />
+                    </div>
                 ))}
             </List>
-            <Divider />
-            <List>
-                {['Hand Bags', 'Backpacks', 'caps'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon></ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
+
+
         </div>
     );
 

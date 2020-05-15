@@ -7,6 +7,7 @@ import axios from 'axios'
 import Post from "./Post";
 import './Post.css'
 import ImageShow from "../Product/ImageShow";
+import setProduct from "../../redux/Actions/setProduct";
 
 
 export default function LoggedHome(props) {
@@ -15,19 +16,62 @@ export default function LoggedHome(props) {
       const [user,setUser]=useState({});
 
 
-    const products=[{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}]
-
     function update(){
 
         axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
 
             setUser(res.data);
 
-            console.log(res.data)
+
+
+
 
 
         })
 
+
+    }
+
+
+
+
+const[userId,setUserID]= useState(0)
+const[products,Setproducts]= useState([])
+
+
+const fetchProducts= async ()=>{
+    await axios.get('http://localhost:8080/getallproducts').then(res=> {
+
+        Setproducts(res.data);
+
+
+    })
+
+
+}
+
+
+
+    useEffect(()=>{
+         fetchProducts();
+    },[userId])
+
+
+
+    const filterproducts=(catname)=>{
+
+
+      axios.post('http://localhost:8080/filterbycat',{"category":catname}).then(res=>{
+
+          Setproducts(res.data)
+      })
+
+
+    }
+
+    const searchproducts=(products1)=>{
+
+        Setproducts(products1)
 
     }
 
@@ -39,7 +83,7 @@ export default function LoggedHome(props) {
 
 
         <div>
-        <ComplexNavigationBar dispatch={props.dispatch} user={user}/>
+        <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
 
 
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>

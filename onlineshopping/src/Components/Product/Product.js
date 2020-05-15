@@ -37,13 +37,13 @@ constructor(props) {
                          <Card >
                              <CardContent>
                                  <Typography color="textSecondary" gutterBottom variant="h4" component="h2">
-                                     <b>T Shirt</b>
+                                     <b>{this.props.product.pname}</b>
                                  </Typography>
                                  <Typography color="textSecondary" variant="h6" component="h2">
-                                     LKR 100.00
+                                     LKR {this.props.product.pprice}
                                  </Typography><br/>
                                  <Typography color="textSecondary" variant="h6" component="h2">
-                                     Discription discription discription discription discription
+                                     {this.props.product.pdescription}
                                  </Typography><br/>
                                  <Typography color="textSecondary" >
                                      Availability: <strong>in stock</strong>

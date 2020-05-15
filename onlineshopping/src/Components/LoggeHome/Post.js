@@ -33,11 +33,13 @@ export default function Post(props){
 
             <Paper elevation={3} className="Paper">
 
-                <h6>{props.product.name}</h6>
+                <h6>{props.product.pname}</h6>
 
-                <img src={Tshirt} className="image"/>
+                <img src={`data:image/jpeg;base64,${props.product.pimages[1].data}`} className="image"/>
 
-                <p>{trimDescription(props.product.description)}</p>
+                <p>{trimDescription(props.product.pdescription)}</p>
+
+                {console.log(props.product)}
 
                 <Button variant={"outlined"} color={"secondary"} onClick={()=>{onClick()}}>Buy Now</Button>
 

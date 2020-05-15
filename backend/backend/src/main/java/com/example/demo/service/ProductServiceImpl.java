@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class ProductServiceImpl  {
@@ -153,6 +155,52 @@ public class ProductServiceImpl  {
 		}
 		
 		return sortedList;
+		
+	}
+	
+	public void removeProduct(String id) {
+		
+		
+		List<Product> list= repo.findAll();
+		
+		for(Product product: list) {
+			
+			if(product.getId().equals(id)) {
+				
+				repo.delete(product);
+			}
+			
+		}
+		
+	}
+	
+	public List<Product> searchProducts(String query){
+		
+		List<Product> list= repo.findAll();
+		List<Product> serchedlist= new ArrayList<>();
+		
+		String regex = query.toLowerCase();
+		
+		Pattern pattern = Pattern.compile(regex);
+		
+		for(Product product:list) {
+			
+			Matcher matcher1 =pattern.matcher(product.getPname().toLowerCase());
+			Matcher matecher2= pattern.matcher(product.getPdescription().toLowerCase());
+			
+			if(matcher1.find()|| matecher2.find()) {
+				
+				serchedlist.add(product);
+				
+			}
+			
+			
+			
+		}
+		
+		return serchedlist;
+		
+		
 		
 	}
 

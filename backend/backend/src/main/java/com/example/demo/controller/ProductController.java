@@ -5,6 +5,7 @@ import com.example.demo.requesBodies.CommentReq;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
 import com.example.demo.requesBodies.RatingReq;
+import com.example.demo.requesBodies.SerachBody;
 import com.example.demo.requesBodies.categoryreq;
 import com.example.demo.requesBodies.discountReq;
 import com.example.demo.service.ProductServiceImpl;
@@ -86,6 +87,20 @@ public class ProductController {
 	public List<Product> getProductBycategory(@RequestBody categoryreq req) {
 		
 		return service.getproductBycategory(req);
+	}
+	
+	@RequestMapping("/deleteproduct")
+	public void deleteProduct(@RequestParam String id) {
+		
+		service.removeProduct(id);
+		
+	}
+	
+	
+	@RequestMapping("/productsearch")
+	public List<Product> serachProduct(@RequestBody SerachBody request){
+		
+		return service.searchProducts(request.query);
 	}
 
 
