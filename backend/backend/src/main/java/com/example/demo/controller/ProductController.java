@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Product;
+import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.CommentReq;
+import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
+import com.example.demo.requesBodies.ProductUser;
 import com.example.demo.requesBodies.RatingReq;
 import com.example.demo.requesBodies.SerachBody;
 import com.example.demo.requesBodies.categoryreq;
 import com.example.demo.requesBodies.discountReq;
+import com.example.demo.requesBodies.productID;
+import com.example.demo.requesBodies.productid;
 import com.example.demo.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -103,5 +108,24 @@ public class ProductController {
 		return service.searchProducts(request.query);
 	}
 
+	@RequestMapping("/addtocart")
+	public void addtoCart(@RequestBody ProductUser req){
+		
+		service.addtoCart(req);
+	}
+
+	@RequestMapping("/removefromcart")
+	public void removeFromCart(@RequestBody ProductUser req){
+		
+		service.removeFromCart(req);
+	}
+	
+	
+	@RequestMapping("/getcomments")
+	public List<Comment> getComment(@RequestBody productid pid){
+		
+		return service.getComments(pid.pid);
+		
+	}
 
 }

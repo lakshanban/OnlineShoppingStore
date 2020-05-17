@@ -3,11 +3,15 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Product;
+import com.example.demo.model.User;
 import com.example.demo.repo.ProductRepo;
+import com.example.demo.repo.UserRepo;
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.CommentReq;
+import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
+import com.example.demo.requesBodies.ProductUser;
 import com.example.demo.requesBodies.RatingReq;
 import com.example.demo.requesBodies.categoryreq;
 import com.example.demo.requesBodies.discountReq;
@@ -18,10 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.ls.LSInput;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +37,9 @@ public class ProductServiceImpl  {
 	
 	@Autowired
 	ProductRepo repo;
+	
+	@Autowired
+	UserRepo urepo;
 	
 	
 	public boolean addProduct(ProductRequest req) {
@@ -202,6 +211,88 @@ public class ProductServiceImpl  {
 		
 		
 		
+	}
+	
+
+	
+	public void addtoCart(ProductUser req) {
+		
+		List<User> list = urepo.findAll();
+		
+		for(User user: list) {
+			
+			if(user.getUsername().equals(req.username)) {
+				
+				List<Product> plist= repo.findAll();
+				
+				for(Product p: plist) 
+				{
+					if(p.getId().equals(req.pid)) {
+						
+						user.setCart(p);
+						
+						urepo.save(user);
+						
+					}
+				}
+			   
+				
+				
+			}
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
+	public void removeFromCart(ProductUser req) {
+		
+		List<User> list = urepo.findAll();
+		
+		for(User user: list) {
+			
+			if(user.getUsername().equals(req.username)) {
+				
+				List<Product> plist= repo.findAll();
+				
+				for(Product p: plist) 
+				{
+					if(p.getId().equals(req.pid)) {
+						
+						System.out.println(Product.class.getName());
+						
+						user.unsetCart(p);
+						
+						urepo.save(user);
+						
+					}
+				}
+			   
+				
+				
+			}
+			
+		}
+		
+		
+	}
+	
+	public List<Comment> getComments(String pid){
+		
+		List<Product> list= repo.findAll();
+		
+		for(Product product:list) {
+			
+			if(product.getId().equals(pid)) {
+				
+				
+				return product.getComments();
+			}
+		}
+		return null;
 	}
 
   

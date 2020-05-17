@@ -66,11 +66,11 @@ class Test extends Component {
 
             case 'cart':
 
-                return <ShoppingCart dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
+                return <ShoppingCart dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
             case 'list':
 
-                return <WishList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject}/>
+                return <WishList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
         }
 

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.requesBodies.AddUserRequest;
+import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.UserLoginRequest;
 import com.example.demo.service.UserService;
@@ -58,10 +60,33 @@ public class UserController {
 		return service.findUserByUsername(user.username);
 	}
 	
+	@RequestMapping("/getcart")
+	public List<Product> getCart(@RequestBody GetUser user){
+		
+		return service.getCart(user.username);
+		
+	}
+	
+	@RequestMapping("/getwishlist")
+	public List<Product> getWishList(@RequestBody GetUser user){
+		
+		return service.getWishList(user.username);
+		
+	}
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 	private String hashPassword(String plainTextPassword){
 		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
 	}
+	
 	
 
 }
