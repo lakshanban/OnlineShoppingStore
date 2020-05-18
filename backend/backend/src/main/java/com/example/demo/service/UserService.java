@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.repo.UserRepo;
+import com.example.demo.requesBodies.Comment;
+import com.example.demo.requesBodies.GetUser;
 
 @Service
 public class UserService {
@@ -81,6 +85,43 @@ public class UserService {
 		
 		return repo.findAll();
 	}
+	
+	public List<Product> getCart(String username){
+		
+		List<User> list=repo.findAll();
+		
+		for(User user:list){
+			
+			if(user.getUsername().equals(username)) {
+				return user.getCart();
+			}
+			
+		}
+		
+		return new ArrayList<Product>();
+	
+	}
+	
+	public List<Product> getWishList(String username){
+		
+		
+	List<User> list=repo.findAll();
+		
+		for(User user:list){
+			
+			if(user.getUsername().equals(username)) {
+				return user.getWishlist();
+			}
+			
+		}
+		
+		return new ArrayList<Product>();
+
+}
+	
+	
+
+	
 	
 
 }

@@ -13,25 +13,16 @@ import setProduct from "../../redux/Actions/setProduct";
 export default function LoggedHome(props) {
 
     const [user,setUser] = useState({});
-
-    // const products=[
-    //     {name:'T shirt',price:100,description:"description"},
-    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}
-    //     ]
-    //let products = [];
-
+    
 
     function update(){
-    // item.pro.map(value => {
-    //     console.log(value.pdiscount);
-    // });
+            axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
+            setUser(res.data);
+            console.log(res.data)
+
+        })
     }
-
-
-
+    
 
 const[userId,setUserID]= useState(0)
 const[products,Setproducts]= useState([])
@@ -42,10 +33,7 @@ const fetchProducts= async ()=>{
 
         Setproducts(res.data);
 
-
     })
-
-
 }
 
 
@@ -74,12 +62,10 @@ const fetchProducts= async ()=>{
     }
 
 
-
     return(
 
         <div>
         <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
-
 
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>
                 <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>

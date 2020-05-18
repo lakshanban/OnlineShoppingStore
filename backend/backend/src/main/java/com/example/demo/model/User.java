@@ -113,8 +113,8 @@ public class User {
 	}
 
 
-	public void setCart(List<Product> cart) {
-		this.cart = cart;
+	public void setCart(Product product) {
+		this.cart.add(product);
 	}
 
 
@@ -123,8 +123,8 @@ public class User {
 	}
 
 
-	public void setWishlist(List<Product> wishlist) {
-		this.wishlist = wishlist;
+	public void setWishlist(Product product) {
+		this.wishlist.add(product);
 	}
 
 
@@ -175,6 +175,11 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void unsetCart(Product p) {
+		
+		this.cart.remove(p);
 	}
 
 }

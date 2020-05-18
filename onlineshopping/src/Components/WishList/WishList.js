@@ -4,18 +4,31 @@ import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/Compl
 import {Container, Grid} from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Post from "../LoggeHome/Post";
+import axios from "axios";
 
 class WishList extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state={
+            products:[]
+        }
     }
 
+    componentDidMount(): void {
+
+        axios.post('http://localhost:8080/getcart',{"username":this.props.user.username}).then(res=>{
+
+            this.setState({products:res.data})
+
+        })
+
+    }
 
 
     render() {
 
-        const products=[{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},{name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}]
 
 
         return (
@@ -27,7 +40,7 @@ class WishList extends Component {
                     <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>
 
                         {
-                            products.map(product=>{
+                            this.state.products.map(product=>{
 
                                 return <Grid container item xs={4} spacing={4} style={{margin:'00px'}} className="gridItem">
 
