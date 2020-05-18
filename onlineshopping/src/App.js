@@ -9,11 +9,15 @@ import Chat from "./Components/Chat/Chat";
 import AdminHome from "./Components/Admin Panel/AdminHome";
 import Product from "./Components/Product/Product";
 import ProductsData from "./Components/Store Manager/ProductsData";
+import NonLoggedHome from "./Components/NonLoggedHome/NonLoggedHome";
 
 function App() {
   return (
     <div className="App">
        <Test/>
+
+       {/*<ProductsData/>*/}
+       {/*<NonLoggedHome/>*/}
     </div>
   );
 }

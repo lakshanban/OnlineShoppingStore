@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -17,6 +17,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import {Button} from "@material-ui/core";
+import axios from "axios";
 
 
 export default function CategoryTable() {
@@ -41,14 +42,32 @@ export default function CategoryTable() {
     };
 
     const [state, setState] = React.useState({
-        columns: [
-            { title: 'Category Name', field: 'name' },
-        ],
-        data: [
-            { name: 'Girls'},
-            { name: 'Boys'},
-        ],
+        columns: [{ title: 'Category Name', field: 'name' },],
+        //
+        data: [{ name: 'Girls'}, { name: 'Boys'},],
+        // data: [{ name: 'Girls'}, { name: 'Boys'},],
     });
+
+    const[userId,setUserID]= useState(0)
+    const[category,setCategory]= useState([])
+
+    const fetchCategory= async ()=>{
+        await axios.get('http://localhost:8080/getallcategories').then(res=> {
+            setCategory(res.data);
+        })
+    }
+
+    //const cdata = [category.cname];
+
+    useEffect(()=>{
+        fetchCategory();
+    },[userId])
+
+    {
+        category.map(category => {
+            //setState({columns: [{ title: 'Category Name', field: 'name' },],data:[{name: category.cname}]})
+        })
+    }
 
     return (
         <MaterialTable

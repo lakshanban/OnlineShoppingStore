@@ -33,14 +33,15 @@ public class ProductServiceImpl  {
 	ProductRepo repo;
 	
 	
-	public boolean addProduct(ProductRequest req) {
+	public String addProduct(ProductRequest req) {
 		
 		Product p=repo.save(new Product(req.pname, req.pdescription, req.pdiscount, req.pprice, req.powner,req.pcategory));
-		
+	
 		if(p==null) {
-			return false;
+			return "error";
 		}
-		return true;
+		System.out.println(p.getId());
+		return p.getId();
 		
 	}
 	
@@ -121,12 +122,10 @@ public class ProductServiceImpl  {
 		
 	}
 	
-	public void uploadImages(MultipartFile file, String productid) throws IOException {
+	public String uploadImages(MultipartFile file, String productid) throws IOException {
 		
 		
 		List<Product> list=repo.findAll();
-		
-		
 		
 		for(Product product: list) {
 			
@@ -134,9 +133,11 @@ public class ProductServiceImpl  {
 				
 				product.setPimages(new Binary(BsonBinarySubType.BINARY,file.getBytes()));
 				
-				repo.save(product);
+				repo.save(product);	
 			}
 		}
+		return "done";
+		
 		
 	}
 	

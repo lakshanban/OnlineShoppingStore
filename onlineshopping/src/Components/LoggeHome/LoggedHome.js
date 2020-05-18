@@ -14,47 +14,22 @@ export default function LoggedHome(props) {
 
     const [user,setUser] = useState({});
 
-    const products=[
-        {name:'T shirt',price:100,description:"description"},
-        {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-        {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-        {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
-        {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}
-        ]
+    // const products=[
+    //     {name:'T shirt',price:100,description:"description"},
+    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
+    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
+    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"},
+    //     {name:'T shirt',price:100,description:"A dress (also known as a frock or a gown) is a garment traditionally worn by women or girls consisting"}
+    //     ]
     //let products = [];
 
 
-<<<<<<< HEAD
     function update(){
-=======
-
-    // axios.get('http://localhost:8080/getallproducts')
-    //     .then(res=> {
-    //
-    //     });
->>>>>>> 79272d099862e22ca860696ea415238f269dfc87
-
-
     // item.pro.map(value => {
     //     console.log(value.pdiscount);
     // });
-
-<<<<<<< HEAD
-
-
-
-
-
-=======
-    function update(){
-            axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
-            setUser(res.data);
-            console.log(res.data)
->>>>>>> 79272d099862e22ca860696ea415238f269dfc87
-        })
     }
 
-<<<<<<< HEAD
 
 
 
@@ -100,18 +75,12 @@ const fetchProducts= async ()=>{
 
 
 
-=======
->>>>>>> 79272d099862e22ca860696ea415238f269dfc87
     return(
 
         <div>
-<<<<<<< HEAD
         <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
 
 
-=======
-        <ComplexNavigationBar dispatch={props.dispatch} user={user}/>
->>>>>>> 79272d099862e22ca860696ea415238f269dfc87
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>
                 <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>
                     {

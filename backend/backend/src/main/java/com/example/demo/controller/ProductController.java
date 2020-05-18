@@ -27,7 +27,7 @@ public class ProductController {
 	private ProductServiceImpl service;
 	
 	@RequestMapping(path = "/addproduct", method = RequestMethod.POST )
-	public boolean addproduct(@RequestBody ProductRequest request) {
+	public String addproduct(@RequestBody ProductRequest request) {
 		
 		return service.addProduct(request);
 	}
@@ -65,20 +65,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/uploadimages")
-	public void saveImages(@RequestParam("file") MultipartFile[] files, @RequestParam String productid) throws IOException {
+	public String saveImages(@RequestParam("file") MultipartFile files, @RequestParam String productid) throws IOException {
 		
-		if(files.length==0) {
-			
-			System.out.println("fuck");
-		}
 		
-		for(MultipartFile file:files) {
-			
-			service.uploadImages(file, productid);
-			
-			System.out.println("got file");
-		}
 		
+	System.out.println(files.getClass().getName());
+	
+	return service.uploadImages(files, productid);
+	
 		
 	}
 	

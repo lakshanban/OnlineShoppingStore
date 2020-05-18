@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 import {Button} from "@material-ui/core";
+import axios from "axios";
 
 
 const styles = (theme) => ({
@@ -145,38 +146,56 @@ MuiVirtualizedTable.propTypes = {
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 // ---
-
 const sample = [
     ['MEN1234', 'Men Black T-Shirt', 'MEN-XL', 'full cotton and imported', 1799.90, 10, 1899.90
     ],
 ];
 
-function createData(id, pid, name, type, description, basicprice, discountpercentage, markedprice, actionEdit,actionDelete) {
-    return { id, pid, name, type, description, basicprice, discountpercentage, markedprice, actionEdit,actionDelete };
+function createData(pid, name, type, description, basicprice, discountpercentage, markedprice, actionEdit,actionDelete) {
+    return {pid, name, type, description, basicprice, discountpercentage, markedprice, actionEdit,actionDelete };
 }
 
-const rows = [];
 
-for (let i = 0; i < 20; i += 1) {
-    const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-    rows.push(createData(i, ...randomSelection,
-        <Button size="small" variant="contained" color="primary">Edit</Button>,
-        <Button size="small" variant="contained" color="secondary">Delete</Button>
-    ));
-}
 
 export default function ProductsTable() {
+
+    const rows = [];
+
+    const[userId,setUserID]= useState(0)
+    const[products,setProducts]= useState([])
+    //const[value,setValue]= useState([])
+
+    const fetchProducts= async ()=>{
+        await axios.get('http://localhost:8080/getallproducts').then(res=> {
+            setProducts(res.data);
+        })
+    }
+
+    useEffect(()=>{
+        fetchProducts();
+    },[userId])
+
+    const getProductId = (e) => {
+        alert(e.target.value);
+    }
+
+    {
+        products.map(product => {
+            rows.push(createData(product._id, product.pname, product.pcategory, product.pdescription,
+                product.pprice, product.pdiscount, product.powner,
+                <Button size="small" variant="contained" value={"rr"} onClick={getProductId} color="primary">Edit</Button>,
+                <Button size="small" variant="contained" color="secondary">Delete</Button>
+            ));
+        })
+    }
+
     return (
+
         <Paper style={{ height: 400, width: '100%' }}>
             <VirtualizedTable
                 rowCount={rows.length}
                 rowGetter={({ index }) => rows[index]}
                 columns={[
-                    {
-                        width: 120,
-                        label: 'Product ID',
-                        dataKey: 'pid',
-                    },
                     {
                         width: 180,
                         label: 'Name',
@@ -189,10 +208,9 @@ export default function ProductsTable() {
 
                     },
                     {
-                        width: 200,
-                        label: 'Description',
+                        width: 220,
+                        label: <div style={{marginLeft:40}}>Description</div>,
                         dataKey: 'description',
-
                     },
                     {
                         width: 120,
@@ -208,7 +226,7 @@ export default function ProductsTable() {
                     },
                     {
                         width: 120,
-                        label: 'Marked Price',
+                        label: 'owner',
                         dataKey: 'markedprice',
                         numeric: true,
                     },

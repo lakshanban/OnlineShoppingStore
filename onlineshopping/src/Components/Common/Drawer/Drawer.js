@@ -33,23 +33,11 @@ useEffect(()=>{
 
     axios.get('http://localhost:8080/getallcategories').then(res=>{
 
-
-
         setCategories(res.data)
-
 
     })
 
 })
-
-
-
-
-
-
-
-
-
 
 
     const classes = useStyles();

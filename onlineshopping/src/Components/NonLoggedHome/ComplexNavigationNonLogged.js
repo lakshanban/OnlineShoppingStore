@@ -14,14 +14,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Drawer from "../Drawer/Drawer";
-import loadpage from "../../../redux/Actions/loadpage";
+
 import {Button} from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from 'axios'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {TextField} from "@material-ui/core";
+import Drawer from "../Common/Drawer/Drawer";
+import Carousel from "react-bootstrap/Carousel";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -87,7 +88,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ComplexNavigationBar(props) {
+export default function ComplexNavigationNonLogged(props) {
+
+
 
 
     const classes = useStyles();
@@ -129,10 +132,6 @@ export default function ComplexNavigationBar(props) {
         >
             <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
             <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
-            {
-                //props.user.usertype==='Admin'? <Button variant={"contained"} color={"secondary"}  onClick={()=>props.dispatch('ADMIN')}   >Admin Panel</Button>:''
-                //props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
-            }
         </Menu>
     );
 
@@ -147,22 +146,6 @@ export default function ComplexNavigationBar(props) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     aria-label="account of current user"
@@ -179,28 +162,11 @@ export default function ComplexNavigationBar(props) {
 
     const[searchList,SetSearchList]= useState([])
 
-
-
-
-
-
-
     const search=(e)=>{
-
-
-console.log("xxxx")
         axios.post('http://localhost:8080/productsearch',{"query":e.target.value}).then(res=>{
-
             props.searchproducts(res.data)
-
-
-
         })
-
-
     }
-
-
 
     return (
         <div className={classes.grow}>
@@ -212,82 +178,30 @@ console.log("xxxx")
                         color="inherit"
                         aria-label="open drawer"
                     >
-
-                        <Drawer filterproducts={props.filterproducts}/>
+                    <Drawer filterproducts={props.filterproducts}/>
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap onClick={()=>props.dispatch('HOME')}>
+                    <Typography className={classes.title} variant="h6" noWrap>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-
-                        </div>
-
-                        <Autocomplete
-                            style={{width:'400px'}}
-                            id="free-solo-demo"
-                            freeSolo
-
+                        <div className={classes.searchIcon}></div>
+                        <Autocomplete style={{width:'400px'}} id="free-solo-demo" freeSolo
                             options={props.products.map((option) => option.pname)}
                             renderInput={(params) => (
-                                <TextField {...params} label="Search" variant="outlined" onChange={search}/>
+                                 <TextField size={"small"} {...params} label="Search" variant="outlined" onChange={search}/>
                             )}
-
-
-                            //////////////////////////////////////////////////////////
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
-
-
                     </div>
 
 
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit" >
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit" onClick={()=>props.dispatch('NOTICE')}>
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-
-
-                        {/*shopping cart icon*/}
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={()=> props.dispatch('CART')}
-                            color="inherit"
-                        >
-                            <ShoppingCartIcon />
-
-                        </IconButton>
-
-
-
-                        {/*wishlist*/}
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={()=> props.dispatch('LIST')}
-                            color="inherit"
-                        >  <FavoriteIcon/>
-                        </IconButton>
-
-
 
                         <IconButton
                             edge="end"
@@ -297,7 +211,6 @@ console.log("xxxx")
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-
                             <AccountCircle />
                         </IconButton>
 
@@ -321,3 +234,4 @@ console.log("xxxx")
         </div>
     );
 }
+
