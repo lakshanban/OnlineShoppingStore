@@ -9,13 +9,14 @@ import Chat from "./Components/Chat/Chat";
 import AdminHome from "./Components/Admin Panel/AdminHome";
 import Product from "./Components/Product/Product";
 import ProductsData from "./Components/Store Manager/ProductsData";
+import DetailForm from "./Components/PaymentGateway/DetailForm";
 import NonLoggedHome from "./Components/NonLoggedHome/NonLoggedHome";
 
 function App() {
   return (
     <div className="App">
        <Test/>
-
+       <DetailForm/>
        {/*<ProductsData/>*/}
        {/*<NonLoggedHome/>*/}
     </div>

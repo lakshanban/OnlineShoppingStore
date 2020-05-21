@@ -28,9 +28,6 @@ class WishList extends Component {
 
 
     render() {
-
-
-
         return (
             <div>
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
