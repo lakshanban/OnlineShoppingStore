@@ -1,6 +1,5 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
-import Tshirt from "../LoggeHome/tshirt.jpg";
 import {Button, Card, Paper} from "@material-ui/core";
 import './Product.css'
 import ImageShow from "./ImageShow";
@@ -15,7 +14,6 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
-import  axios from 'axios'
 import CommentList from "./CommentList";
 
 
@@ -38,7 +36,11 @@ addcomment(e){
 
     console.log(comment)
 
+}
 
+proceedPurchase(props) {
+        props.setproduct('SETPRODUCT',props.product)
+        props.dispatch('PRODUCT')
 }
 
     render() {
@@ -91,7 +93,7 @@ addcomment(e){
                              <CardActions className="justify-content-center">
                                  <Button variant="contained" color="primary" size="small" onClick={this.addtoCart} startIcon={<AddShoppingCartIcon/>}>ADD TO CART</Button>
                                  <Button variant="contained" color="secondary" size="small" startIcon={<FavoriteIcon/>}>ADD TO FAVORITE</Button>
-                                 <Button variant="contained" color="default" size="small" startIcon={<MonetizationOnIcon/>}>BUY</Button>
+                                 <Button variant="contained" color="default" size="small" startIcon={<MonetizationOnIcon/>} onClick={this.proceedPurchase}>BUY</Button>
                              </CardActions>
                          </Card>
                      </Grid>

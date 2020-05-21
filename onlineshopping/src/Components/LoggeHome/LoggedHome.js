@@ -1,13 +1,9 @@
 import React, {useEffect,useState} from "react";
 import ComplexNavigationBar from "../Common/ComplexNavigationBar/ComplexNavigationBar";
-import Drawer from "../Common/Drawer/Drawer";
 import {Container,Grid} from "@material-ui/core";
-import Tshirt from './tshirt.jpg';
 import axios from 'axios'
 import Post from "./Post";
 import './Post.css'
-import ImageShow from "../Product/ImageShow";
-import setProduct from "../../redux/Actions/setProduct";
 
 
 export default function LoggedHome(props) {
