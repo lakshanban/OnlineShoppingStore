@@ -11,10 +11,12 @@ import com.example.demo.requesBodies.CommentReq;
 import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
+import com.example.demo.requesBodies.ProductUpdateRequest;
 import com.example.demo.requesBodies.ProductUser;
 import com.example.demo.requesBodies.RatingReq;
 import com.example.demo.requesBodies.categoryreq;
 import com.example.demo.requesBodies.discountReq;
+import com.example.demo.requesBodies.productid;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -51,6 +53,28 @@ public class ProductServiceImpl  {
 		}
 		System.out.println(p.getId());
 		return p.getId();
+		
+	}
+	
+	public void updateProduct(ProductUpdateRequest request) {
+		
+		List<Product> list = repo.findAll();
+	      
+	      for(Product product: list) {
+	    	  
+	    	  if(product.getId().equals(request.id)) {
+	    		  
+	    		  product.setPname(request.pname);
+	    		  product.setPdescription(request.pdescription);
+	    		  product.setPdiscount(request.pdiscount);
+	    		  product.setPprice(request.pprice);
+	    		  product.setPcategory(request.pcategory);
+	 
+	    		  repo.save(product);
+	    		  
+	    	  }
+	      }
+	      System.out.println("Product updated..");
 		
 	}
 	
@@ -109,6 +133,22 @@ public class ProductServiceImpl  {
 	    		  
 	    	  }
 	      }
+		
+	}
+	
+	public List<Product> getProductsById(productid pid){
+		List<Product> list=repo.findAll();
+		List<Product> oneProductList= new ArrayList<Product>();
+		
+		for(Product product: list) {
+			
+			if(product.getId().equals(pid.pid)) {
+				
+				oneProductList.add(product);
+				
+			}
+		}
+		return oneProductList;
 		
 	}
 	

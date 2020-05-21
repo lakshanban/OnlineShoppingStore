@@ -15,9 +15,6 @@ function App() {
   return (
     <div className="App">
        <Test/>
-
-       {/*<ProductsData/>*/}
-       {/*<NonLoggedHome/>*/}
     </div>
   );
 }

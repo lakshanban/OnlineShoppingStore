@@ -22,7 +22,7 @@ function AddProductDialog() {
     const [open, setOpen] = React.useState(false);
     const [openImgDialog, setOpenImgDialog] = React.useState(false);
     const [productId, setproductId] = React.useState("");
-    const[categories,setCategories] = useState([]);
+    const [categories,setCategories] = useState([]);
     useEffect(()=>{
         axios.get('http://localhost:8080/getallcategories').then(res=>{
             setCategories(res.data)
@@ -144,11 +144,13 @@ function AddProductDialog() {
                                     alert("all images uploaded");
                                 }
                             })
+
                         }
                     })
                 }
             })
     }
+
 
     return (
         <div>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Category;
+import com.example.demo.model.Product;
 import com.example.demo.repo.CategoryRepo;
 import com.example.demo.requesBodies.CategoryRequest;
 
@@ -35,6 +36,21 @@ public class CategoryService {
 		return namelist;
 		
 	} 
+	
+	public void removeCategory(String name) {
+		
+		List<Category> list= repo.findAll();
+		
+		for(Category category: list) {
+			
+			if(category.getCname().equals(name)) {
+				
+				repo.delete(category);
+			}
+			
+		}
+		
+	}
 	
 	
 	

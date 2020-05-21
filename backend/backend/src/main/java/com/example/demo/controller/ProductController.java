@@ -6,6 +6,7 @@ import com.example.demo.requesBodies.CommentReq;
 import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
+import com.example.demo.requesBodies.ProductUpdateRequest;
 import com.example.demo.requesBodies.ProductUser;
 import com.example.demo.requesBodies.RatingReq;
 import com.example.demo.requesBodies.SerachBody;
@@ -36,10 +37,23 @@ public class ProductController {
 		return service.addProduct(request);
 	}
 	
+	@RequestMapping(path = "/updateproduct", method = RequestMethod.POST)
+	public void updateProduct(@RequestBody ProductUpdateRequest updateRequest) {
+		
+		service.updateProduct(updateRequest);
+		
+	}
+	
 	@RequestMapping(path = "/getallproducts", method = RequestMethod.GET)
 	public List<Product> getallProducts() {
 		
 		return service.getAllProducts();
+	}
+	
+	@RequestMapping("/getOneProduct")
+	public List<Product> getOneProduct(@RequestBody productid pid){
+		System.out.println("get One Product" +pid);
+		return service.getProductsById(pid);
 	}
 	
 	@RequestMapping("/addcomment")
