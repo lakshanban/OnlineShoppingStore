@@ -32,8 +32,6 @@ class Test extends Component {
 
     render() {
 
-
-
         switch (this.props.page) {
 
             case "login":
@@ -73,6 +71,7 @@ class Test extends Component {
                 return <WishList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
         }
+
 
 
     }
