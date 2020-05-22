@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Button} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
@@ -20,6 +20,29 @@ import axios from "axios";
 
 function AddProductDialog() {
     const [open, setOpen] = React.useState(false);
+    const [openImgDialog, setOpenImgDialog] = React.useState(false);
+    const [productId, setproductId] = React.useState("");
+    const [categories,setCategories] = useState([]);
+    useEffect(()=>{
+        axios.get('http://localhost:8080/getallcategories').then(res=>{
+            setCategories(res.data)
+        })
+    })
+
+    const handleClickOpenImg = () => {
+        setOpenImgDialog(true);
+    };
+
+    const handleCloseImg = () => {
+        setOpenImgDialog(false);
+        setOpen(false);
+        deleteProduct();
+    };
+
+    const handleCloseAll = () => {
+        setOpenImgDialog(false);
+        setOpen(false);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,14 +70,87 @@ function AddProductDialog() {
             pcategory: productCategory
         }).then(res=>{
             if(res.data){
-                alert('New Product Added')
+                setproductId(res.data);
+                console.log(productId)
+                if (res.data != null){
+                    handleClickOpenImg()
+                }
             }
             else {
-                alert('User creation failed internal error')
+                alert('System Error................')
             }
-            console.log(res.data)
+            //console.log(res.data)
         })
     }
+
+    const deleteProduct = () => {
+        var bodyFormData = new FormData();
+        bodyFormData.set('id', productId);
+
+        axios.post('http://localhost:8080/deleteproduct',bodyFormData).then(res=>{
+            alert("Data not saved...")
+        })
+    }
+
+    const productImagesSubmitHanlder=(e)=>{
+        e.preventDefault();
+
+        const fileInput = document.querySelector("#p1").files[0];
+        const fileInput2 = document.querySelector("#p2").files[0];
+        const fileInput3 = document.querySelector("#p3").files[0];
+
+        let images=[];
+
+        images.push(fileInput)
+        images.push(fileInput2)
+        images.push(fileInput3)
+        console.log(images)
+
+
+            var bodyFormData = new FormData();
+            bodyFormData.append('file', images[0]);
+            bodyFormData.set('productid', productId);
+            console.log(productId);
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/uploadimages',
+                data: bodyFormData,
+                headers: {'Content-Type': 'multipart/form-data' }
+            }).then(res=> {
+                if (res.data){
+                    var bodyFormData = new FormData();
+                    bodyFormData.append('file', images[1]);
+                    bodyFormData.set('productid', productId);
+                    console.log(productId);
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8080/uploadimages',
+                        data: bodyFormData,
+                        headers: {'Content-Type': 'multipart/form-data' }
+                    }).then(res=> {
+                        if (res.data){
+                            var bodyFormData = new FormData();
+                            bodyFormData.append('file', images[2]);
+                            bodyFormData.set('productid', productId);
+                            console.log(productId);
+                            axios({
+                                method: 'post',
+                                url: 'http://localhost:8080/uploadimages',
+                                data: bodyFormData,
+                                headers: {'Content-Type': 'multipart/form-data' }
+                            }).then(res=> {
+                                if (res.data){
+                                    handleCloseAll();
+                                    alert("all images uploaded");
+                                }
+                            })
+
+                        }
+                    })
+                }
+            })
+    }
+
 
     return (
         <div>
@@ -67,34 +163,38 @@ function AddProductDialog() {
                     <DialogContentText>
                         Please fill all feilds to add a new product
                     </DialogContentText>
-                    {/*<Input*/}
-                    {/*    autoFocus*/}
-                    {/*    margin="dense"*/}
-                    {/*    id="photo"*/}
-                    {/*    label="product photo"*/}
-                    {/*    type="file"*/}
-                    {/*    fullWidth*/}
-                    {/*/>*/}
                     <form onSubmit={productSubmitHanlder}>
-                    <TextField name={"productName"} autoFocus margin="dense" id="productName" label="Product Name" type="text" fullWidth/>
-                    <TextField name={"productDiscription"} autoFocus margin="dense" id="productDiscription" label="Product Description" type="text" fullWidth/>
+                    <TextField name={"productName"} autoFocus margin="dense" id="productName" label="Product Name" type="text" fullWidth required/>
+                    <TextField name={"productDiscription"} autoFocus margin="dense" id="productDiscription" label="Product Description" type="text" fullWidth required/>
                     <TextField name={"productDiscount"} autoFocus margin="dense" id="discountPercentage" label="Discount Percentage" type="number" fullWidth/>
-                    <TextField name={"productPrice"} autoFocus margin="dense" id="markedPrice" label="Marked Price" type="number" fullWidth/>
+                    <TextField name={"productPrice"} autoFocus margin="dense" id="markedPrice" label="Marked Price" type="number" fullWidth required/>
                     <TextField name={"productOwner"} value={"Manager1"} autoFocus margin="dense" id="productOwner" label="Product Owner" type="text" fullWidth/>
 
                     <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
                     <Select name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
-                        <MenuItem value={"Men"}>Men</MenuItem>
-                        <MenuItem value={"Women"}>Wemen</MenuItem>
-                        <MenuItem value={"All"}>All</MenuItem>
+                        {categories.map((text, index) => (
+                            <MenuItem value={text}>{text}</MenuItem>
+                        ))}
                     </Select>
 
-                    <Button type={"submit"} className={"float-right"} style={{marginTop:5}} variant="contained" color="primary">Add Product</Button>
+                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Add Product</Button>
                     </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">Cancel</Button>
-                </DialogActions>
+            </Dialog>
+
+            <Dialog open={openImgDialog} onClose={handleCloseImg} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">ADD PRODUCT IMAGES</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please add three images.....
+                    </DialogContentText>
+                    <form onSubmit={productImagesSubmitHanlder} >
+                        <Input name={"image1"} autoFocus margin="dense" id="p1" label="product photo" type="file" fullWidth style={{marginTop:10}}/>
+                        <Input name={"image2"} margin="dense" id="p2" label="product photo" type="file" fullWidth style={{marginTop:10}}/>
+                        <Input name={"image3"} margin="dense" id="p3" label="product photo" type="file" fullWidth style={{marginTop:10}}/>
+                        <Button type={"submit"} className={"float-right"} style={{marginTop:5}} variant="contained" color="primary">Add Images</Button>
+                    </form>
+                </DialogContent>
             </Dialog>
         </div>
     );
@@ -127,4 +227,3 @@ class ProductsData extends Component {
 }
 
 export default ProductsData;
-

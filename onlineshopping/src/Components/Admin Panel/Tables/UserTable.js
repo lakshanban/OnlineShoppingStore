@@ -157,7 +157,7 @@ function createUserData(id, username, fname, lname, address, mobile, usertype, e
 
 const rows = [];
 
-for (let i = 0; i < 20; i += 1) {
+for (let i = 0; i < 2; i += 1) {
     const randomSelection = sample[Math.floor(Math.random() * sample.length)];
     rows.push(createUserData(i, ...randomSelection,
         <Button size="small" variant="contained" color="primary">Edit</Button>,

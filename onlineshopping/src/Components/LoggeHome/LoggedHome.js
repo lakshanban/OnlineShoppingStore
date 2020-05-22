@@ -1,30 +1,15 @@
 import React, {useEffect,useState} from "react";
 import ComplexNavigationBar from "../Common/ComplexNavigationBar/ComplexNavigationBar";
-import Drawer from "../Common/Drawer/Drawer";
 import {Container,Grid} from "@material-ui/core";
-import Tshirt from './tshirt.jpg';
 import axios from 'axios'
 import Post from "./Post";
 import './Post.css'
-import ImageShow from "../Product/ImageShow";
-import setProduct from "../../redux/Actions/setProduct";
 
 
 export default function LoggedHome(props) {
 
     const [user,setUser] = useState({});
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     function update(){
             axios.post('http://localhost:8080/userget',{username:props.user}).then(res=>{
@@ -33,10 +18,7 @@ export default function LoggedHome(props) {
 
         })
     }
-
-
-
-
+    
 
 const[userId,setUserID]= useState(0)
 const[products,Setproducts]= useState([])
@@ -47,10 +29,7 @@ const fetchProducts= async ()=>{
 
         Setproducts(res.data);
 
-
     })
-
-
 }
 
 
@@ -79,16 +58,10 @@ const fetchProducts= async ()=>{
     }
 
 
-
-
     return(
 
         <div>
-
         <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
-
-
-
 
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>
                 <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>

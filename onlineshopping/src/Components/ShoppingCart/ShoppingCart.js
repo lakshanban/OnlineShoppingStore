@@ -26,12 +26,10 @@ class ShoppingCart extends Component {
 
             this.setState({products: res.data})
 
-
         })
 
 
     }
-
 
 
  filterCart(id) {

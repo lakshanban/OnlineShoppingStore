@@ -11,10 +11,12 @@ import com.example.demo.requesBodies.CommentReq;
 import com.example.demo.requesBodies.GetUser;
 import com.example.demo.requesBodies.OwnerReq;
 import com.example.demo.requesBodies.ProductRequest;
+import com.example.demo.requesBodies.ProductUpdateRequest;
 import com.example.demo.requesBodies.ProductUser;
 import com.example.demo.requesBodies.RatingReq;
 import com.example.demo.requesBodies.categoryreq;
 import com.example.demo.requesBodies.discountReq;
+import com.example.demo.requesBodies.productid;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -42,14 +44,37 @@ public class ProductServiceImpl  {
 	UserRepo urepo;
 	
 	
-	public boolean addProduct(ProductRequest req) {
+	public String addProduct(ProductRequest req) {
 		
 		Product p=repo.save(new Product(req.pname, req.pdescription, req.pdiscount, req.pprice, req.powner,req.pcategory));
-		
+	
 		if(p==null) {
-			return false;
+			return "error";
 		}
-		return true;
+		System.out.println(p.getId());
+		return p.getId();
+		
+	}
+	
+	public void updateProduct(ProductUpdateRequest request) {
+		
+		List<Product> list = repo.findAll();
+	      
+	      for(Product product: list) {
+	    	  
+	    	  if(product.getId().equals(request.id)) {
+	    		  
+	    		  product.setPname(request.pname);
+	    		  product.setPdescription(request.pdescription);
+	    		  product.setPdiscount(request.pdiscount);
+	    		  product.setPprice(request.pprice);
+	    		  product.setPcategory(request.pcategory);
+	 
+	    		  repo.save(product);
+	    		  
+	    	  }
+	      }
+	      System.out.println("Product updated..");
 		
 	}
 	
@@ -140,6 +165,22 @@ public class ProductServiceImpl  {
 		
 	}
 	
+	public List<Product> getProductsById(productid pid){
+		List<Product> list=repo.findAll();
+		List<Product> oneProductList= new ArrayList<Product>();
+		
+		for(Product product: list) {
+			
+			if(product.getId().equals(pid.pid)) {
+				
+				oneProductList.add(product);
+				
+			}
+		}
+		return oneProductList;
+		
+	}
+	
 	public List<Product> getProductsByOwner(OwnerReq req){
 		
 		List<Product> list=repo.findAll();
@@ -159,12 +200,10 @@ public class ProductServiceImpl  {
 		
 	}
 	
-	public void uploadImages(MultipartFile file, String productid) throws IOException {
+	public String uploadImages(MultipartFile file, String productid) throws IOException {
 		
 		
 		List<Product> list=repo.findAll();
-		
-		
 		
 		for(Product product: list) {
 			
@@ -172,9 +211,11 @@ public class ProductServiceImpl  {
 				
 				product.setPimages(new Binary(BsonBinarySubType.BINARY,file.getBytes()));
 				
-				repo.save(product);
+				repo.save(product);	
 			}
 		}
+		return "done";
+		
 		
 	}
 	
@@ -244,71 +285,15 @@ public class ProductServiceImpl  {
 	
 
 	
-	public void addtoCart(ProductUser req) {
-		
-		List<User> list = urepo.findAll();
-		
-		for(User user: list) {
-			
-			if(user.getUsername().equals(req.username)) {
-				
-				List<Product> plist= repo.findAll();
-				
-				for(Product p: plist) 
-				{
-					if(p.getId().equals(req.pid)) {
-						
-						user.setCart(p);
-						
-						urepo.save(user);
-						
-					}
-				}
-			   
-				
-				
-			}
-			
-		}
-		
-		
-	}
 	
 	
 	
 	
-	public void removeFromCart(ProductUser req) {
-		
-		List<User> list = urepo.findAll();
-		
-		for(User user: list) {
-			
-			if(user.getUsername().equals(req.username)) {
-				
-				List<Product> plist= repo.findAll();
-				
-				for(Product p: plist) 
-				{
-					if(p.getId().equals(req.pid)) {
-						
-						System.out.println(Product.class.getName());
-						
-						user.unsetCart(p);
-						
-						urepo.save(user);
-						
-						return;
-					}
-				}
-			   
-				
-				
-			}
-			
-		}
+	
+	
 		
 		
-	}
+	
 	
 	public List<Comment> getComments(String pid){
 		
