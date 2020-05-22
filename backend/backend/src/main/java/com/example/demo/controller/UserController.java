@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Order;
 import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.requesBodies.AddUserRequest;
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.GetUser;
+import com.example.demo.requesBodies.OrderReq;
+import com.example.demo.requesBodies.ProductUser;
+import com.example.demo.requesBodies.RemoveOrder;
 import com.example.demo.requesBodies.UserLoginRequest;
 import com.example.demo.service.UserService;
 
@@ -61,7 +66,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/getcart")
-	public List<Product> getCart(@RequestBody GetUser user){
+	public List<Order> getCart(@RequestBody GetUser user){
 		
 		return service.getCart(user.username);
 		
@@ -74,14 +79,37 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping("/addtowishlist")
+	public void addtoWishList(@RequestBody ProductUser req) {
+		
+		service.addtoWishList(req.username,req.pid);
+		
+	}
 	
+	@RequestMapping("/removefromwishlist")
+	public List<Product> removefromWishList(@RequestBody ProductUser req){
+		
+		return service.removeFromWishList(req.username,req.pid);
+		
+	}
 	
+
+	@RequestMapping("/addtocart")
+	public void addtocart(@RequestBody OrderReq req) {
+		
+		service.setOrder(req.username, req.pid, req.quan);
+	}
+	
+	@RequestMapping("/removefromcart")
+	public List<Order> removeFromCart(@RequestBody RemoveOrder req){
+		
+		return service.removeFromCart(req.username,req.index);
+		
+	}
 	
 
 	
-	
-	
-	
+
 	
 	private String hashPassword(String plainTextPassword){
 		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());

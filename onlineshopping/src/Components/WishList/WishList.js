@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import {Container, Grid} from "@material-ui/core";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Post from "../LoggeHome/Post";
+import WishListPost from "./WishListPost";
 import axios from "axios";
 
 class WishList extends Component {
@@ -16,16 +15,13 @@ class WishList extends Component {
         }
     }
 
-    componentDidMount(): void {
 
-        axios.post('http://localhost:8080/getcart',{"username":this.props.user.username}).then(res=>{
 
-            this.setState({products:res.data})
+    filterCart(id) {
 
-        })
+        this.setState({random:Math.random()})
 
     }
-
 
     render() {
 
@@ -39,22 +35,9 @@ class WishList extends Component {
 
                     <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>
 
-                        {
-                            this.state.products.map(product=>{
+                        <WishListPost user={this.props.user} dispatch={this.props.dispatch} setproduct={this.props.setproduct}>
 
-                                return <Grid container item xs={4} spacing={4} style={{margin:'00px'}} className="gridItem">
-
-                                    <Post product={product} dispatch={this.props.dispatch} setproduct={this.props.setproduct}/>
-
-                                </Grid>
-
-
-
-                            })
-
-
-
-                        }
+                        </WishListPost>
 
                     </Grid>
 

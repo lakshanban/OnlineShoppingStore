@@ -24,6 +24,10 @@ class Product extends Component {
 
 constructor(props) {
     super(props);
+    this.state={
+        rating:0,
+        quan:0
+    }
 }
 
 
@@ -42,6 +46,49 @@ addcomment(e){
 
 }
 
+componentDidMount() {
+
+    axios.post('http://localhost:8080/getrating',{"pid":this.props.product.id}).then(res=>{
+
+        this.setState({
+            rating:res.data
+        })
+
+    })
+}
+
+
+addtocart(pid){
+
+    if(this.state.quan=="" || this.state.quan==0){
+
+        alert('please select the quantity')
+    }else {
+
+        console.log(pid)
+
+        axios.post('http://localhost:8080/addtocart', {"username":this.props.user,"pid":pid,"quan":this.state.quan}).then(res=>{
+
+            alert('Added to cart')
+
+        })
+
+    }
+}
+
+addtowishlist(pid){
+
+    axios.post('http://localhost:8080/addtowishlist',{"username":this.props.user,"pid":pid}).then(res=>{
+        alert('Added to wish List')
+    })
+
+}
+
+onChangeHandle(e){
+
+    this.setState({quan:e.target.value})
+
+}
 
 
     render() {
@@ -67,7 +114,7 @@ addcomment(e){
                                      {this.props.product.pdescription}
                                  </Typography><br/>
                                  <Typography>
-                                     <Rating name="read-only" value={2} readOnly />
+                                     <Rating name="read-only" value={this.state.rating} readOnly />
                                  </Typography><br/>
                                  <Typography color="textSecondary" >
                                      Availability: <strong>in stock</strong>
@@ -88,12 +135,14 @@ addcomment(e){
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+
+                                            onChange={(event)=>{this.onChangeHandle(event)}}
                                  />
                              </CardActions>
                              <br/>
                              <CardActions className="justify-content-center">
-                                 <Button variant="contained" color="primary" size="small" onClick={this.addtoCart} startIcon={<AddShoppingCartIcon/>}>ADD TO CART</Button>
-                                 <Button variant="contained" color="secondary" size="small" startIcon={<FavoriteIcon/>}>ADD TO FAVORITE</Button>
+                                 <Button variant="contained" color="primary" size="small" onClick={()=>{this.addtocart(this.props.product.id)}} startIcon={<AddShoppingCartIcon/>}>ADD TO CART</Button>
+                                 <Button variant="contained" color="secondary" size="small" onClick={()=>{this.addtowishlist(this.props.product.id)}} startIcon={<FavoriteIcon/>}>ADD TO FAVORITE</Button>
                                  <Button variant="contained" color="default" size="small" startIcon={<MonetizationOnIcon/>}>BUY</Button>
                              </CardActions>
                          </Card>
@@ -112,7 +161,7 @@ addcomment(e){
 
                  </Grid>
              </Paper>
-             </div>
+             </div> 
                 
             </div>
         );

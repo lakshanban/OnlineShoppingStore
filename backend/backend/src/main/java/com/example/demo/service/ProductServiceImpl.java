@@ -94,6 +94,35 @@ public class ProductServiceImpl  {
 		
 	}
 	
+	
+	public double getRating(String pid) {
+		
+		List<Product> list= repo.findAll();
+		
+		   for(Product product: list) {
+		    	  
+		    	  if(product.getId().equals(pid)) {
+		    		  
+		    		  double total=0;
+		    		  
+		    		  for(double x: product.getPratings()) {
+		    			  
+		    			  total=total+x;
+		    			  
+		    		  }
+		    		  
+		    		  return total/product.getPratings().size();
+		    		  
+		    	  }
+		      }
+		return 0;
+		
+	}
+	
+	
+	
+	
+	
 	public void setDiscount(discountReq req) {
 		
 	    List<Product> list = repo.findAll();
@@ -268,6 +297,7 @@ public class ProductServiceImpl  {
 						
 						urepo.save(user);
 						
+						return;
 					}
 				}
 			   

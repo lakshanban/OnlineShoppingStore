@@ -1,51 +1,125 @@
-import React from "react";
-import {Button, Paper} from "@material-ui/core";
-import './Post.css'
+import React,{Component} from "react";
+import axios from "axios"
+import {Table, TableContainer, TableHead, TableRow, TableCell, Button,TableBody} from "@material-ui/core";
+import "./Post.css"
 
 
+export  default class CartPost extends Component{
 
-export default function CartPost(props){
+    constructor() {
+        super();
 
-
-    const trimDescription=(text)=>{
-
-        if(text.length>45){
-
-            text=text.substring(0,45)+'....'
-
+        this.state={
+            orders:[],
+            total:0
         }
-        return text;
     }
 
-    const onClick=()=>{
+    totalx=0
 
-        props.setproduct('SETPRODUCT',props.product)
-        props.dispatch('PRODUCT')
+    componentDidMount() {
+
+        axios.post('http://localhost:8080/getcart',{"username":this.props.user}).then(res=>{
+
+            this.setState({orders:res.data})
+        })
+
+
+
+
+    }
+    calculate(order){
+
+        let total= order.quan*(order.product.pprice-(order.product.pprice*order.product.pdiscount/100))
+
+       this.totalx=total+this.totalx;
+
+        return total;
+
+    }
+
+    Viewproduct(product){
+
+        console.log('View Clicked')
+
+        this.props.setproduct('SETPRODUCT',product)
+        this.props.dispatch('PRODUCT')
+
+    }
+
+    Remove(index,order){
+
+        axios.post('http://localhost:8080/removefromcart',{"username":this.props.user,"index":index}).then(res=>{
+
+            this.setState({orders:res.data})
+        })
+
 
 
     }
 
-    return (
-        <div>
 
-            <Paper elevation={3} className="Paper">
+    render() {
+        return <div>
+<TableContainer>
+            <Table stickyHeader aria-label="sticky table">
 
-                <h6>{props.product.pname}</h6>
+                <TableHead>
 
-                <img src={`data:image/jpeg;base64,${props.product.pimages[1].data}`} className="image"/>
+                    <TableRow>
 
-                <p>{trimDescription(props.product.pdescription)}</p>
-
-                {console.log(props.product)}
-
-                <Button variant={"outlined"} color={"secondary"} style={{marginRight:'5px'}} onClick={()=>{onClick()}}>Buy Now</Button>
-                <Button variant={"outlined"} color={"primary"} >Remove</Button>
-
-            </Paper>
+                        <TableCell className={"cell"} align={"center"}>ProductName</TableCell>
+                        <TableCell className={"cell"} align={"center"}>Quantity</TableCell>
+                        <TableCell className={"cell"} align={"center"}>price</TableCell>
+                        <TableCell className={"cell"} align={"center"}>discount</TableCell>
+                        <TableCell className={"cell"} align={"center"}>DPrice</TableCell>
 
 
 
+                    </TableRow>
+
+
+
+                </TableHead>
+
+
+                <TableBody>
+
+
+                    {this.state.orders.map((order,index)=>{
+
+
+                        return <TableRow>
+
+                            <TableCell align={"center"}>{order.product.pname}</TableCell>
+                            <TableCell align={"center"}>{order.quan}</TableCell>
+                            <TableCell align={"center"}>{order.product.pprice}</TableCell>
+                            <TableCell align={"center"}>{order.product.pdiscount}</TableCell>
+                            <TableCell align={"center"}>{this.calculate(order)}</TableCell>
+                            <TableCell align={"center"}><Button variant={"contained"} color={"secondary"} onClick={()=>{this.Remove(index,order)}}>Remove</Button></TableCell>
+                            <TableCell align={"center"}><Button variant={"contained"} color={"primary"} onClick={()=>this.Viewproduct(order.product)}>View</Button></TableCell>
+
+                        </TableRow>
+
+
+                    })}
+
+
+                    <TableCell className={"cell"} align={"center"}></TableCell>
+                    <TableCell className={"cell"} align={"center"}></TableCell>
+                    <TableCell className={"cell"} align={"center"}></TableCell>
+                    <TableCell className={"cell"} align={"center"}><h5>Total:</h5></TableCell>
+                    <TableCell className={"cell"} align={"center"}><h5>Rs.{this.totalx}</h5></TableCell>
+                    <TableCell align={"center"}><Button variant={"contained"} color={"primary"}>Checkout>>></Button></TableCell>
+
+
+
+                </TableBody>
+
+
+            </Table>
+
+</TableContainer>
         </div>
-    )
-
+    }
 }

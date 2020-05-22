@@ -7,8 +7,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Order;
 import com.example.demo.model.Product;
 import com.example.demo.model.User;
+import com.example.demo.repo.ProductRepo;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.GetUser;
@@ -18,6 +20,9 @@ public class UserService {
 	
 	@Autowired
 	UserRepo repo;
+	
+	@Autowired
+	ProductRepo prepo;
 	
 	public User findUserByUsername(String username) {
 		
@@ -86,7 +91,7 @@ public class UserService {
 		return repo.findAll();
 	}
 	
-	public List<Product> getCart(String username){
+	public List<Order> getCart(String username){
 		
 		List<User> list=repo.findAll();
 		
@@ -98,7 +103,7 @@ public class UserService {
 			
 		}
 		
-		return new ArrayList<Product>();
+		return new ArrayList<Order>();
 	
 	}
 	
@@ -119,9 +124,121 @@ public class UserService {
 
 }
 	
-	
 
 	
+
+	public void setOrder(String username, String pid, int quan) {
+		
+		
+			List<User> list=repo.findAll();
+		
+		for(User user:list){
+			
+			if(user.getUsername().equals(username)) {
+				
+				
+				
+				List<Product> plist= prepo.findAll();
+				
+				for(Product product:plist) {
+					
+					
+					if(product.getId().equals(pid)) {
+						
+						
+						user.setCart(new Order(product, quan));
+						repo.save(user);
+						
+					}
+				}	
+			}
+			
+		}
+		
+		
+	}
+
+	
+	public List<Order> removeFromCart(String username,int index){
+		
+		List<User> list= repo.findAll();
+		
+		for(User user:list) {
+			
+			if(user.getUsername().equals(username)) {
+				
+				user.removeFromCart(index);
+				
+				repo.save(user);
+				
+				return user.getCart();
+			}
+			
+			
+		}
+		
+		return null;
+	}
+	
+	
+	public void addtoWishList(String username,String pid) {
+		
+		List<User> list=repo.findAll();
+		
+		for(User user:list) {
+			
+			if(user.getUsername().equals(username)) {
+				
+				List<Product> wlist=user.getWishlist();
+				
+				for(Product product:wlist) {
+					
+					if(product.getId().equals(pid)) {
+						
+						return;
+					}
+					
+				}
+				
+				
+				
+				List<Product> plist=prepo.findAll();
+				
+				for(Product product: plist) {
+					
+					if(product.getId().equals(pid)) {
+						
+						user.setWishlist(product);
+						repo.save(user);
+						
+					}
+				}
+				
+			}
+		}
+		
+		
+	}
+	
+	
+	public List<Product> removeFromWishList(String username,String pid){
+		
+		List<User> list= repo.findAll();
+		
+		for(User user:list) {
+			if(user.getUsername().equals(username)) {
+				
+				
+				user.removefromWishList(pid);
+				
+				repo.save(user);
+				
+				return user.getWishlist();
+			}
+		}
+		
+		return new ArrayList<Product>();
+	}
 	
 
 }
