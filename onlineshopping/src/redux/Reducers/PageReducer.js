@@ -32,8 +32,12 @@ const PageReducer=(state='login',action)=>{
         case 'LIST':
             return 'list'
 
+        case 'PAY':
+            return 'pay'
+
         default:
             return state;
+
 
     }
 

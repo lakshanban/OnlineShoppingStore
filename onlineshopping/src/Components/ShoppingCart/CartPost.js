@@ -110,7 +110,7 @@ export  default class CartPost extends Component{
                     <TableCell className={"cell"} align={"center"}></TableCell>
                     <TableCell className={"cell"} align={"center"}><h5>Total:</h5></TableCell>
                     <TableCell className={"cell"} align={"center"}><h5>Rs.{this.totalx}</h5></TableCell>
-                    <TableCell align={"center"}><Button variant={"contained"} color={"primary"}>Checkout>>></Button></TableCell>
+                    <TableCell align={"center"}><Button variant={"contained"} color={"primary"} onClick={()=>{this.props.dispatch('PAY')}}>Checkout>>></Button></TableCell>
 
 
 

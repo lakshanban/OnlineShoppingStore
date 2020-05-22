@@ -17,6 +17,7 @@ import Product from "../Product/Product";
 import setProduct from "../../redux/Actions/setProduct";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import WishList from "../WishList/WishList";
+import DetailForm from "../PaymentGateway/DetailForm";
 
 class Test extends Component {
 
@@ -69,6 +70,10 @@ class Test extends Component {
             case 'list':
 
                 return <WishList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
+
+            case 'pay':
+
+                return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
         }
 

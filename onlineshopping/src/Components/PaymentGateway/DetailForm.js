@@ -2,8 +2,14 @@ import {Component} from "react";
 import React from 'react'
 import PropTypes from 'prop-types';
 import ProductItem from "./ProductItem";
+import SimpleNavigationBar from "../Common/SimpleNavigationBar/SimpleNavigationBar";
+import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 
 class DetailForm extends Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     static propTypes = {
         loadCart: PropTypes.func.isRequired,
@@ -92,7 +98,11 @@ class DetailForm extends Component {
     }
 
     render() {
-        return(<div></div>);
+        return(<div>
+
+            <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
+
+        </div>);
         // const { cartTotal, cartProducts, removeProduct, changeProductQuantity } = this.props;
         //
         // const products = cartProducts.map(p => {
