@@ -1,4 +1,4 @@
-const PurchaseReducer=(state='',action)=> {
+const PurchaseReducer=(state={},action)=> {
 
  switch(action.type){
   case 'PURCHASE':

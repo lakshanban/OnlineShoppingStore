@@ -102,7 +102,8 @@ class DetailForm extends Component {
                         variant="contained"
                         color="primary"
                         type={"submit"}
-                        onClick={()=>{this.props.dispatch('CHECKOUT')}}
+                        onClick={()=>{this.props.dispatch('CHECKOUT')
+                        this.props.setpurchse('PURCHASE',this.state)}}
                     >
                         Confirm
                     </Button>

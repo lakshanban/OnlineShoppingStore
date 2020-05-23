@@ -17,13 +17,11 @@ import setProduct from "../../redux/Actions/setProduct";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import WishList from "../WishList/WishList";
 import DetailForm from "../PaymentGateway/DetailForm";
-<<<<<<< HEAD
 import PurchasedList from "../Purchased_Items/PurchasedList";
 import P_Product from "../Purchased_Items/purchsedProduct/P_Product";
-=======
 import CheckoutForm from "../PaymentGateway/CheckoutForm";
 import setPurchase from "../../redux/Actions/setPurchase";
->>>>>>> a3fb52502b315f291e53b5ee0009745f965a82db
+
 
 class Test extends Component {
 
@@ -74,21 +72,17 @@ class Test extends Component {
 
             case 'pay':
 
-<<<<<<< HEAD
-                return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
+
+                return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchse={this.props.setpurchase}/>
 
             case 'purchased':
 
-                return <PurchasedList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
+                return <PurchasedList dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchse={this.props.setpurchase}/>
 
             case 'pproduct':
 
                 return <P_Product dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} product={this.props.product} />
-        }
 
-=======
-                return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchase={this.props.setpurchase}/>
->>>>>>> a3fb52502b315f291e53b5ee0009745f965a82db
 
             case 'checkout'  :
                 return  <CheckoutForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchase={this.props.setpurchase}/>
