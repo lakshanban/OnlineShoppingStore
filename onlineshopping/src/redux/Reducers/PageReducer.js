@@ -35,6 +35,9 @@ const PageReducer=(state='login',action)=>{
         case 'PAY':
             return 'pay'
 
+        case 'CHECKOUT':
+            return 'checkout'
+
         default:
             return state;
 

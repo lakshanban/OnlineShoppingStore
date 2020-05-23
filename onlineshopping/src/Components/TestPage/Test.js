@@ -18,17 +18,13 @@ import setProduct from "../../redux/Actions/setProduct";
 import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import WishList from "../WishList/WishList";
 import DetailForm from "../PaymentGateway/DetailForm";
+import CheckoutForm from "../PaymentGateway/CheckoutForm";
 
 class Test extends Component {
 
     constructor(props) {
         super(props);
-
-
-
-
     }
-
 
 
     render() {
@@ -74,6 +70,9 @@ class Test extends Component {
             case 'pay':
 
                 return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
+
+            case 'checkout'  :
+                return  <CheckoutForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct}/>
 
         }
 

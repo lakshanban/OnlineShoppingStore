@@ -1,0 +1,30 @@
+.paper{
+
+    width: 100vw;
+    height: auto;
+    margin: 5vw;
+}
+
+h1 {
+    padding: 10px
+}
+
+div.container {
+    height: 50vw;
+    display: flex;
+    flexDirection: 'column';
+    justifyContent: 'center';
+}
+
+TextField {
+    flex-direction: row;
+}
+
+#contained-buttons {
+    margin : 20px;
+}
+
+div.cardDetails TextField{
+
+    margin: 10px;
+}
