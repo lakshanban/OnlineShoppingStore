@@ -81,11 +81,6 @@ public class ProductController {
 	}
 	
 	
-
-	
-	
-	
-	
 	@RequestMapping("/setdiscount")
 	public void setDiscount(@RequestBody discountReq req) {
 		
@@ -101,8 +96,7 @@ public class ProductController {
 	@RequestMapping("/uploadimages")
 	public String saveImages(@RequestParam("file") MultipartFile files, @RequestParam String productid) throws IOException {
 		
-		
-		
+
 	System.out.println(files.getClass().getName());
 	
 	return service.uploadImages(files, productid);

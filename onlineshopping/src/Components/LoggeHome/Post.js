@@ -32,9 +32,6 @@ export default function Post(props){
                 <p>{trimDescription(props.product.pdescription)}</p>
                 <Button variant={"outlined"} color={"secondary"} onClick={()=>{onClick()}}>Buy Now</Button>
             </Paper>
-
-
-
         </div>
     )
 

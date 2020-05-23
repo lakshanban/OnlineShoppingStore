@@ -217,8 +217,6 @@ class Signup extends Component {
                             </Alert> :""
                         }
 
-
-
                         <form onSubmit={this.HandleSubmit}>
                         <TextField name="fname" id="standard-basic" label="First Name" variant="standard" className={"usernametext"} /><br/><br />
                         <TextField name="lname" id="standard-basic" label="Last Name" variant="standard" className={"usernametext"}  /><br/><br/>

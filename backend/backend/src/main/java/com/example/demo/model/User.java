@@ -68,46 +68,6 @@ public class User {
 	}
 
 
-	public String getFname() {
-		return fname;
-	}
-
-
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-
-
-	public String getLname() {
-		return lname;
-	}
-
-
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public String getCnumber() {
-		return cnumber;
-	}
-
-
-	public void setCnumber(String cnumber) {
-		this.cnumber = cnumber;
-	}
-
-
 	public List<Order> getCart() {
 		return this.cart;
 	}
@@ -115,7 +75,6 @@ public class User {
 
 	public void setCart(Order o) {
 		this.cart.add(o);
-		
 	}
 
 
@@ -129,53 +88,17 @@ public class User {
 	}
 
 
+	public void setPurchased_items(Product purchased_items) {
+		this.purchased_items.add(purchased_items);
+	}
+
 	public List<Product> getPurchased_items() {
 		return purchased_items;
 	}
 
 
-	public void setPurchased_items(List<Product> purchased_items) {
-		this.purchased_items = purchased_items;
-	}
-
-
-	public String getUsertype() {
-		return usertype;
-	}
-
-
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
-
-
-	public String getBday() {
-		return bday;
-	}
-
-
-	public void setBday(String bday) {
-		this.bday = bday;
-	}
-
-
 	public String getPassword() {
 		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 

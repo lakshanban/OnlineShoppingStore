@@ -1,77 +1,38 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {Card} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import CardContent from "@material-ui/core/CardContent";
+import {Button, Paper} from "@material-ui/core";
+import React from "react";
 
-class ProductItem extends Component {
-    static propTypes = {
-        product: PropTypes.object.isRequired,
-        removeProduct: PropTypes.func.isRequired,
-        changeProductQuantity: PropTypes.func.isRequired,
-    };
+export default function ProductItem(props){
 
-    constructor(props) {
-        super(props);
-    }
+    const trimDescription=(text)=>{
 
-    handleMouseOver = () => {
-        this.setState({ isMouseOver: true });
-    };
+        if(text.length>45){
 
-    handleMouseOut = () => {
-        this.setState({ isMouseOver: false });
-    };
+            text=text.substring(0,45)+'....'
 
-    handleOnIncrease = () => {
-        const { changeProductQuantity } = this.props;
-        const { product } = this.state;
-        product.quantity = product.quantity + 1;
-        changeProductQuantity(product);
-    }
-
-    handleOnDecrease = () => {
-        const { changeProductQuantity } = this.props;
-        const { product } = this.state;
-        product.quantity = product.quantity - 1;
-        changeProductQuantity(product);
-    }
-
-    render() {
-        const { removeProduct } = this.props;
-        const { product } = this.state;
-
-        const classes = ['shelf-item'];
-
-        if (!!this.state.isMouseOver) {
-            classes.push('shelf-item--mouseover');
         }
-
-        return (
-            <Card>
-                <div
-                    className="shelf-item__del"
-                    onMouseOver={() => this.handleMouseOver()}
-                    onMouseOut={() => this.handleMouseOut()}
-                    onClick={() => removeProduct(product)}
-                />
-                <CardContent>
-                    <Typography color="textSecondary" gutterBottom variant="h4" component="h2">
-                        <b>{this.props.product.pname}</b>
-                    </Typography>
-                    <Typography color="textSecondary" variant="h6" component="h2">
-                        {this.props.product.pdescription}
-                    </Typography><br/>
-                    <Typography color="textSecondary" variant="h6" component="h2">
-                        LKR {this.props.product.pprice}
-                    </Typography><br/>
-
-                </CardContent>
-                        <button onClick={this.handleOnDecrease} disabled={product.quantity === 1 ? true : false} className="change-product-button">-</button>
-                        <button onClick={this.handleOnIncrease} className="change-product-button">+</button>
-                    </Card>
-        );
+        return text;
     }
-}
+    const onClick=()=>{
 
-export default ProductItem;
+        props.setproduct('SETPRODUCT',props.product)
+        props.dispatch('PRODUCT')
+
+
+    }
+
+    return (
+        <div>
+
+            <Paper elevation={3} className="Paper">
+                <h6>{props.product.pname}</h6>
+                <img src={`data:image/jpeg;base64,${props.product.pimages[0].data}`} className="image"/>
+                <p>{trimDescription(props.product.pdescription)}</p>
+                <Button variant={"outlined"} color={"secondary"} onClick={()=>{onClick()}}>Buy Now</Button>
+            </Paper>
+
+
+
+        </div>
+    )
+
+}
