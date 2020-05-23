@@ -19,6 +19,7 @@ import {Button} from "@material-ui/core";
 import axios from "axios";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -253,6 +254,16 @@ export default function ComplexNavigationNoDrawer(props) {
 
                         </IconButton>
 
+
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('PURCHASED')}
+                            color="inherit"
+                        >  <LocalShippingIcon/>
+                        </IconButton>
 
 
                         <IconButton

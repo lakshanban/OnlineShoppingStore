@@ -22,6 +22,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from 'axios'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {TextField} from "@material-ui/core";
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -130,7 +131,15 @@ export default function ComplexNavigationBar(props) {
             <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
             <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
             {
-                //props.user.usertype==='Admin'? <Button variant={"contained"} color={"secondary"}  onClick={()=>props.dispatch('ADMIN')}   >Admin Panel</Button>:''
+                props.user.usertype==='Admin'? <Button variant={"contained"} color={"secondary"}  onClick={()=>props.dispatch('ADMIN')}   >Admin Panel</Button>:''
+
+
+                //props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
+            }
+            {
+                props.user.usertype==='manager'? <Button variant={"contained"} color={"primary"}  onClick={()=>props.dispatch('MANAGER')}   >Manager Panel</Button>:''
+
+
                 //props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
             }
         </Menu>
@@ -249,7 +258,7 @@ console.log("xxxx")
 
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit" >
+                        <IconButton aria-label="show 4 new mails" color="inherit"  onClick={()=>{props.dispatch('CHAT')}}>
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
                             </Badge>
@@ -285,6 +294,17 @@ console.log("xxxx")
                             onClick={()=> props.dispatch('LIST')}
                             color="inherit"
                         >  <FavoriteIcon/>
+                        </IconButton>
+
+
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={()=> props.dispatch('PURCHASED')}
+                            color="inherit"
+                        >  <LocalShippingIcon/>
                         </IconButton>
 
 

@@ -35,6 +35,12 @@ const PageReducer=(state='login',action)=>{
         case 'PAY':
             return 'pay'
 
+        case 'PURCHASED':
+            return 'purchased'
+
+        case 'P_PRODUCT':
+            return 'pproduct'
+
         default:
             return state;
 

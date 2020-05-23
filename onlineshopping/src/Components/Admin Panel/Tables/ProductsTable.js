@@ -247,7 +247,7 @@ export default function ProductsTable() {
         var bodyFormData = new FormData();
         bodyFormData.set('id', pid);
         axios.post('http://localhost:8080/deleteproduct',bodyFormData).then(res=>{
-            alert("Product deleted...");
+            alert("P_Product deleted...");
             handleDeleteDialogClose();
         })
     }
@@ -299,23 +299,23 @@ export default function ProductsTable() {
             <DialogContent>
                 <DialogContentText></DialogContentText>
                 <form onSubmit={productUpdateSubmitHanlder}>
-                    <TextField name={"productName"} value={oneProduct.pname} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Name" type="text" fullWidth required/>
-                    <TextField name={"productDiscription"} value={oneProduct.pdescription} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Description" type="text" fullWidth required/>
+                    <TextField name={"productName"} value={oneProduct.pname} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="P_Product Name" type="text" fullWidth required/>
+                    <TextField name={"productDiscription"} value={oneProduct.pdescription} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="P_Product Description" type="text" fullWidth required/>
                     <TextField name={"productDiscount"} value={oneProduct.pdiscount} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Discount Percentage" type="number" fullWidth/>
                     <TextField name={"productPrice"} value={oneProduct.pprice} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Marked Price" type="number" fullWidth required/>
-                    <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
+                    <InputLabel id="demo-simple-select-label">P_Product Category</InputLabel>
                     <NativeSelect defaultValue={oneProduct.pcategory} name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
                         {categories.map(text => (
                             <option  value={text}>{text}</option >
                         ))}
                     </NativeSelect>
-                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Change Product</Button>
+                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Change P_Product</Button>
                 </form>
             </DialogContent>
         </Dialog>
 
         <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Delete P_Product"}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     This product will be deleted permernenty. Can not be undo...

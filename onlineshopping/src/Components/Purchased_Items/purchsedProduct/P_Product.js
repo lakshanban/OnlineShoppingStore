@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
+import ComplexNavigationNoDrawer from "../../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import {Button, Card, Paper} from "@material-ui/core";
 import './Product.css'
 import ImageShow from "./ImageShow";
@@ -19,7 +19,8 @@ import axios from "axios"
 
 
 
-class Product extends Component {
+
+class P_Product extends Component {
 
 constructor(props) {
     super(props);
@@ -29,17 +30,19 @@ constructor(props) {
     }
 }
 
-addcomment(e){
+addcomment(e,product,user){
 
     e.preventDefault();
 
     const comment={
-        "productid":this.props.product.id,
-        "username":this.props.user,
-        "comment":e.target.comment.value
+
     }
 
-    console.log(comment)
+    axios.post('http://localhost:8080/addcomment',{"productid":product.id,"username":user,"comment":e.target.comment.value}).then(res=>{
+
+        console.log('comment added')
+        }
+    )
 
 }
 
@@ -91,6 +94,8 @@ proceedPurchase(props) {
         props.setproduct('SETPRODUCT',props.product)
         props.dispatch('PRODUCT')
 }
+
+
 
 
     render() {
@@ -154,7 +159,14 @@ proceedPurchase(props) {
 
                      <div className="container"><br/>
 
-
+                        <h5 >Rate our product</h5>
+                         <AddRatings product={this.props.product} />
+                         <form onSubmit={(event)=>{
+                             this.addcomment(event,this.props.product,this.props.user)
+                         }}>
+                            <TextField name={"comment"}  variant="outlined" margin="dense" label="Your Comment" id="btnid" type="text" fullWidth/>
+                            <Button variant="contained" color="primary" type={"submit"}>SEND</Button>
+                         </form>
                          <CommentList product={this.props.product}/>
                      </div>
 
@@ -167,22 +179,29 @@ proceedPurchase(props) {
     }
 }
 
-export default Product;
+export default P_Product;
 
-function AddRatings() {
+function AddRatings(props) {
+
+   const setRating=(value,pid)=>{
+
+        console.log(pid)
+
+        axios.post("http://localhost:8080/addrating",{'productid':pid,'rating':value}).then(res=>{
+
+        })
+    }
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [value, setValue] = React.useState(2);
 
     return (
         <div>
-            <Box component="fieldset" mb={3} borderColor="transparent">
+            <Box component="fieldset" mb={3} borderColor="transparent" on>
                 <Rating
                     name="read-only"
                     value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
+                    onChange={(event,value)=>{setRating(value,props.product.id)}}
                 />
             </Box>
         </div>

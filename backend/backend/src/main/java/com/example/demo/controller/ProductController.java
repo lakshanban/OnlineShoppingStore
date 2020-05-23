@@ -60,6 +60,8 @@ public class ProductController {
 	@RequestMapping("/addcomment")
 	public void addComment(@RequestBody CommentReq req) {
 		
+		System.out.println("add comment called");
+		
 		service.addComment(req);
 		
 	}
@@ -67,6 +69,7 @@ public class ProductController {
 	@RequestMapping("/addrating")
 	public void addRating(@RequestBody RatingReq req) {
 		
+		System.out.println("rating called");
 		service.addRating(req);
 		
 	}
@@ -76,6 +79,9 @@ public class ProductController {
 		
 		return service.getRating(p.pid);
 	}
+	
+	
+
 	
 	
 	
