@@ -1,9 +1,9 @@
 import {Component} from "react";
-import PropTypes from 'prop-types';
 import React from 'react'
 import {Button, Card, Paper} from "@material-ui/core";
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import axios from "axios";
+import ProductItem from "./ProductItem";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -16,6 +16,10 @@ class CheckoutForm extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            purchase: ''
+        }
     }
 
     confirmPurchase(pid) {
@@ -28,19 +32,19 @@ class CheckoutForm extends Component {
 
             console.log(pid)
 
-            axios.post('http://localhost:8080/purchaseOrder', {"username":this.props.user,"pid":pid,"quan":this.state.quan}).then(res=>{
+            axios.post('http://localhost:8080/purchaseOrder',
+                {"username":this.props.user,"pid":pid,"quan":this.state.quan})
+                .then(res=>{
 
                 alert('Purchase confirmed')
 
-            })
+            });
 
         }
     }
 
-
-
     render() {
-        const classes =makeStyles({
+        const classes = makeStyles({
             table: {
                 minWidth: 650,
             },
@@ -48,15 +52,20 @@ class CheckoutForm extends Component {
 
         return (
             <div>
-                <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
+                <ComplexNavigationNoDrawer
+                    dispatch={this.props.dispatch}
+                    userobject={this.props.userobject}
+                    setpurchase={this.props.setpurchase}
+                />
 
                 <div className="container">
                     <Paper elevation={3} className="paper">
                         <h2>Confirm purchase</h2>
                         <div className="productDetils">
-                            {/*<ProductItem/>*/}
+
                             <TableContainer component={Paper}>
                                 <Table className={classes.table} aria-label="simple table">
+
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Name</TableCell>
@@ -67,22 +76,20 @@ class CheckoutForm extends Component {
                                             <TableCell align="right">Payment method</TableCell>
                                         </TableRow>
                                     </TableHead>
+
                                     <TableBody>
-                                        {/*{rows.map((row) => (*/}
-                                            <TableRow key={this.state.name}>
-                                                <TableCell component="th" scope="row">
-                                                    {this.state.name}
-                                                </TableCell>
-                                                <TableCell align="right">{this.state.address1}</TableCell>
-                                                <TableCell align="right">{this.state.address2}</TableCell>
-                                                <TableCell align="right">{this.state.city}</TableCell>
-                                                <TableCell align="right">{this.state.postalCode}</TableCell>
+                                            <TableRow key={this.state.purchase.name}>
+                                                <TableCell component="th" scope="row">{this.state.purchase.name}</TableCell>
+                                                <TableCell align="right">{this.state.purchase.address1}</TableCell>
+                                                <TableCell align="right">{this.state.purchase.address2}</TableCell>
+                                                <TableCell align="right">{this.state.purchase.city}</TableCell>
+                                                <TableCell align="right">{this.state.purchase.postalCode}</TableCell>
                                             </TableRow>
-                                        {/*))}*/}
                                     </TableBody>
                                 </Table>
                             </TableContainer>
                         </div>
+
                         <Button
                             variant="contained"
                             color="primary"
@@ -98,9 +105,13 @@ class CheckoutForm extends Component {
                         >
                             Back
                         </Button>
+
                         <Card>
+
                         </Card>
+
                     </Paper>
+
                 </div>
                 </div>
         );

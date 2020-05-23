@@ -1,16 +1,10 @@
 import {Component} from "react";
 import React from 'react'
-import PropTypes from 'prop-types';
 import './DetailForm.css';
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import {Button, Card, Paper, TextField} from "@material-ui/core";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from '@material-ui/core/Radio';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import {Label} from "@material-ui/icons";
-import axios from "axios";
 
 class DetailForm extends Component {
 
@@ -18,61 +12,42 @@ class DetailForm extends Component {
         super(props);
 
         this.state = {
-            name: '',
-            address1 : '',
-            address2: '',
-            city: '',
-            postalCode: '',
-            cash: false,
-            cardNumber: '',
-            CardOtp: '',
-            CardDate: '',
+                name: '',
+                address1 : '',
+                address2: '',
+                city: '',
+                postalCode: '',
+                cash: false,
+                cardNumber: '',
+                CardOtp: '',
+                CardDate: '',
+                showing: true
+            }
 
-            showing: true
+            this.handleSubmit = this.handleSubmit.bind(this);
         }
-    }
 
-    getInitialState() {
-        return {
-            name: '',
-            address1 : '',
-            address2: '',
-            city: '',
-            postalCode: '',
-            cash: false,
-            cardNumber: '',
-            CardOtp: '',
-            CardDate: '',
+    handleSubmit(e) {
+        e.preventDefault();
 
-            showing: true
+        let data = {
+            name: this.state.name,
+            address1 : this.state.address1,
+            address2: this.state.address2,
+            city: this.state.city,
+            postalCode: this.state.postalCode,
+            cash: this.state.cash,
+            cardNumber: this.state.cardNumber,
+            CardOtp: this.state.CardOtp,
+            CardDate: this.state.CardDate,
         };
+
+        this.props.setpurchase(data);
+
     }
 
-    onChange(event) {
-        this.setState({
-            userInput: event.target.value,
-            name: event.target.value,
-            address1 : event.target.value,
-            address2: event.target.value,
-            city: event.target.value,
-            postalCode: event.target.value,
-            cash: false,
-            cardNumber: event.target.value,
-            CardOtp: '',
-            CardDate: '',
-
-            showing: true
-        });
-        this.props.newVal(event.target.value);
-    }
-
-    getData = (data) => {
-        console.log(data)
-    }
     render() {
-
         const {showing} = this.state;
-
 
         return(<div>
 
@@ -81,9 +56,10 @@ class DetailForm extends Component {
             <div className="container">
                 <Paper elevation={3} className="paper">
                 <h2>Purchase details</h2>
+
                 <Card>
 
-                <form onSubmit={this.HandleSubmit}>
+                <form onSubmit={this.handleSubmit}>
 
                 <TextField name={"name"}  required id="standard-required" label="Enter Name" /><br/>
                 <TextField name={"address1"} required id="standard-required" label="Enter Address 1" /><br/>
@@ -119,21 +95,28 @@ class DetailForm extends Component {
                     <Button
                         variant="contained"
                         color="primary"
+                        type={"submit"}
                         onClick={()=>{this.props.dispatch('CHECKOUT')}}
                     >
                         Confirm
                     </Button>
+
                 <Button variant="contained"
                         color="secondary"
                         onClick={()=>{this.props.dispatch('CART')}}
                 >
                     Cancel
                 </Button>
+
                 </Card>
+
                 </Paper>
+
             </div>
+
         </div>);
     }
 }
+
 
 export default DetailForm;

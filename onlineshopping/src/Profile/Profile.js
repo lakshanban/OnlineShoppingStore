@@ -9,7 +9,6 @@ class Profile extends Component {
 
     constructor(props) {
         super(props);
-
         this.state={user:''}
     }
 
@@ -39,9 +38,6 @@ class Profile extends Component {
 
 
     render() {
-
-
-
         return (
             <div>
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>

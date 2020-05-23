@@ -17,8 +17,6 @@ import Box from '@material-ui/core/Box';
 import CommentList from "./CommentList";
 import axios from "axios"
 
-
-
 class Product extends Component {
 
 constructor(props) {
@@ -97,6 +95,7 @@ proceedPurchase(props) {
         return (
             <div>
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
+
              <div className="container">
              <Paper elevation={3} className="paper">
                  <Grid container spacing={1} style={{display:"flex", margin:5, overflowY:'scroll', height:500}} >
