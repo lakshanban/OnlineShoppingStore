@@ -93,6 +93,7 @@ class CheckoutForm extends Component {
                         <Button
                             variant="contained"
                             color="primary"
+                            type={"submit"}
                             onClick={()=>{this.confirmPurchase(this.props.product.id)}}
                         >
                             Confirm

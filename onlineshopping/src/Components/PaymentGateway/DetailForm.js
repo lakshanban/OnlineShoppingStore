@@ -5,6 +5,7 @@ import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/Compl
 import {Button, Card, Paper, TextField} from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from '@material-ui/core/Radio';
+import ProductItem from "./ProductItem";
 
 class DetailForm extends Component {
 
@@ -47,16 +48,22 @@ class DetailForm extends Component {
     }
 
     render() {
+
         const {showing} = this.state;
 
         return(<div>
 
-            <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
+            <ComplexNavigationNoDrawer
+                dispatch={this.props.dispatch}
+                userobject={this.props.userobject}
+                setpurchase={this.props.setpurchase}
+            />
 
             <div className="container">
                 <Paper elevation={3} className="paper">
                 <h2>Purchase details</h2>
 
+                    {/*<ProductItem/>*/}
                 <Card>
 
                 <form onSubmit={this.handleSubmit}>
@@ -80,7 +87,6 @@ class DetailForm extends Component {
                     >
                         Cash payment
                     </FormControlLabel>
-
 
                     {showing ?
                     <div className="cardDetails">
@@ -115,6 +121,7 @@ class DetailForm extends Component {
             </div>
 
         </div>);
+
     }
 }
 
