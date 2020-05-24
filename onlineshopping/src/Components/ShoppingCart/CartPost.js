@@ -28,13 +28,16 @@ export  default class CartPost extends Component{
 
 
     }
+
+    Total=0
+
     calculate(order){
 
         let total= order.quan*(order.product.pprice-(order.product.pprice*order.product.pdiscount/100))
 
-       this.totalx=total+this.totalx;
+       this.Total=this.Total+total
 
-        return total;
+        return total
 
     }
 
@@ -53,6 +56,7 @@ export  default class CartPost extends Component{
 
             this.setState({orders:res.data})
         })
+
 
 
 
@@ -109,7 +113,7 @@ export  default class CartPost extends Component{
                     <TableCell className={"cell"} align={"center"}></TableCell>
                     <TableCell className={"cell"} align={"center"}></TableCell>
                     <TableCell className={"cell"} align={"center"}><h5>Total:</h5></TableCell>
-                    <TableCell className={"cell"} align={"center"}><h5>Rs.{this.totalx}</h5></TableCell>
+                    <TableCell className={"cell"} align={"center"}><h5>Rs.{this.Total}</h5></TableCell>
                     <TableCell align={"center"}>
                         <Button variant={"contained"}
                                 color={"primary"}

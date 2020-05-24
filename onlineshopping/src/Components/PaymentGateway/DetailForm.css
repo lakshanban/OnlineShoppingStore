@@ -28,3 +28,7 @@ div.cardDetails TextField{
 
     margin: 10px;
 }
+
+div.cardDetails Button {
+    padding: 10px;
+}

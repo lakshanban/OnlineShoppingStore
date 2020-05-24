@@ -106,6 +106,7 @@ public class UserController {
 	
 	@RequestMapping("/addtowishlist")
 	public void addtoWishList(@RequestBody ProductUser req) {
+
 		service.addtoWishList(req.username,req.pid);
 	}
 	

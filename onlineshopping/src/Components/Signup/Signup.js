@@ -6,7 +6,6 @@ import axios from 'axios'
 
 class Signup extends Component {
 
-
     constructor(props) {
         super(props);
 
@@ -34,10 +33,6 @@ class Signup extends Component {
             errormsg:"",
             submiterror:false,
             allerror:false
-
-
-
-
         }
     }
 
@@ -189,12 +184,7 @@ class Signup extends Component {
             }
 
     }
-
-
-
-
-
-
+    
 
     render() {
         return (

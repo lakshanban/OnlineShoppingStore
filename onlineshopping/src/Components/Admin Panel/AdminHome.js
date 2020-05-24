@@ -7,7 +7,6 @@ import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/Compl
 import AdminBottomNavigation from "./AdminBottomNavigation";
 
 
-
 class AdminHome extends Component {
 
     constructor(props) {
@@ -24,8 +23,6 @@ class AdminHome extends Component {
         })
         console.log(page)
     }
-
-
 
     render() {
 

@@ -44,12 +44,12 @@ const PageReducer=(state='nonehome',action)=>{
 
         case 'MANAGER':
             return 'manager'
-
-
-
+        
         case 'NONEHOME':
             return 'nonehome'
 
+        case 'CHECKOUT':
+            return 'checkout'
 
         default:
             return state;

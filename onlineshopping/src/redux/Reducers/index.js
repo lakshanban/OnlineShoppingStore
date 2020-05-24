@@ -4,6 +4,7 @@ import {combineReducers} from "redux";
 import UserObjectReducer from "./UserObjectReducer";
 import ProductReducer from "./ProductReducer";
 import PurchaseReducer from "./PurchaseReducer";
+import TotalReducer from "./TotalReducer";
 
 
 const allreducer= combineReducers({
@@ -11,7 +12,8 @@ const allreducer= combineReducers({
     UserReducer:UserReducer,
     UserObjectReducer:UserObjectReducer,
     ProductReducer:ProductReducer,
-    PurchaseReducer: PurchaseReducer
+    PurchaseReducer: PurchaseReducer,
+    TotalReducer:TotalReducer
 })
 
 

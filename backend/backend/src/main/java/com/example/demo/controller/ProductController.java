@@ -95,12 +95,8 @@ public class ProductController {
 	
 	@RequestMapping("/uploadimages")
 	public String saveImages(@RequestParam("file") MultipartFile files, @RequestParam String productid) throws IOException {
-		
-
 	System.out.println(files.getClass().getName());
-	
 	return service.uploadImages(files, productid);
-	
 		
 	}
 	

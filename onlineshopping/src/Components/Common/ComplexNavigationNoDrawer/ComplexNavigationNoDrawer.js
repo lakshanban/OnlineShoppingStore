@@ -145,10 +145,10 @@ export default function ComplexNavigationNoDrawer(props) {
             }
 
             {
+
                 props.userobject.usertype==='manager'?<Button variant={"contained"} color={"primary"}
                                                             onClick={()=>props.dispatch('MANAGER')}>Manager panel</Button>:""
             }
-
 
         </Menu>
             );
