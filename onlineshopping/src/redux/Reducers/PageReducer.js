@@ -42,6 +42,9 @@ const PageReducer=(state='login',action)=>{
         case 'P_PRODUCT':
             return 'pproduct'
 
+        case 'CHECKOUT':
+            return 'checkout'
+
 
         default:
             return state;

@@ -3,7 +3,6 @@ import React from 'react'
 import {Button, Card, Paper} from "@material-ui/core";
 import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/ComplexNavigationNoDrawer";
 import axios from "axios";
-import ProductItem from "./ProductItem";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import DetailForm from "./DetailForm";
 
 class CheckoutForm extends Component {
 
@@ -18,7 +18,7 @@ class CheckoutForm extends Component {
         super(props);
 
         this.state = {
-            purchase: ''
+            purchase: ' '
         }
     }
 
@@ -58,50 +58,40 @@ class CheckoutForm extends Component {
                     setpurchase={this.props.setpurchase}
                 />
 
-                <div className="container">
-                    <Paper elevation={3} className="paper">
+                <div className="container" style={{ display:"absolute"}}>
+                    <Paper className="paper" style={{ display:"absolute"}}>
                         <h2>Confirm purchase</h2>
                         <div className="productDetils">
 
-                            <TableContainer component={Paper}>
-                                <Table className={classes.table} aria-label="simple table">
+                            {/*<p>Name: {this.state.purchase.name}</p>*/}
+                            {/*<p>Address Line 1: {this.state.purchase.address1}</p>*/}
+                            {/*<p>Address Line 2: {this.state.purchase.address2}</p>*/}
+                            {/*<p>City: {this.state.purchase.city}</p>*/}
+                            {/*<p>Postal code: {this.state.purchase.postalCode}</p>*/}
 
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Name</TableCell>
-                                            <TableCell align="right">Address Line 1</TableCell>
-                                            <TableCell align="right">Address Line 2</TableCell>
-                                            <TableCell align="right">City</TableCell>
-                                            <TableCell align="right">Postal Card</TableCell>
-                                            <TableCell align="right">Payment method</TableCell>
-                                        </TableRow>
-                                    </TableHead>
+                            {/*<p>Payment mode: verified </p>*/}
 
-                                    <TableBody>
-                                            <TableRow key={this.state.purchase.name}>
-                                                <TableCell component="th" scope="row">{this.state.purchase.name}</TableCell>
-                                                <TableCell align="right">{this.state.purchase.address1}</TableCell>
-                                                <TableCell align="right">{this.state.purchase.address2}</TableCell>
-                                                <TableCell align="right">{this.state.purchase.city}</TableCell>
-                                                <TableCell align="right">{this.state.purchase.postalCode}</TableCell>
-                                            </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                            <p>Are you sure you want to confirm purchase?</p>
+
                         </div>
 
                         <Button
                             variant="contained"
                             color="primary"
                             type={"submit"}
-                            onClick={()=>{this.confirmPurchase(this.props.product.id)}}
+                            style={{margin:"20px"}}
+                            onClick={()=>{
+                                this.props.dispatch('PURCHASED')
+                                this.props.setpurchase('PURCHASE',this.state)
+                            }}
                         >
                             Confirm
                         </Button>
 
                         <Button
+                            style={{margin:"20px"}}
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             onClick={()=>{this.props.dispatch('PAY')}}
                         >
                             Back

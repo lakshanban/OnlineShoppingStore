@@ -72,8 +72,12 @@ class Test extends Component {
 
             case 'pay':
 
-
-                return <DetailForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchse={this.props.setpurchase}/>
+                return <DetailForm
+                    dispatch={this.props.dispatch}
+                    user={this.props.user}
+                    userobject={this.props.userobject}
+                    setproduct={this.props.setproduct}
+                    setpurchase={this.props.setpurchase}/>
 
             case 'purchased':
 

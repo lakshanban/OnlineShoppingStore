@@ -5,7 +5,6 @@ import ComplexNavigationNoDrawer from "../Common/ComplexNavigationNoDrawer/Compl
 import {Button, Card, Paper, TextField} from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from '@material-ui/core/Radio';
-import ProductItem from "./ProductItem";
 
 class DetailForm extends Component {
 
@@ -13,6 +12,7 @@ class DetailForm extends Component {
         super(props);
 
         this.state = {
+
                 name: '',
                 address1 : '',
                 address2: '',
@@ -22,15 +22,13 @@ class DetailForm extends Component {
                 cardNumber: '',
                 CardOtp: '',
                 CardDate: '',
-                showing: true
-            }
-
-            this.handleSubmit = this.handleSubmit.bind(this);
+                showing: true,
         }
+            this.HandleSubmit = this.HandleSubmit.bind(this);
 
-    handleSubmit(e) {
-        e.preventDefault();
+    }
 
+    HandleSubmit=(e)=>{
         let data = {
             name: this.state.name,
             address1 : this.state.address1,
@@ -43,8 +41,16 @@ class DetailForm extends Component {
             CardDate: this.state.CardDate,
         };
 
-        this.props.setpurchase(data);
+        this.props.setpurchase('PURCHASE',data);
+        console.log('submit');
+        console.log(data);
 
+    }
+
+     onClick=()=>{
+         this.props.setpurchase('PURCHASE',this.state)
+         this.props.dispatch('CHECKOUT')
+         console.log(this.state);
     }
 
     render() {
@@ -63,57 +69,84 @@ class DetailForm extends Component {
                 <Paper elevation={3} className="paper">
                 <h2>Purchase details</h2>
 
-                    {/*<ProductItem/>*/}
                 <Card>
 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.HandleSubmit} >
 
-                <TextField name={"name"}  required id="standard-required" label="Enter Name" /><br/>
-                <TextField name={"address1"} required id="standard-required" label="Enter Address 1" /><br/>
-                <TextField name={"address2"} required id="standard-required" label="Enter Address 2" /><br/>
-                <TextField name={"city"} required id="standard-required" label="City" /><br/>
-                <TextField name={"postalCode"} required id="standard-required" label="Postal code" /><br/><br/>
+                    <TextField name={"name"}
+                               required id="standard-required"
+                               label="Enter Name"
+                               className={"usernametext"}/><br/>
+                    <TextField name={"address1"}
+                               required id="standard-required"
+                               label="Enter Address 1"
+                               className={"usernametext"} /><br/>
+                    <TextField name={"address2"}
+                               required id="standard-required"
+                               label="Enter Address 2"
+                               className={"usernametext"} /><br/>
+                    <TextField name={"city"}
+                               required id="standard-required"
+                               label="City"
+                               className={"usernametext"} /><br/>
+                    <TextField name={"postalCode"}
+                               required id="standard-required"
+                               label="Postal code"
+                               className={"usernametext"}/><br/><br/>
 
-                    <p>Press below icon if you wish to pay cash on delivery</p>
+                        <p>Press below cash option if you wish to pay cash on delivery</p>
 
-                    <br/>
-                    <FormControlLabel
-                            name={"cash"}
-                            value="Cash"
-                            color="secondary"
-                            label="Cash"
-                            control={<Radio/>}
-                          onClick={() => this.setState({showing: !showing})}
-                    >
-                        Cash payment
-                    </FormControlLabel>
+                        <br/>
+                        <FormControlLabel
+                                name={"cash"}
+                                color="secondary"
+                                label="Cash"
+                                control={<Radio/>}
+                                className={"usernametext"}
+                              onClick={() => this.setState({showing: !showing})}
+                        >
+                            Cash payment
+                        </FormControlLabel>
 
-                    {showing ?
-                    <div className="cardDetails">
-                        <TextField name={"cardNumber"} required id="standard-required" label="Card number"/><br/>
-                        <TextField name={"CardOtp"} required id="standard-required" label="OTP"/><br/>
-                        <TextField name={"CardDate"} required id="standard-required" label="Expiry Date"/>
-                    </div> : null
-                    }<br/>
+                        {showing ?
+                        <div className="cardDetails">
+                            <TextField name={"cardNumber"}
+                                       required id="standard-required"
+                                       label="Card number"
+                                       className={"usernametext"}/><br/>
+                            <TextField name={"CardOtp"}
+                                       required id="standard-required"
+                                       label="OTP"
+                                       className={"usernametext"}/><br/>
+                            <TextField name={"CardDate"}
+                                       required id="standard-required"
+                                       label="Expiry Date"
+                                       className={"usernametext"}/>
+                        </div> : null
+                        }
+                        <br/>
+
+                        <Button color={"primary"}
+                                style={{margin:"20px", width: "100px"}}
+                                variant={"contained"}
+                                className={"usernametext"}
+                                type={"submit"}
+                                onClick={()=>{this.onClick()}}
+                        >
+                            Confirm
+                        </Button>
+
+
+                        <Button variant="contained"
+                                color="secondary"
+                                style={{margin:"20px", width:"100px"}}
+                                className={"usernametext"}
+                                onClick={()=>{this.props.dispatch('CART')}}
+                        >
+                            Cancel
+                        </Button>
 
                 </form>
-
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        type={"submit"}
-                        onClick={()=>{this.props.dispatch('CHECKOUT')
-                        this.props.setpurchse('PURCHASE',this.state)}}
-                    >
-                        Confirm
-                    </Button>
-
-                <Button variant="contained"
-                        color="secondary"
-                        onClick={()=>{this.props.dispatch('CART')}}
-                >
-                    Cancel
-                </Button>
 
                 </Card>
 
@@ -125,6 +158,5 @@ class DetailForm extends Component {
 
     }
 }
-
 
 export default DetailForm;
