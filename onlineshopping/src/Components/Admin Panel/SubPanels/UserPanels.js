@@ -83,7 +83,7 @@ class UserPanels extends Component {
         return (
             <div>
                 <h3>USER PANEL</h3>
-                <div className="container" >
+                <div className="container-lg" >
                     <div  style={{marginBottom: 10}}>
                         <Grid container spacing={3} alignItems="flex-end" className="justify-content-end">
                             <Grid item>

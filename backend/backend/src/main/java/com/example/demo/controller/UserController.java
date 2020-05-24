@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(path = "/userlogin", method = RequestMethod.POST)
-	public boolean Login(@RequestBody UserLoginRequest request) {
+	public String Login(@RequestBody UserLoginRequest request) {
 		
 		//System.out.println(hashPassword(request.password));
 		

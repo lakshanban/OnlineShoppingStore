@@ -10,7 +10,7 @@ class Statistics extends Component {
         return (
             <div>
                 <h3>statistics</h3>
-                <div className="container" >
+                <div className="container-lg" >
                     <div  style={{marginBottom: 10}}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>

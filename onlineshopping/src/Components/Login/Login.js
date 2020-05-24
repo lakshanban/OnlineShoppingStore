@@ -83,17 +83,17 @@ function Login(props){
                 username:e.target.username.value,
                 password:e.target.password.value
             }).then(res=>{
-
+                console.log(res.data)
                 if(!res.data){
                     setEmptyerror(true);
                     setErrormessage("Username or password Incorrect")
                 }else {
 
                     props.dispatch('HOME')
-                    props.setuser('SET',uname)
+                    props.setuser('SET',res.data)
 
                     axios.post('http://localhost:8080/userget',{
-                        username: uname
+                        username: res.data
                     }).then(res=>{
 
                         props.setuserobject('SETOBJECT',res.data)
@@ -109,11 +109,11 @@ function Login(props){
 
 
 
-       return (<div style={{marginTop:"100px"}}>
+       return (<div style={{marginTop:"80px"}}>
 
            <SimpleNavigationBar nextpage="SIGN_UP"/>
 
-           <div className={"container"} style={{backgroundImage:"url("+Background+")",height:"600px",backgroundPosition:"center",backgroundSize:"cover"}}>
+           <div style={{backgroundImage:"url("+Background+")",height:"550px",backgroundPosition:"center",backgroundSize:"cover"}}>
 
            <div className={"title"}><h1>Login</h1></div>
            <div>“Fashion & Clothing is the one makes you look awesome and unique from others!”</div>
@@ -129,7 +129,7 @@ function Login(props){
 
                <form onSubmit={onSubmitHandler}>
 
-               <TextField name={"username"} id="outlined-basic" label="Username" variant="outlined" className={"usernametext"} onChange={onChangeHandler}/><br/><br />
+               <TextField name={"username"} id="outlined-basic" label="Username or Email" variant="outlined" className={"usernametext"} onChange={onChangeHandler}/><br/><br />
                <TextField name={"password"} id="outlined-basic" label="Password" variant="outlined" className={"usernametext"} type={"password"} onChange={onChangeHandler}/><br/><br/>
 
                <Button color={"primary"} variant={"outlined"} className={"usernametext"} type={"submit"}>Login</Button>

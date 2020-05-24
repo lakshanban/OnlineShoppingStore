@@ -145,11 +145,18 @@ class Signup extends Component {
                 })
                 return;
 
-            }else{
-
-
-
+            }else if (e.target.password.value != e.target.cpassword.value){
                 this.setState({
+                    errors: {
+                        passworderror: true
+                    },
+                    errormsg: "Password and confirm password does not match"
+                })
+            } else{
+                this.setState({
+                    errors: {
+                        passworderror: false
+                    },
                     submiterror:false
                 })
 
@@ -195,7 +202,7 @@ class Signup extends Component {
 
                 <SimpleNavigationBar nextpage={"LOGIN"}/>
 
-                <div className={"container"}>
+                <div className="container-lg">
 
                     <div className={"title"}><h1>Signup Now</h1></div>
                     <div>“Fashion & Clothing is the one makes you look awesome and unique from others!”</div>
@@ -220,13 +227,7 @@ class Signup extends Component {
                         <form onSubmit={this.HandleSubmit}>
                         <TextField name="fname" id="standard-basic" label="First Name" variant="standard" className={"usernametext"} /><br/><br />
                         <TextField name="lname" id="standard-basic" label="Last Name" variant="standard" className={"usernametext"}  /><br/><br/>
-                        <TextField
-                            id="date"
-                            name="bday"
-                            label="Birthday"
-                            type="date"
-                            defaultValue="2017-05-24"
-                            className={"usernametext"}
+                        <TextField id="date" name="bday" label="Birthday" type="date" defaultValue="2017-05-24" className={"usernametext"}
                             InputLabelProps={{
                                 shrink: true,
                             }}

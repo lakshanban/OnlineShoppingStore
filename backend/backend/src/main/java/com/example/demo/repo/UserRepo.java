@@ -11,6 +11,7 @@ import com.example.demo.model.User;
 public interface UserRepo extends MongoRepository<User, String> {
 
 	public List<User> findByUsername(String username);
+	public List<User> findByEmail(String email);
 	
 	
 }

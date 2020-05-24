@@ -12,6 +12,7 @@ import ProductsData from "./Components/Store Manager/ProductsData";
 import DetailForm from "./Components/PaymentGateway/DetailForm";
 import NonLoggedHome from "./Components/NonLoggedHome/NonLoggedHome";
 import CheckoutForm from "./Components/PaymentGateway/CheckoutForm";
+import ProductsTable from "./Components/Admin Panel/Tables/ProductsTable";
 
 
 function App() {

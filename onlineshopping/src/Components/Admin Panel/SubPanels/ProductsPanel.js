@@ -55,7 +55,7 @@ class ProductsPanel extends Component {
         return (
             <div>
                 <h3>PRODUCT PANEL</h3>
-                <div className="container">
+                <div className="container-lg">
                     <div  style={{marginBottom: 10}}>
                         <Grid container spacing={3} alignItems="flex-end" className="justify-content-end">
                             <Grid item>

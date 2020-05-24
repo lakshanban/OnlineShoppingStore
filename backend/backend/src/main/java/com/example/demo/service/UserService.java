@@ -48,6 +48,30 @@ public class UserService {
 		return null;
 	}
 	
+	public User findUserByEmail(String email) {
+			
+			try {
+			List<User> list= repo.findByEmail(email);
+			
+			for(User x: list) {
+				
+				if(x.getEmail().equals(email)) {
+					System.out.println("email user found");
+					return x;
+				}
+				else {
+					return null;
+					}
+				
+			}
+			
+			}catch (Exception e) {
+			    return null;
+			}
+			
+			return null;
+		}
+	
 	
 	public boolean AddUser(String username, String fname, String lname, String address, String cnumber, String usertype,
 			String bday, String password, String email) {
@@ -79,18 +103,36 @@ public class UserService {
 	}
 	
 	
-	public boolean Login(String username,String password) {
+	public String Login(String username,String password) {
+		
+		String uname = null;
 		
 		try {
 			User user= findUserByUsername(username);
+			User user2 = findUserByEmail(username);
 			
-			if(user==null)
-				return false;
+			if(user==null && user2 == null) {
+				
+				System.out.println("user null");
+				
+			}
+			if (user != null) {
+				if (new BCrypt().checkpw(password, user.getPassword())) {
+					uname = user.getUsername();
+				}	
+			}
+			if (user2 != null) {
+				if (new BCrypt().checkpw(password, user2.getPassword())) {
+					uname = user2.getUsername();
+				}	
+			}
 			
-			return new BCrypt().checkpw(password, user.getPassword());
-		}catch (Exception e) {
-			return false;
-		}
+			
+		}catch (Exception e) {}
+		
+		System.out.println(uname);
+		return uname;
+		
 		
 		
 	}

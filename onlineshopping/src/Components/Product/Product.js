@@ -96,7 +96,7 @@ proceedPurchase(props) {
             <div>
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
 
-             <div className="container">
+             <div className="container-lg">
              <Paper elevation={3} className="paper">
                  <Grid container spacing={1} style={{display:"flex", margin:5, overflowY:'scroll', height:500}} >
                      <Grid item xs={6} container spacing={1}>
@@ -151,9 +151,7 @@ proceedPurchase(props) {
                          </Card>
                      </Grid>
 
-                     <div className="container"><br/>
-
-
+                     <div className="container-lg"><br/>
                          <CommentList product={this.props.product}/>
                      </div>
 

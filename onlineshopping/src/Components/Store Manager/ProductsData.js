@@ -1,5 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
-import Grid from "@material-ui/core/Grid";
+//import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 import {Button} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -208,13 +209,13 @@ class ProductsData extends Component {
                 {/*<ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>*/}
                 <div style={{marginTop:50}}></div>
                 <h3>PRODUCT DATA</h3>
-                <div className="container">
+                <div className="container-lg">
                     <div  style={{marginBottom: 10}}>
                         <Grid container spacing={3} alignItems="flex-end" className="justify-content-end">
                             <Grid item>
                                 <TextField id="input-with-icon-grid" label="Search..." type="search" />
                             </Grid>
-                            <Grid item >
+                            <Grid item>
                                 <AddProductDialog/>
                             </Grid>
                         </Grid>
