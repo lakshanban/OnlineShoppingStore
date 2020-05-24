@@ -61,7 +61,7 @@ const fetchProducts= async ()=>{
     return(
 
         <div>
-        <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
+        <ComplexNavigationBar dispatch={props.dispatch} user={user} filterproducts={filterproducts} products={products} searchproducts={searchproducts} userobject={props.userobject}/>
 
             <Container maxWidth={"xl"} style={{marginLeft:'5%'}}>
                 <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>

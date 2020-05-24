@@ -122,6 +122,7 @@ public class UserService {
 				}	
 			}
 			if (user2 != null) {
+				System.out.println(user2.getPassword()+ "      "+ password + "    " + hashPassword(password) );
 				if (new BCrypt().checkpw(password, user2.getPassword())) {
 					uname = user2.getUsername();
 				}	
@@ -393,4 +394,43 @@ public boolean updateProfile(String username, String fname, String lname, String
 			return new ArrayList<Product>();
 
 		}
+		
+		public void removeUser(String username) {
+			
+			
+			List<User> list= repo.findAll();
+			
+			for(User user: list) {
+				
+				if(user.getUsername().equals(username)) {
+					
+					repo.delete(user);
+				}
+				
+			}
+			
+		}
+		
+		
+		public void resetPassword(String username, String password) {
+			
+			
+			List<User> list= repo.findAll();
+			
+			for(User user: list) {
+				
+				if(user.getUsername().equals(username)) {
+					
+					user.setPassword(hashPassword(password));
+					repo.save(user);
+				}
+				
+			}
+			
+		}
+		
+		
+		
+		
+		
 	}

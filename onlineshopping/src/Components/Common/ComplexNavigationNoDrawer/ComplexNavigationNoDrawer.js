@@ -144,6 +144,11 @@ export default function ComplexNavigationNoDrawer(props) {
                 onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
             }
 
+            {
+                props.userobject.usertype==='manager'?<Button variant={"contained"} color={"primary"}
+                                                            onClick={()=>props.dispatch('MANAGER')}>Manager panel</Button>:""
+            }
+
 
         </Menu>
             );
@@ -161,7 +166,7 @@ export default function ComplexNavigationNoDrawer(props) {
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
+                    <Badge badgeContent={1} color="secondary">
                         <MailIcon />
                     </Badge>
                 </IconButton>
@@ -169,7 +174,7 @@ export default function ComplexNavigationNoDrawer(props) {
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit" onClick={()=>props.dispatch('NOTICE')}>
-                    <Badge badgeContent={11} color="secondary">
+                    <Badge badgeContent={1} color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
@@ -218,12 +223,12 @@ export default function ComplexNavigationNoDrawer(props) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit" onClick={()=>props.dispatch('CHAT')}>
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge badgeContent={1} color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit" onClick={()=>{props.dispatch('NOTICE')}}>
-                            <Badge badgeContent={17} color="secondary">
+                            <Badge badgeContent={1} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>

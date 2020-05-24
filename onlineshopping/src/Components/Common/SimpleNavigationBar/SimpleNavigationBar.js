@@ -12,7 +12,7 @@ function SimpleNavigationBar(props){
         <AppBar position="fixed">
             <Toolbar>
 
-                <Typography variant="h6" style={{marginLeft:'43%'}}>
+                <Typography variant="h6" style={{marginLeft:'43%'}} onClick={()=>props.dispatch('NONEHOME')}>
                       Balck and Blue Clothing
                 </Typography>
 

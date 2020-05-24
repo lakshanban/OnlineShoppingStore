@@ -146,16 +146,8 @@ export default function ComplexNavigationNonLogged(props) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
+            <MenuItem >
+                <Button color={"secondary"} onClick={()=>{props.dispatch("LOGIN")}}>Login</Button>
             </MenuItem>
         </Menu>
     );
@@ -180,7 +172,7 @@ export default function ComplexNavigationNonLogged(props) {
                     >
                     <Drawer filterproducts={props.filterproducts}/>
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
+                    <Typography className={classes.title} variant="h6"  noWrap>
                         Black and Blue
                     </Typography>
                     <div className={classes.search}>
@@ -203,29 +195,13 @@ export default function ComplexNavigationNonLogged(props) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
 
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-
+                        <div className={classes.sectionMobile}>
+                            <Button color={"secondary"} onClick={()=>{props.dispatch('LOGIN')}}>Login</Button>
+                        </div>
 
                     </div>
                     <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
+                        <Button color={"secondary"} onClick={()=>{props.dispatch('LOGIN')}}>Login</Button>
                     </div>
                 </Toolbar>
             </AppBar>

@@ -36,7 +36,7 @@ export default function NonLoggedHome(props){
 
         return (
             <div>
-                <ComplexNavigationNonLogged  filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
+                <ComplexNavigationNonLogged dispatch={props.dispatch} filterproducts={filterproducts} products={products} searchproducts={searchproducts}/>
                 <div style={{marginTop:70}}>
                 <ControlledCarousel/>
                 </div>

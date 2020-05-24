@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Order;
@@ -41,6 +42,20 @@ public class UserController {
 		
 		return service.AddUser(request.username, request.fname, request.lname, request.address, request.cnumber, request.usertype, request.bday, request.password,request.email);
 
+		
+	}
+	
+	@RequestMapping("/deleteuser")
+	public void deleteProduct(@RequestParam String username) {
+		
+		service.removeUser(username);
+		
+	}
+	
+	@RequestMapping("/resetpassword")
+	public void resetPassword(@RequestParam String username, String password) {
+		
+		service.resetPassword(username, password);
 		
 	}
 	

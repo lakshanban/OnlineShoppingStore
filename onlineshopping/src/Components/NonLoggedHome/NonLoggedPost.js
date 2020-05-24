@@ -19,7 +19,7 @@ export default function NonLoggedPost(props){
     const onClick=()=>{
 
         // props.setproduct('SETPRODUCT',props.product)
-        // props.dispatch('PRODUCT')
+         props.dispatch('LOGIN')
 
     }
 

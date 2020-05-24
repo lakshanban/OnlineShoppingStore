@@ -21,6 +21,8 @@ import PurchasedList from "../Purchased_Items/PurchasedList";
 import P_Product from "../Purchased_Items/purchsedProduct/P_Product";
 import CheckoutForm from "../PaymentGateway/CheckoutForm";
 import setPurchase from "../../redux/Actions/setPurchase";
+import ProductsData from "../Store Manager/ProductsData";
+import NonLoggedHome from "../NonLoggedHome/NonLoggedHome";
 
 
 class Test extends Component {
@@ -86,6 +88,15 @@ class Test extends Component {
 
             case 'checkout'  :
                 return  <CheckoutForm dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchase={this.props.setpurchase}/>
+
+            case 'manager':
+
+                return <ProductsData dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} product={this.props.product} />
+
+
+            case 'nonehome':
+
+                return <NonLoggedHome dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} product={this.props.product} />
 
         }
     }

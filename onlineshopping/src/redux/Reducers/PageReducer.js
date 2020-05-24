@@ -1,4 +1,4 @@
-const PageReducer=(state='login',action)=>{
+const PageReducer=(state='nonehome',action)=>{
 
     switch (action.payload) {
 
@@ -41,6 +41,14 @@ const PageReducer=(state='login',action)=>{
 
         case 'P_PRODUCT':
             return 'pproduct'
+
+        case 'MANAGER':
+            return 'manager'
+
+
+
+        case 'NONEHOME':
+            return 'nonehome'
 
 
         default:

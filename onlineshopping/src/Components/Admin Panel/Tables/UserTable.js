@@ -8,6 +8,7 @@ import { AutoSizer, Column, Table } from 'react-virtualized';
 import {Button} from "@material-ui/core";
 import axios from "axios";
 
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -164,6 +165,29 @@ export default function UserTable() {
     const[users,setUsers]= useState([])
     const[userName, setUserName] = useState("");
 
+    const [open, setOpen] = React.useState(false);
+
+    const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+
+    const[userId, setUserId] = useState("");
+
+    const handleDeleteDialogOpen = () => {
+        setOpenDeleteDialog(true);
+    };
+
+    const handleDeleteDialogClose = () => {
+        setOpenDeleteDialog(false);
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     const fetchUsers= async ()=>{
         await axios.get('http://localhost:8080/usergetall').then(res=> {
             setUsers(res.data);
@@ -173,18 +197,87 @@ export default function UserTable() {
         fetchUsers()
     },0)
 
+    const handleDelete=(user)=>{
+        setUserName(user.username)
+        handleDeleteDialogOpen();
+    }
+
     {
         users.map(user => {
             rows.push(createUserData(user.id, user.username, user.fname, user.lname, user.address, user.cnumber,
                 user.usertype, user.email,
-                <Button size="small" variant="contained" color="primary">Edit</Button>,
-                <Button size="small" variant="contained" color="secondary">Delete</Button>
+                <Button size="small" onClick={()=>{handleResetPassword(user)}} variant="contained" color="primary">RESET</Button>,
+                <Button size="small" onClick={()=>{handleDelete(user)}} variant="contained" color="secondary">Delete</Button>
             ));
         })
     }
 
+    const userDeleteConfirm = () => {
+        var bodyFormData = new FormData();
+        bodyFormData.set('username', userName );
+        axios.post('http://localhost:8080/deleteuser',bodyFormData).then(res=>{
+            alert("User deleted...");
+            handleDeleteDialogClose();
+        })
+    }
+
+    const handleResetPassword=(user)=>{
+        setUserName(user.username);
+        handleClickOpen();
+    }
+
+    const resetPasswordConfirm = (e) => {
+        e.preventDefault()
+
+        let newpassword = e.target.newpassword.value;
+        let confirmPassword = e.target.confirmPassword.value;
+
+        if (newpassword != confirmPassword){
+            alert("Password fields does not match");
+        }else {
+            var bodyFormData = new FormData();
+            bodyFormData.set('username', userName );
+            bodyFormData.set('password', newpassword );
+            axios.post('http://localhost:8080/resetpassword',bodyFormData).then(res=>{
+                alert("Password reset successfully.....");
+                handleClose();
+            })
+        }
+
+
+    }
+
 
     return (
+
+        <div>
+
+            <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{"Delete User"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        This user will be deleted permernenty. Can not be undo...
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteDialogClose} color="primary">Cancel</Button>
+                    <Button onClick={userDeleteConfirm} color="primary" autoFocus>Delete</Button>
+                </DialogActions>
+            </Dialog>
+
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Reset Password</DialogTitle>
+                <form onSubmit={resetPasswordConfirm}>
+                <DialogContent>
+                    <TextField name={"newpassword"} autoFocus margin="dense" id="name" label="Password" type="password" fullWidth/>
+                    <TextField name={"confirmPassword"} autoFocus margin="dense" id="name" label="Confirm PAssword" type="password" fullWidth/>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">Cancel</Button>
+                    <Button type="submit" color="primary">Change</Button>
+                </DialogActions>
+                </form>
+            </Dialog>
 
 
         <Paper style={{ height: 400, width: '100%' }}>
@@ -243,5 +336,6 @@ export default function UserTable() {
                 ]}
             />
         </Paper>
+        </div>
     );
 }

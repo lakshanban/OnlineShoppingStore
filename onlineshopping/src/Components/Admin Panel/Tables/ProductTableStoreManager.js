@@ -164,7 +164,7 @@ function createData(pid, name, type, description, basicprice, discountpercentage
     return {pid, name, type, description, basicprice, discountpercentage, markedprice, actionEdit,actionDelete };
 }
 
-export default function ProductsTable() {
+export default function ProductsTableStoreManager(props) {
 
     const [open, setOpen] = React.useState(false);
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
@@ -193,7 +193,7 @@ export default function ProductsTable() {
     const[products,setProducts]= useState([])
 
     const fetchProducts= async ()=>{
-        await axios.get('http://localhost:8080/getallproducts').then(res=> {
+        await axios.post('http://localhost:8080/getproductsbyowner',{"username":props.user}).then(res=> {
             setProducts(res.data);
         })
     }
@@ -294,92 +294,92 @@ export default function ProductsTable() {
 
     return (
         <div>
-        <Dialog open={open} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">CHANGE PRODUCT</DialogTitle>
-            <DialogContent>
-                <DialogContentText></DialogContentText>
-                <form onSubmit={productUpdateSubmitHanlder}>
-                    <TextField name={"productName"} value={oneProduct.pname} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Name" type="text" fullWidth required/>
-                    <TextField name={"productDiscription"} value={oneProduct.pdescription} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Description" type="text" fullWidth required/>
-                    <TextField name={"productDiscount"} value={oneProduct.pdiscount} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Discount Percentage" type="number" fullWidth/>
-                    <TextField name={"productPrice"} value={oneProduct.pprice} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Marked Price" type="number" fullWidth required/>
-                    <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
-                    <NativeSelect defaultValue={oneProduct.pcategory} name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
-                        {categories.map(text => (
-                            <option  value={text}>{text}</option >
-                        ))}
-                    </NativeSelect>
-                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Change Product</Button>
-                </form>
-            </DialogContent>
-        </Dialog>
+            <Dialog open={open} onClose={handleDialogClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">CHANGE PRODUCT</DialogTitle>
+                <DialogContent>
+                    <DialogContentText></DialogContentText>
+                    <form onSubmit={productUpdateSubmitHanlder}>
+                        <TextField name={"productName"} value={oneProduct.pname} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Name" type="text" fullWidth required/>
+                        <TextField name={"productDiscription"} value={oneProduct.pdescription} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Product Description" type="text" fullWidth required/>
+                        <TextField name={"productDiscount"} value={oneProduct.pdiscount} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Discount Percentage" type="number" fullWidth/>
+                        <TextField name={"productPrice"} value={oneProduct.pprice} onChange={(event)=> changeHanlder(event)} autoFocus margin="dense" label="Marked Price" type="number" fullWidth required/>
+                        <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
+                        <NativeSelect defaultValue={oneProduct.pcategory} name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
+                            {categories.map(text => (
+                                <option  value={text}>{text}</option >
+                            ))}
+                        </NativeSelect>
+                        <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Change Product</Button>
+                    </form>
+                </DialogContent>
+            </Dialog>
 
-        <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    This product will be deleted permernenty. Can not be undo...
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleDeleteDialogClose} color="primary">Cancel</Button>
-                <Button onClick={productDeleteConfirm} color="primary" autoFocus>Delete</Button>
-            </DialogActions>
-        </Dialog>
+            <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+                <DialogTitle id="alert-dialog-title">{"Delete Product"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        This product will be deleted permernenty. Can not be undo...
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDeleteDialogClose} color="primary">Cancel</Button>
+                    <Button onClick={productDeleteConfirm} color="primary" autoFocus>Delete</Button>
+                </DialogActions>
+            </Dialog>
 
-        <Paper style={{ height: 400, width: '100%' }}>
-            <VirtualizedTable
-                rowCount={rows.length}
-                rowGetter={({ index }) => rows[index]}
-                columns={[
-                    {
-                        width: 180,
-                        label: 'Name',
-                        dataKey: 'name',
-                    },
-                    {
-                        width: 120,
-                        label: 'Type',
-                        dataKey: 'type',
+            <Paper style={{ height: 400, width: '100%' }}>
+                <VirtualizedTable
+                    rowCount={rows.length}
+                    rowGetter={({ index }) => rows[index]}
+                    columns={[
+                        {
+                            width: 180,
+                            label: 'Name',
+                            dataKey: 'name',
+                        },
+                        {
+                            width: 120,
+                            label: 'Type',
+                            dataKey: 'type',
 
-                    },
-                    {
-                        width: 220,
-                        label: <div style={{marginLeft:40}}>Description</div>,
-                        dataKey: 'description',
-                    },
-                    {
-                        width: 120,
-                        label: 'Basic Price',
-                        dataKey: 'basicprice',
-                        numeric: true,
-                    },
-                    {
-                        width: 120,
-                        label: 'Discount(%)',
-                        dataKey: 'discountpercentage',
-                        numeric: true,
-                    },
-                    {
-                        width: 120,
-                        label: 'owner',
-                        dataKey: 'markedprice',
-                        numeric: true,
-                    },
-                    {
-                        width: 100,
-                        label: 'Edit',
-                        dataKey: 'actionEdit',
-                    },
-                    {
-                        width: 100,
-                        label: 'Delete',
-                        dataKey: 'actionDelete',
-                    },
+                        },
+                        {
+                            width: 220,
+                            label: <div style={{marginLeft:40}}>Description</div>,
+                            dataKey: 'description',
+                        },
+                        {
+                            width: 120,
+                            label: 'Basic Price',
+                            dataKey: 'basicprice',
+                            numeric: true,
+                        },
+                        {
+                            width: 120,
+                            label: 'Discount(%)',
+                            dataKey: 'discountpercentage',
+                            numeric: true,
+                        },
+                        {
+                            width: 120,
+                            label: 'owner',
+                            dataKey: 'markedprice',
+                            numeric: true,
+                        },
+                        {
+                            width: 100,
+                            label: 'Edit',
+                            dataKey: 'actionEdit',
+                        },
+                        {
+                            width: 100,
+                            label: 'Delete',
+                            dataKey: 'actionDelete',
+                        },
 
-                ]}
-            />
-        </Paper>
+                    ]}
+                />
+            </Paper>
         </div>
     );
 }

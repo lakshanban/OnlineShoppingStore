@@ -256,9 +256,9 @@ function ChangePasswordDialog(props) {
                 {/*<DialogContentText></DialogContentText>*/}
             <form onSubmit={changePasswordHandler}>
                 <DialogContent>
-                    <TextField name={"oldpassword"} autoFocus margin="dense" id="name" label="Old Password" type="text" fullWidth/>
-                    <TextField name={"newpasword"} autoFocus margin="dense" id="name" label="New Password" type="text" fullWidth/>
-                    <TextField name={"confirmpassword"} autoFocus margin="dense" id="name" label="Change Password" type="text" fullWidth/>
+                    <TextField name={"oldpassword"} autoFocus margin="dense" id="name" label="Old Password" type="password" fullWidth/>
+                    <TextField name={"newpasword"} autoFocus margin="dense" id="name" label="New Password" type="password" fullWidth/>
+                    <TextField name={"confirmpassword"} autoFocus margin="dense" id="name" label="Change Password" type="password" fullWidth/>
                     {error? <Alert severity="error">{errorMessage}</Alert>: ""}
                 </DialogContent>
                 <DialogActions>

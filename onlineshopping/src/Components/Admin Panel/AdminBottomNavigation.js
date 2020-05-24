@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 function SimpleBottomNavigation(props) {
 
     const classes = useStyles();
-    const [value, setValue] = React.useState(1);
+    const [value, setValue] = React.useState(0);
 
     return (
         <BottomNavigation
@@ -36,7 +36,7 @@ function SimpleBottomNavigation(props) {
             className={classes.root}
         >
             <BottomNavigationAction label="Products" icon={<ShoppingCartIcon/>} />
-            <BottomNavigationAction label="Statistics" icon={<AttachMoneyIcon/>} />
+            {/*<BottomNavigationAction label="Statistics" icon={<AttachMoneyIcon/>} />*/}
             <BottomNavigationAction label="User panel" icon={<FaceIcon />} />
 
         </BottomNavigation>

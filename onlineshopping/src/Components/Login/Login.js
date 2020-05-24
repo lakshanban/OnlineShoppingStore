@@ -111,7 +111,7 @@ function Login(props){
 
        return (<div style={{marginTop:"80px"}}>
 
-           <SimpleNavigationBar nextpage="SIGN_UP"/>
+           <SimpleNavigationBar nextpage="SIGN_UP" dispatch={props.dispatch}/>
 
            <div style={{backgroundImage:"url("+Background+")",height:"550px",backgroundPosition:"center",backgroundSize:"cover"}}>
 

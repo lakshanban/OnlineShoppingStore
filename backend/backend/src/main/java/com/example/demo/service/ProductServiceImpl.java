@@ -294,17 +294,6 @@ public class ProductServiceImpl  {
 	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-		
-		
-	
-	
 	public List<Comment> getComments(String pid){
 		
 		List<Product> list= repo.findAll();

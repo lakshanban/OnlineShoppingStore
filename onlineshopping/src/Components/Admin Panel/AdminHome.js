@@ -14,7 +14,7 @@ class AdminHome extends Component {
         super(props);
 
         this.state={
-            page:1
+            page:0
         }
     }
 
@@ -41,17 +41,17 @@ class AdminHome extends Component {
                     )
 
 
+            // case 1:
+            //     return (
+            //         <div>
+            //             <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
+            //             <Statistics/>
+            //             <AdminBottomNavigation changepage={this.changepage}/>
+            //         </div>
+            //         )
+
+
             case 1:
-                return (
-                    <div>
-                        <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
-                        <Statistics/>
-                        <AdminBottomNavigation changepage={this.changepage}/>
-                    </div>
-                    )
-
-
-            case 2:
                 return(
                     <div>
                         <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>

@@ -50,7 +50,7 @@ render() {
                 <ComplexNavigationNoDrawer dispatch={this.props.dispatch} userobject={this.props.userobject}/>
                 <Container maxWidth={"md"}>
                     <h3 style={{marginTop:'20px'}}><ShoppingCartIcon />Cart</h3>
-                    <Button variant={"outlined"} color={"secondary"}>View purchased</Button>
+                    <Button variant={"outlined"} color={"secondary"} onClick={()=>this.props.dispatch("PURCHASED")}>View purchased</Button>
 
                     <Grid container spacing={1} style={{display:"flex",marginTop:'50px'}}>
 

@@ -131,16 +131,14 @@ export default function ComplexNavigationBar(props) {
             <MenuItem onClick={()=>props.dispatch('PROFILE')}>Profile</MenuItem>
             <MenuItem onClick={()=>props.dispatch('LOGIN')}>Logout</MenuItem>
             {
-                props.user.usertype==='Admin'? <Button variant={"contained"} color={"secondary"}  onClick={()=>props.dispatch('ADMIN')}   >Admin Panel</Button>:''
+                // props.user.usertype==='Admin'? <Button variant={"contained"} color={"secondary"}  onClick={()=>props.dispatch('ADMIN')}   >Admin Panel</Button>:''
 
 
-                //props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
+                props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
             }
             {
-                props.user.usertype==='manager'? <Button variant={"contained"} color={"primary"}  onClick={()=>props.dispatch('MANAGER')}   >Manager Panel</Button>:''
-
-
-                //props.userobject.usertype==='Admin'?<Button variant={"contained"} color={"secondary"} onClick={()=>props.dispatch('ADMIN')}>Admin panel</Button>:""
+                props.userobject.usertype==='manager'?<Button variant={"contained"} color={"primary"}
+                                                              onClick={()=>props.dispatch('MANAGER')}>Manager panel</Button>:""
             }
         </Menu>
     );
@@ -158,7 +156,7 @@ export default function ComplexNavigationBar(props) {
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
+                    <Badge badgeContent={1} color="secondary">
                         <MailIcon />
                     </Badge>
                 </IconButton>
@@ -259,12 +257,12 @@ console.log("xxxx")
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit"  onClick={()=>{props.dispatch('CHAT')}}>
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge badgeContent={1} color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit" onClick={()=>props.dispatch('NOTICE')}>
-                            <Badge badgeContent={17} color="secondary">
+                            <Badge badgeContent={1} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
