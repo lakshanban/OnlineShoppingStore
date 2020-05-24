@@ -58,7 +58,7 @@ render() {
 
                                  <Grid key={this.state.random} container item xs={4} spacing={4} style={{margin:'00px'}} className="gridItem">
 
-                                    <CartPost  dispatch={this.props.dispatch} setproduct={this.props.setproduct} user={this.props.user} forceR={this.filterCart.bind(this)}/>
+                                    <CartPost addtotal={this.props.addtotal} Total={this.props.Total} dispatch={this.props.dispatch} setproduct={this.props.setproduct} user={this.props.user} forceR={this.filterCart.bind(this)}/>
 
                                 </Grid>
 

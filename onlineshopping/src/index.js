@@ -18,6 +18,8 @@ function saveToLocalStorage(state){
 
 }
 
+
+
 function loadFromLocalStorage(){
 
     try{

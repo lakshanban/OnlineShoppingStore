@@ -21,6 +21,7 @@ import PurchasedList from "../Purchased_Items/PurchasedList";
 import P_Product from "../Purchased_Items/purchsedProduct/P_Product";
 import CheckoutForm from "../PaymentGateway/CheckoutForm";
 import setPurchase from "../../redux/Actions/setPurchase";
+import acalTotal from "../../redux/Actions/acalTotal";
 
 
 class Test extends Component {
@@ -64,7 +65,7 @@ class Test extends Component {
 
             case 'cart':
 
-                return <ShoppingCart dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchase={this.props.setpurchase}/>
+                return <ShoppingCart dispatch={this.props.dispatch} user={this.props.user} userobject={this.props.userobject} setproduct={this.props.setproduct} setpurchase={this.props.setpurchase} addtotal={this.props.addtotal} Total={this.props.Total}/>
 
             case 'list':
 
@@ -105,7 +106,8 @@ function mapStateToProps(state) {
         user: state.UserReducer,
         userobject:state.UserObjectReducer,
         product:state.ProductReducer,
-        purchase: state.PurchaseReducer
+        purchase: state.PurchaseReducer,
+        Total:state.TotalReducer
 
     }
 
@@ -119,7 +121,8 @@ function  mapDispatchToProps(dispatch) {
         setuser: (type,payload)=>{dispatch(setuser(type,payload))},
         setuserobject:(type,payload)=>{dispatch(setuserobject(type,payload))},
         setproduct:(type,payload)=>{dispatch(setProduct(type,payload))},
-        setpurchase: (type, payload)=>{dispatch(setPurchase(type,payload))}
+        setpurchase: (type, payload)=>{dispatch(setPurchase(type,payload))},
+        addtotal:(type,payload)=>{dispatch(acalTotal(type,payload))}
     }
 
 }
