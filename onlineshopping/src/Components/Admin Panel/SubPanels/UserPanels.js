@@ -12,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Grid from "@material-ui/core/Grid";
 import ReactVirtualizedTable from "../Tables/ProductsTable";
 import UserTable from "../Tables/UserTable";
+import axios from "axios";
 
 function FormDialog() {
     const [open, setOpen] = React.useState(false);
@@ -24,6 +25,29 @@ function FormDialog() {
         setOpen(false);
     };
 
+    const managerRegFormSubmitHandler = (e) => {
+        e.preventDefault()
+        axios.post('http://localhost:8080/useradd',{
+            username:e.target.musername.value,
+            fname:e.target.mfirstname.value,
+            lname:e.target.mlastname.value,
+            cnumber:e.target.mmobile.value,
+            usertype:"manager",
+            email:e.target.memail.value
+
+        }).then(res=>{
+            if(res.data){
+                alert("Manager created")
+            }
+            else {
+                alert('User creation failed internal error')
+            }
+
+            console.log(res.data)
+        })
+
+    }
+
     return (
         <div>
             <Button variant="contained" color="secondary" onClick={handleClickOpen} startIcon={<AddCircleIcon/>}>
@@ -31,77 +55,24 @@ function FormDialog() {
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">ADD NEW STORE MANAGER</DialogTitle>
+                <form onSubmit={managerRegFormSubmitHandler}>
                 <DialogContent>
                     <DialogContentText>
                         Please fill all feilds to add a new store manager
                     </DialogContentText>
 
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerUsername"
-                        label="Username"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerFirstname"
-                        label="Firstname"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerLastname"
-                        label="Lastname"
-                        type="text"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerMobile"
-                        label="Mobile"
-                        type="number"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerEmail"
-                        label="Email"
-                        type="number"
-                        fullWidth
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="managerLoginPassword"
-                        label="Login Password"
-                        type="text"
-                        fullWidth
-                    />
-                    {/*<TextField*/}
-                    {/*    autoFocus*/}
-                    {/*    margin="dense"*/}
-                    {/*    id="managerType"*/}
-                    {/*    label="Type"*/}
-                    {/*    type="hidden"*/}
-                    {/*    value="manager"*/}
-                    {/*    fullWidth*/}
-                    {/*/>*/}
+                    <TextField name={"musername"} autoFocus margin="dense" id="managerUsername" label="Username" type="text" fullWidth/>
+                    <TextField name={"mfirstname"} autoFocus margin="dense" id="managerFirstname" label="Firstname" type="text" fullWidth/>
+                    <TextField name={"mlastname"} autoFocus margin="dense" id="managerLastname" label="Lastname" type="text" fullWidth/>
+                    <TextField name={"mmobile"} autoFocus margin="dense" id="managerMobile" label="Mobile" type="number" fullWidth/>
+                    <TextField name={"memail"} autoFocus margin="dense" id="managerEmail" label="Email" type="email" fullWidth/>
+
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Send Invitation & ADD
-                    </Button>
+                    <Button onClick={handleClose} color="primary">Cancel</Button>
+                    <Button type={"submit"} color="primary">Send Invitation & ADD</Button>
                 </DialogActions>
+                </form>
             </Dialog>
         </div>
     );

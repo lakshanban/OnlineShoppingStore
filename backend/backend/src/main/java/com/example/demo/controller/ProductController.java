@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Product;
+
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.CommentReq;
 import com.example.demo.requesBodies.GetUser;
@@ -70,6 +71,15 @@ public class ProductController {
 		
 	}
 	
+	@RequestMapping("/getrating")
+	public double getRating(@RequestBody productid p) {
+		
+		return service.getRating(p.pid);
+	}
+	
+	
+	
+	
 	@RequestMapping("/setdiscount")
 	public void setDiscount(@RequestBody discountReq req) {
 		
@@ -115,17 +125,6 @@ public class ProductController {
 		return service.searchProducts(request.query);
 	}
 
-	@RequestMapping("/addtocart")
-	public void addtoCart(@RequestBody ProductUser req){
-		
-		service.addtoCart(req);
-	}
-
-	@RequestMapping("/removefromcart")
-	public void removeFromCart(@RequestBody ProductUser req){
-		
-		service.removeFromCart(req);
-	}
 	
 	
 	@RequestMapping("/getcomments")

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,6 +6,13 @@ import TableCell from '@material-ui/core/TableCell';
 import Paper from '@material-ui/core/Paper';
 import { AutoSizer, Column, Table } from 'react-virtualized';
 import {Button} from "@material-ui/core";
+import axios from "axios";
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const styles = (theme) => ({
@@ -144,29 +151,42 @@ MuiVirtualizedTable.propTypes = {
 
 const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
-// ---
 
-const sample = [
-    ['eshank', 'eshan', 'kavinda', 'Raddolugama','077722211', 'admin', 'ek@gmail.com'
-    ],
-];
-
-function createUserData(id, username, fname, lname, address, mobile, usertype, email, actionEdit,actionDelete) {
-    return { id, username, fname, lname, address, mobile, usertype, email, actionEdit,actionDelete };
+function createUserData(uid, username, fname, lname, address, mobile, usertype, email, actionEdit,actionDelete) {
+    return { uid, username, fname, lname, address, mobile, usertype, email, actionEdit,actionDelete };
 }
 
-const rows = [];
-
-for (let i = 0; i < 2; i += 1) {
-    const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-    rows.push(createUserData(i, ...randomSelection,
-        <Button size="small" variant="contained" color="primary">Edit</Button>,
-        <Button size="small" variant="contained" color="secondary">Delete</Button>
-    ));
-}
 
 export default function UserTable() {
+
+    const rows = [];
+
+    const[users,setUsers]= useState([])
+    const[userName, setUserName] = useState("");
+
+    const fetchUsers= async ()=>{
+        await axios.get('http://localhost:8080/usergetall').then(res=> {
+            setUsers(res.data);
+        })
+    }
+    useEffect(()=>{
+        fetchUsers()
+    },0)
+
+    {
+        users.map(user => {
+            rows.push(createUserData(user.id, user.username, user.fname, user.lname, user.address, user.cnumber,
+                user.usertype, user.email,
+                <Button size="small" variant="contained" color="primary">Edit</Button>,
+                <Button size="small" variant="contained" color="secondary">Delete</Button>
+            ));
+        })
+    }
+
+
     return (
+
+
         <Paper style={{ height: 400, width: '100%' }}>
             <VirtualizedTable
                 rowCount={rows.length}

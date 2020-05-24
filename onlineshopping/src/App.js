@@ -13,6 +13,7 @@ import DetailForm from "./Components/PaymentGateway/DetailForm";
 import NonLoggedHome from "./Components/NonLoggedHome/NonLoggedHome";
 import CheckoutForm from "./Components/PaymentGateway/CheckoutForm";
 
+
 function App() {
   return (
     <div className="App">

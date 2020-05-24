@@ -12,14 +12,21 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Order;
 import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.requesBodies.AddUserRequest;
+import com.example.demo.requesBodies.ChangePasswordRequest;
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.GetUser;
+import com.example.demo.requesBodies.OrderReq;
+import com.example.demo.requesBodies.ProductUser;
+import com.example.demo.requesBodies.RemoveOrder;
 import com.example.demo.requesBodies.UserLoginRequest;
+import com.example.demo.requesBodies.UserUpdateRequest;
 import com.example.demo.service.UserService;
 
 @RestController
@@ -33,16 +40,14 @@ public class UserController {
 	@RequestMapping(path = "/useradd",method = RequestMethod.POST)
 	public boolean AddUser(@RequestBody AddUserRequest request) {
 		
-		
-		
-		return service.AddUser(request.username, request.fname, request.lname, request.address, request.cnumber, request.usertype, request.bday, hashPassword(request.password),request.email);
+		return service.AddUser(request.username, request.fname, request.lname, request.address, request.cnumber, request.usertype, request.bday, request.password,request.email);
 		
 	}
 	
 	@RequestMapping(path = "/userlogin", method = RequestMethod.POST)
 	public boolean Login(@RequestBody UserLoginRequest request) {
 		
-		System.out.println(hashPassword(request.password));
+		//System.out.println(hashPassword(request.password));
 		
 		return service.Login(request.username,request.password);
 	}
@@ -60,8 +65,18 @@ public class UserController {
 		return service.findUserByUsername(user.username);
 	}
 	
+	@RequestMapping(path = "/changepassword", method = RequestMethod.POST)
+	public String changePassword(@RequestBody ChangePasswordRequest request) {
+		return service.changePassword(request.username, request.oldPassword, request.newPassword);
+	}
+	
+	@RequestMapping(path = "/updateprofile", method = RequestMethod.POST)
+	public boolean updateProfile(@RequestBody UserUpdateRequest request) {
+		return service.updateProfile(request.username, request.fname, request.lname, request.email, request.cnumber, request.address, request.bday);
+	}
+	
 	@RequestMapping("/getcart")
-	public List<Product> getCart(@RequestBody GetUser user){
+	public List<Order> getCart(@RequestBody GetUser user){
 		
 		return service.getCart(user.username);
 		
@@ -74,19 +89,31 @@ public class UserController {
 		
 	}
 	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	private String hashPassword(String plainTextPassword){
-		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	@RequestMapping("/addtowishlist")
+	public void addtoWishList(@RequestBody ProductUser req) {
+		
+		service.addtoWishList(req.username,req.pid);
+		
 	}
 	
+	@RequestMapping("/removefromwishlist")
+	public List<Product> removefromWishList(@RequestBody ProductUser req){
+		
+		return service.removeFromWishList(req.username,req.pid);
+		
+	}
 	
 
+	@RequestMapping("/addtocart")
+	public void addtocart(@RequestBody OrderReq req) {
+		
+		service.setOrder(req.username, req.pid, req.quan);
+	}
+	
+	@RequestMapping("/removefromcart")
+	public List<Order> removeFromCart(@RequestBody RemoveOrder req){
+		
+		return service.removeFromCart(req.username,req.index);
+		
+	}
 }

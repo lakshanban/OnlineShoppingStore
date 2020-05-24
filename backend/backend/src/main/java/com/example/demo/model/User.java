@@ -19,7 +19,7 @@ public class User {
     private String lname;
     private String address;
     private String cnumber;
-    private List<Product> cart;
+    private List<Order> cart;
     private List<Product> wishlist;
     private List<Product> purchased_items;
     private  String usertype;
@@ -39,7 +39,7 @@ public class User {
 		this.cnumber = cnumber;
 		this.usertype = usertype;
 		this.bday = bday;
-		this.cart=new ArrayList<Product>();
+		this.cart=new ArrayList<Order>();
 		this.wishlist=new ArrayList<Product>();
 		this.purchased_items=new ArrayList<Product>();
 		this.password=password;
@@ -108,13 +108,14 @@ public class User {
 	}
 
 
-	public List<Product> getCart() {
-		return cart;
+	public List<Order> getCart() {
+		return this.cart;
 	}
 
 
-	public void setCart(Product product) {
-		this.cart.add(product);
+	public void setCart(Order o) {
+		this.cart.add(o);
+		
 	}
 
 
@@ -176,10 +177,41 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public void unsetCart(Product p) {
-		
-		this.cart.remove(p);
-	}
+
+
+    public void removeFromCart(int index) {
+    	
+    	this.cart.remove(index);
+    	
+    }
+    
+    public void removefromWishList(String pid) {
+    	
+    	int i=0;
+    	int index;
+    	
+    	
+    	
+    	
+    	for(Product product:this.wishlist) {
+    		
+    		if(product.getId().equals(pid)) {
+    			
+    			index=i;
+    			break;
+    		
+    		}
+    		
+    		i=i+1;
+    	}
+    	
+    	try {
+    	this.wishlist.remove(i);
+    	}catch (Exception e) {
+			System.out.println(e);
+		}
+    }
+    
+    
 
 }

@@ -15,6 +15,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import CommentList from "./CommentList";
+import axios from "axios"
 
 
 
@@ -22,6 +23,10 @@ class Product extends Component {
 
 constructor(props) {
     super(props);
+    this.state={
+        rating:0,
+        quan:0
+    }
 }
 
 addcomment(e){
@@ -38,10 +43,55 @@ addcomment(e){
 
 }
 
+componentDidMount() {
+
+    axios.post('http://localhost:8080/getrating',{"pid":this.props.product.id}).then(res=>{
+
+        this.setState({
+            rating:res.data
+        })
+
+    })
+}
+
+
+addtocart(pid){
+
+    if(this.state.quan=="" || this.state.quan==0){
+
+        alert('please select the quantity')
+    }else {
+
+        console.log(pid)
+
+        axios.post('http://localhost:8080/addtocart', {"username":this.props.user,"pid":pid,"quan":this.state.quan}).then(res=>{
+
+            alert('Added to cart')
+
+        })
+
+    }
+}
+
+addtowishlist(pid){
+
+    axios.post('http://localhost:8080/addtowishlist',{"username":this.props.user,"pid":pid}).then(res=>{
+        alert('Added to wish List')
+    })
+
+}
+
+onChangeHandle(e){
+
+    this.setState({quan:e.target.value})
+
+}
+
 proceedPurchase(props) {
         props.setproduct('SETPRODUCT',props.product)
         props.dispatch('PRODUCT')
 }
+
 
     render() {
         return (
@@ -66,7 +116,7 @@ proceedPurchase(props) {
                                      {this.props.product.pdescription}
                                  </Typography><br/>
                                  <Typography>
-                                     <Rating name="read-only" value={2} readOnly />
+                                     <Rating name="read-only" value={this.state.rating} readOnly />
                                  </Typography><br/>
                                  <Typography color="textSecondary" >
                                      Availability: <strong>in stock</strong>
@@ -87,13 +137,17 @@ proceedPurchase(props) {
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
+
+                                            onChange={(event)=>{this.onChangeHandle(event)}}
                                  />
                              </CardActions>
                              <br/>
                              <CardActions className="justify-content-center">
-                                 <Button variant="contained" color="primary" size="small" onClick={this.addtoCart} startIcon={<AddShoppingCartIcon/>}>ADD TO CART</Button>
-                                 <Button variant="contained" color="secondary" size="small" startIcon={<FavoriteIcon/>}>ADD TO FAVORITE</Button>
-                                 <Button variant="contained" color="default" size="small" startIcon={<MonetizationOnIcon/>} onClick={this.proceedPurchase}>BUY</Button>
+
+                                 <Button variant="contained" color="primary" size="small" onClick={()=>{this.addtocart(this.props.product.id)}} startIcon={<AddShoppingCartIcon/>}>ADD TO CART</Button>
+                                 <Button variant="contained" color="secondary" size="small" onClick={()=>{this.addtowishlist(this.props.product.id)}} startIcon={<FavoriteIcon/>}>ADD TO FAVORITE</Button>
+                                 <Button variant="contained" color="default" size="small" startIcon={<MonetizationOnIcon/>}>BUY</Button>
+
                              </CardActions>
                          </Card>
                      </Grid>
@@ -111,7 +165,7 @@ proceedPurchase(props) {
 
                  </Grid>
              </Paper>
-             </div>
+             </div> 
                 
             </div>
         );

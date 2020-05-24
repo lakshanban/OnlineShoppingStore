@@ -7,8 +7,12 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.mailUtil.MailUtil;
+import com.example.demo.mailUtil.RandomString;
+import com.example.demo.model.Order;
 import com.example.demo.model.Product;
 import com.example.demo.model.User;
+import com.example.demo.repo.ProductRepo;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.requesBodies.Comment;
 import com.example.demo.requesBodies.GetUser;
@@ -18,6 +22,9 @@ public class UserService {
 	
 	@Autowired
 	UserRepo repo;
+	
+	@Autowired
+	ProductRepo prepo;
 	
 	public User findUserByUsername(String username) {
 		
@@ -43,7 +50,7 @@ public class UserService {
 	
 	
 	public boolean AddUser(String username, String fname, String lname, String address, String cnumber, String usertype,
-			String bday,String password,String email) {
+			String bday, String password, String email) {
 		
 		try {
 			
@@ -53,11 +60,18 @@ public class UserService {
 		    	 return false;
 		     }
 			
-			User newuser= new User(username, fname, lname, address, cnumber, usertype, bday,password,email);
-			
-			repo.save(newuser);
+			if(usertype.toLowerCase().equals("manager")) {
+				String randomPassword = RandomString.getRandomString();
+				User newManager = new User(username, fname, lname, address, cnumber, usertype, bday, hashPassword(randomPassword), email);
+				repo.save(newManager);
+				MailUtil.sendEmail(email, username, randomPassword);
+			}else {
+				User newUser = new User(username, fname, lname, address, cnumber, usertype, bday, hashPassword(password), email);
+				repo.save(newUser);
+			}
 			
 			return true;
+			
 		}catch (Exception e) {
 			return false;
 		}
@@ -86,7 +100,7 @@ public class UserService {
 		return repo.findAll();
 	}
 	
-	public List<Product> getCart(String username){
+	public List<Order> getCart(String username){
 		
 		List<User> list=repo.findAll();
 		
@@ -98,7 +112,7 @@ public class UserService {
 			
 		}
 		
-		return new ArrayList<Product>();
+		return new ArrayList<Order>();
 	
 	}
 	
@@ -119,9 +133,173 @@ public class UserService {
 
 }
 	
-	
 
 	
+
+	public void setOrder(String username, String pid, int quan) {
+		
+		
+			List<User> list=repo.findAll();
+		
+		for(User user:list){
+			
+			if(user.getUsername().equals(username)) {
+				
+				
+				
+				List<Product> plist= prepo.findAll();
+				
+				for(Product product:plist) {
+					
+					
+					if(product.getId().equals(pid)) {
+						
+						
+						user.setCart(new Order(product, quan));
+						repo.save(user);
+						
+					}
+				}	
+			}
+			
+		}
+		
+		
+	}
+
+	
+	public List<Order> removeFromCart(String username,int index){
+		
+		List<User> list= repo.findAll();
+		
+		for(User user:list) {
+			
+			if(user.getUsername().equals(username)) {
+				
+				user.removeFromCart(index);
+				
+				repo.save(user);
+				
+				return user.getCart();
+			}
+			
+			
+		}
+		
+		return null;
+	}
+	
+	
+	public void addtoWishList(String username,String pid) {
+		
+		List<User> list=repo.findAll();
+		
+		for(User user:list) {
+			
+			if(user.getUsername().equals(username)) {
+				
+				List<Product> wlist=user.getWishlist();
+				
+				for(Product product:wlist) {
+					
+					if(product.getId().equals(pid)) {
+						
+						return;
+					}
+					
+				}
+				
+				
+				
+				List<Product> plist=prepo.findAll();
+				
+				for(Product product: plist) {
+					
+					if(product.getId().equals(pid)) {
+						
+						user.setWishlist(product);
+						repo.save(user);
+						
+					}
+				}
+				
+			}
+		}
+		
+		
+	}
+	
+	
+	public List<Product> removeFromWishList(String username,String pid){
+		
+		List<User> list= repo.findAll();
+		
+		for(User user:list) {
+			if(user.getUsername().equals(username)) {
+				
+				
+				user.removefromWishList(pid);
+				
+				repo.save(user);
+				
+				return user.getWishlist();
+			}
+		}
+		
+		return new ArrayList<Product>();
+	}
+	
+	public String changePassword(String username, String oldPassword, String newPassword) {
+		
+		String msg = null;
+		List<User> list=repo.findAll();
+		
+		for(User user : list){
+			
+			if(user.getUsername().equals(username)) {		
+				if(new BCrypt().checkpw(oldPassword, user.getPassword())) {
+					user.setPassword(hashPassword(newPassword));
+					repo.save(user);
+					msg = "success";
+					System.out.println("password changed...");
+				}else {
+					msg = "faliure";
+					System.out.println("password changed error....");
+				}
+			}
+			
+		}
+		
+		return msg;
+		
+	}
+	
+public boolean updateProfile(String username, String fname, String lname, String email, String cnumber, String address, String bday) {
+		
+		List<User> list=repo.findAll();
+		
+		for(User user : list){
+			
+			if(user.getUsername().equals(username)) {		
+				user.setFname(fname);
+				user.setLname(lname);
+				user.setEmail(email);
+				user.setCnumber(cnumber);
+				user.setAddress(address);
+				user.setBday(bday);
+				
+				repo.save(user);
+				
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
+	private String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
 	
 
 }

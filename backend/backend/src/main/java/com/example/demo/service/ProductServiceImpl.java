@@ -119,6 +119,35 @@ public class ProductServiceImpl  {
 		
 	}
 	
+	
+	public double getRating(String pid) {
+		
+		List<Product> list= repo.findAll();
+		
+		   for(Product product: list) {
+		    	  
+		    	  if(product.getId().equals(pid)) {
+		    		  
+		    		  double total=0;
+		    		  
+		    		  for(double x: product.getPratings()) {
+		    			  
+		    			  total=total+x;
+		    			  
+		    		  }
+		    		  
+		    		  return total/product.getPratings().size();
+		    		  
+		    	  }
+		      }
+		return 0;
+		
+	}
+	
+	
+	
+	
+	
 	public void setDiscount(discountReq req) {
 		
 	    List<Product> list = repo.findAll();
@@ -256,70 +285,15 @@ public class ProductServiceImpl  {
 	
 
 	
-	public void addtoCart(ProductUser req) {
-		
-		List<User> list = urepo.findAll();
-		
-		for(User user: list) {
-			
-			if(user.getUsername().equals(req.username)) {
-				
-				List<Product> plist= repo.findAll();
-				
-				for(Product p: plist) 
-				{
-					if(p.getId().equals(req.pid)) {
-						
-						user.setCart(p);
-						
-						urepo.save(user);
-						
-					}
-				}
-			   
-				
-				
-			}
-			
-		}
-		
-		
-	}
 	
 	
 	
 	
-	public void removeFromCart(ProductUser req) {
-		
-		List<User> list = urepo.findAll();
-		
-		for(User user: list) {
-			
-			if(user.getUsername().equals(req.username)) {
-				
-				List<Product> plist= repo.findAll();
-				
-				for(Product p: plist) 
-				{
-					if(p.getId().equals(req.pid)) {
-						
-						System.out.println(Product.class.getName());
-						
-						user.unsetCart(p);
-						
-						urepo.save(user);
-						
-					}
-				}
-			   
-				
-				
-			}
-			
-		}
+	
+	
 		
 		
-	}
+	
 	
 	public List<Comment> getComments(String pid){
 		
