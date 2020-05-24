@@ -68,6 +68,74 @@ public class User {
 	}
 
 
+	public List<Order> getCart() {
+		return this.cart;
+	}
+
+
+	public void setCart(Order o) {
+		this.cart.add(o);
+	}
+
+
+	public List<Product> getWishlist() {
+		return wishlist;
+	}
+
+
+	public void setWishlist(Product product) {
+		this.wishlist.add(product);
+	}
+
+
+	public void setPurchased_items(Product purchased_items) {
+		this.purchased_items.add(purchased_items);
+	}
+
+	public List<Product> getPurchased_items() {
+		return purchased_items;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+    public void removeFromCart(int index) {
+    	
+    	this.cart.remove(index);
+    	
+    }
+    
+    public void removefromWishList(String pid) {
+    	
+    	int i=0;
+    	int index;
+    	
+    	
+    	
+    	
+    	for(Product product:this.wishlist) {
+    		
+    		if(product.getId().equals(pid)) {
+    			
+    			index=i;
+    			break;
+    		
+    		}
+    		
+    		i=i+1;
+    	}
+    	
+    	try {
+    	this.wishlist.remove(i);
+    	}catch (Exception e) {
+			System.out.println(e);
+		}
+    }
+
+
 	public String getFname() {
 		return fname;
 	}
@@ -108,37 +176,6 @@ public class User {
 	}
 
 
-	public List<Order> getCart() {
-		return this.cart;
-	}
-
-
-	public void setCart(Order o) {
-		this.cart.add(o);
-		
-	}
-
-
-	public List<Product> getWishlist() {
-		return wishlist;
-	}
-
-
-	public void setWishlist(Product product) {
-		this.wishlist.add(product);
-	}
-
-
-	public List<Product> getPurchased_items() {
-		return purchased_items;
-	}
-
-
-	public void setPurchased_items(List<Product> purchased_items) {
-		this.purchased_items = purchased_items;
-	}
-
-
 	public String getUsertype() {
 		return usertype;
 	}
@@ -159,16 +196,6 @@ public class User {
 	}
 
 
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
 	public String getEmail() {
 		return email;
 	}
@@ -179,38 +206,28 @@ public class User {
 	}
 
 
-    public void removeFromCart(int index) {
-    	
-    	this.cart.remove(index);
-    	
-    }
+	public void setCart(List<Order> cart) {
+		this.cart = cart;
+	}
+
+
+	public void setWishlist(List<Product> wishlist) {
+		this.wishlist = wishlist;
+	}
+
+
+	public void setPurchased_items(List<Product> purchased_items) {
+		this.purchased_items = purchased_items;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
     
-    public void removefromWishList(String pid) {
-    	
-    	int i=0;
-    	int index;
-    	
-    	
-    	
-    	
-    	for(Product product:this.wishlist) {
-    		
-    		if(product.getId().equals(pid)) {
-    			
-    			index=i;
-    			break;
-    		
-    		}
-    		
-    		i=i+1;
-    	}
-    	
-    	try {
-    	this.wishlist.remove(i);
-    	}catch (Exception e) {
-			System.out.println(e);
-		}
-    }
+    
+    
+    
     
     
 

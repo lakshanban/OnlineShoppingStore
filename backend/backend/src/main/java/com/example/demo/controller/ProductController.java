@@ -60,6 +60,8 @@ public class ProductController {
 	@RequestMapping("/addcomment")
 	public void addComment(@RequestBody CommentReq req) {
 		
+		System.out.println("add comment called");
+		
 		service.addComment(req);
 		
 	}
@@ -67,6 +69,7 @@ public class ProductController {
 	@RequestMapping("/addrating")
 	public void addRating(@RequestBody RatingReq req) {
 		
+		System.out.println("rating called");
 		service.addRating(req);
 		
 	}
@@ -76,8 +79,6 @@ public class ProductController {
 		
 		return service.getRating(p.pid);
 	}
-	
-	
 	
 	
 	@RequestMapping("/setdiscount")
@@ -95,8 +96,7 @@ public class ProductController {
 	@RequestMapping("/uploadimages")
 	public String saveImages(@RequestParam("file") MultipartFile files, @RequestParam String productid) throws IOException {
 		
-		
-		
+
 	System.out.println(files.getClass().getName());
 	
 	return service.uploadImages(files, productid);

@@ -164,20 +164,20 @@ function AddProductDialog() {
                         Please fill all feilds to add a new product
                     </DialogContentText>
                     <form onSubmit={productSubmitHanlder}>
-                    <TextField name={"productName"} autoFocus margin="dense" id="productName" label="Product Name" type="text" fullWidth required/>
-                    <TextField name={"productDiscription"} autoFocus margin="dense" id="productDiscription" label="Product Description" type="text" fullWidth required/>
+                    <TextField name={"productName"} autoFocus margin="dense" id="productName" label="P_Product Name" type="text" fullWidth required/>
+                    <TextField name={"productDiscription"} autoFocus margin="dense" id="productDiscription" label="P_Product Description" type="text" fullWidth required/>
                     <TextField name={"productDiscount"} autoFocus margin="dense" id="discountPercentage" label="Discount Percentage" type="number" fullWidth/>
                     <TextField name={"productPrice"} autoFocus margin="dense" id="markedPrice" label="Marked Price" type="number" fullWidth required/>
-                    <TextField name={"productOwner"} value={"Manager1"} autoFocus margin="dense" id="productOwner" label="Product Owner" type="text" fullWidth/>
+                    <TextField name={"productOwner"} value={"Manager1"} autoFocus margin="dense" id="productOwner" label="P_Product Owner" type="text" fullWidth/>
 
-                    <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
+                    <InputLabel id="demo-simple-select-label">P_Product Category</InputLabel>
                     <Select name={"productCategory"} autoFocus margin="dense" label="Category" id="demo-simple-select-label" fullWidth>
                         {categories.map((text, index) => (
                             <MenuItem value={text}>{text}</MenuItem>
                         ))}
                     </Select>
 
-                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Add Product</Button>
+                    <Button type={"submit"} className={"float-right"} style={{marginTop:15, marginBottom:15}} variant="contained" color="primary">Add P_Product</Button>
                     </form>
                 </DialogContent>
             </Dialog>

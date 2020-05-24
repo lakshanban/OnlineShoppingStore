@@ -132,40 +132,6 @@ public class UserService {
 		return new ArrayList<Product>();
 
 }
-	
-
-	
-
-	public void setOrder(String username, String pid, int quan) {
-		
-		
-			List<User> list=repo.findAll();
-		
-		for(User user:list){
-			
-			if(user.getUsername().equals(username)) {
-				
-				
-				
-				List<Product> plist= prepo.findAll();
-				
-				for(Product product:plist) {
-					
-					
-					if(product.getId().equals(pid)) {
-						
-						
-						user.setCart(new Order(product, quan));
-						repo.save(user);
-						
-					}
-				}	
-			}
-			
-		}
-		
-		
-	}
 
 	
 	public List<Order> removeFromCart(String username,int index){
@@ -209,8 +175,7 @@ public class UserService {
 					
 				}
 				
-				
-				
+
 				List<Product> plist=prepo.findAll();
 				
 				for(Product product: plist) {
@@ -248,6 +213,7 @@ public class UserService {
 		
 		return new ArrayList<Product>();
 	}
+
 	
 	public String changePassword(String username, String oldPassword, String newPassword) {
 		
@@ -302,4 +268,87 @@ public boolean updateProfile(String username, String fname, String lname, String
 	}
 	
 
-}
+	public void setOrder(String username, String pid, int quan) {
+
+
+		List<User> list=repo.findAll();
+
+		for(User user:list){
+
+			if(user.getUsername().equals(username)) {
+
+
+
+				List<Product> plist= prepo.findAll();
+
+				for(Product product:plist) {
+
+
+					if(product.getId().equals(pid)) {
+
+
+						user.setCart(new Order(product, quan));
+						repo.save(user);
+
+					}
+				}
+			}
+
+		}
+
+
+	}
+
+
+	public void purchaseItem(String username, String pid, int quantity) {
+
+		List<User> list = repo.findAll();
+
+		for (User user : list) {
+
+			if (user.getUsername().equals(username)) {
+
+				List<Product> wlist = user.getPurchased_items();
+
+				for (Product product : wlist) {
+
+					if (product.getId().equals(pid)) {
+
+						return;
+					}
+
+				}
+
+
+				List<Product> plist = prepo.findAll();
+
+				for (Product product : plist) {
+
+					if (product.getId().equals(pid)) {
+
+						user.setPurchased_items(product);
+						repo.save(user);
+
+					}
+				}
+
+			}
+		}
+	}
+
+		public List<Product> getPurchasedItems (String username){
+
+			List<User> list = repo.findAll();
+
+			for (User user : list) {
+
+				if (user.getUsername().equals(username)) {
+					return user.getPurchased_items();
+				}
+
+			}
+
+			return new ArrayList<Product>();
+
+		}
+	}

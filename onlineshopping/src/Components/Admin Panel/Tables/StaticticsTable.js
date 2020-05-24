@@ -174,7 +174,7 @@ export default function StaticticsTable() {
                 columns={[
                     {
                         width: 120,
-                        label: 'Product ID',
+                        label: 'P_Product ID',
                         dataKey: 'pid',
                     },
                     {

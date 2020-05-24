@@ -108,9 +108,13 @@ public class ProductServiceImpl  {
 	      
 	      for(Product product: list) {
 	    	  
+	    	  
 	    	  if(product.getId().equals(req.productid)) {
 	    		  
+	    		  System.out.println(product.getId());
+	    		  
 	    		  product.setPcomments(new Double(req.rating));
+	    		 
 	    		  
 	    		  repo.save(product);
 	    		  
@@ -143,6 +147,12 @@ public class ProductServiceImpl  {
 		return 0;
 		
 	}
+	
+	
+	
+	
+	
+
 	
 	
 	
@@ -307,7 +317,7 @@ public class ProductServiceImpl  {
 				return product.getComments();
 			}
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
   
